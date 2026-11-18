@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: JeongHyeonBaeee/bplab.github.io
+  repo: biophotonics0/bplab.github.io
   branch: main
   base_url: https://api.netlify.com
   auth_endpoint: auth
