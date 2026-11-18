@@ -4,7 +4,7 @@ backend:
   branch: main
   base_url: https://api.netlify.com
   auth_endpoint: auth
-  site_domain: 4f6a9b48-83dc-4c1e-a7f3-c8b4a4584d90
+  site_domain: https://polite-kelpie-b73b63.netlify.app
 
 media_folder: "images/uploads"
 public_folder: "images/uploads"
