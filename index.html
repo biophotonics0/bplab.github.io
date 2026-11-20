@@ -646,15 +646,15 @@
 
     .alumni-list li:last-child { border-bottom: none; }
 
-    .alumni-list-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 1.5rem;
-    }
+.alumni-list-2col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1.25rem;
+}
 
-    .alumni-list-2col li:nth-last-child(2):nth-child(odd) {
-      border-bottom: none;
-    }
+.alumni-list-2col li:nth-last-child(-n+3) {
+  border-bottom: none;
+}
 
     /* News Tab */
     .notice-post {
@@ -1021,14 +1021,14 @@
       <div class="alumni-grid">
         <div class="alumni-box">
           <h4>
-            <span>Ph.D. Alumni (박사 졸업생)</span>
+            <span>Ph.D. Alumni</span>
             <button class="btn-adm btn-adm-add admin-only" style="padding:2px 7px; font-size:0.74rem;" onclick="openAlumniModal('phd')">+ 추가</button>
           </h4>
           <ul class="alumni-list" id="phdAlumniList"></ul>
         </div>
         <div class="alumni-box">
           <h4>
-            <span>M.S. Alumni (석사 졸업생)</span>
+            <span>M.S. Alumni</span>
             <button class="btn-adm btn-adm-add admin-only" style="padding:2px 7px; font-size:0.74rem;" onclick="openAlumniModal('ms')">+ 추가</button>
           </h4>
           <ul class="alumni-list alumni-list-2col" id="msAlumniList"></ul>
