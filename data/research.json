@@ -3,7 +3,9 @@
     {
       "label": "Research Theme 01",
       "title": "Early Disease Diagnosis Based on Raman Spectroscopy",
+      "titleKo": "라만분광 기반 질병 조기진단 연구",
       "description": "Modern medical research is rapidly shifting from treatment-centered approaches toward prevention and early diagnosis. Because appropriate therapeutic strategies depend heavily on the type and stage of a disease, the importance of early detection is increasingly emphasized.\nRaman spectroscopy is an optical technique that analyzes molecular structures based on unique vibrational spectra, enabling qualitative and quantitative analysis of target analytes, and is gaining wide adoption in biomedical fields. Our laboratory develops Surface-Enhanced Raman Spectroscopy (SERS) platforms and applies advanced signal analysis methods to accurately distinguish cancerous cells from normal cells. Through this research, we aim to realize rapid, accurate, and non-invasive or minimally invasive technologies for early cancer diagnosis.",
+      "descriptionKo": "  최근 의료 연구는 치료 중심에서 예방 및 조기 진단 중심으로 빠르게 전환되고 있습니다. 질병의 종류와 진행 단계에 따라 적절한 치료 전략이 달라지기 때문에, 조기 진단의 중요성이 더욱 강조되고 있습니다.\n\n  라만분광 기술은 분자의 고유 진동 스펙트럼을 기반으로 분자 구조를 분석하고, 타겟 물질의 정성 및 정량 분석이 가능한 광학 기술로, 최근 바이오 및 의료 분야에서 활용도가 높아지고 있습니다. 본 연구실에서는 라만 신호 증폭(SERS) 기반 플랫폼을 개발하고, 정교한 신호 분석 기법을 적용하여 암세포와 정상세포를 정확하게 구분하는 기술을 연구하고 있습니다. 이를 통해 비침습적 또는 최소 침습 방식의 빠르고 정확한 암 조기 진단 기술로의 활용을 기대하고 있습니다.",
       "image": "images/uploads/대학휘장-01.png"
     },
     {
