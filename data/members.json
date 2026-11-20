@@ -25,9 +25,10 @@
       "name": "박 인 기",
       "enName": "In Gi Park",
       "dept": "Biomedical Engineering",
+      "deptKo": "생체의공학과/전자공학과",
       "email": "pkt317@khu.ac.kr",
-      "photo": "images/uploads/member-park.jpg",
-      "fallback": "박"
+      "fallback": "박",
+      "photo": "images/uploads/member-park.jpg"
     },
     {
       "role": "Undergraduate Student",
