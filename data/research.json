@@ -11,7 +11,9 @@
     {
       "label": "Research Theme 02",
       "title": "Biomolecular Detection Using Ultra-Sensitive Plasmonic Sensors",
+      "titleKo": "초고감도 플라즈모닉 센서를 이용한 생체분자 검출",
       "description": "This research aims to enhance the sensitivity of conventional plasmonic sensor substrates by integrating diverse dielectric and metallic nanostructures, and to apply these platforms to the detection of highly pathogenic viruses.\nBy coupling nanostructures, we increase the effective sensing surface area and induce Localized Surface Plasmon Resonance (LSPR) and electromagnetic hot-spots, significantly boosting detection sensitivity. Building upon this technological expertise, we have successfully detected DNA amplification of avian influenza viruses and plan to expand our diagnostic capabilities to various infectious diseases, including foot-and-mouth disease and swine influenza.",
+      "descriptionKo": "  본 연구는 다양한 유전체 및 금속 나노구조를 기존 플라즈모닉 센서 기판에 적용하여 감도 특성을 향상시키고, 이를 고병원성 바이러스 검출에 활용하는 것을 목표로 합니다.\n\n  나노구조 간 결합을 통해 센서의 유효 표면적을 증가시키고, 국소 표면 플라즈몬 공명(LSPR) 및 Hot-spot 형성을 유도하여 감도를 크게 향상시킵니다. 이러한 기술적 노하우를 바탕으로 조류독감 바이러스의 DNA 증폭 반응 검출에 성공하였으며, 향후 구제역 및 돼지독감 등 다양한 감염성 질환 진단으로 확장할 계획입니다.",
       "image": "images/uploads/대학휘장-01.png"
     },
     {
