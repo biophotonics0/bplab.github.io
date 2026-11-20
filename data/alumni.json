@@ -1,31 +1,100 @@
 {
   "phd": [
-    { "name": "정창진", "year": "('23)*" },
-    { "name": "Rehab Hassan", "year": "('20)*" },
-    { "name": "최문식", "year": "('20)" },
-    { "name": "Sherif El-Gohary", "year": "('16)" },
-    { "name": "김낙현", "year": "('15)" }
+    {
+      "name": "정창진",
+      "year": "'23*"
+    },
+    {
+      "name": "Rehab Hassan",
+      "year": "('20)*"
+    },
+    {
+      "name": "최문식",
+      "year": "('20)"
+    },
+    {
+      "name": "Sherif El-Gohary",
+      "year": "('16)"
+    },
+    {
+      "name": "김낙현",
+      "year": "('15)"
+    }
   ],
   "ms": [
-    { "name": "육경민", "year": "('25)" },
-    { "name": "장우철", "year": "('24)*" },
-    { "name": "권혁주", "year": "('24)" },
-    { "name": "조용준", "year": "('24)" },
-    { "name": "강태영", "year": "('23)" },
-    { "name": "지영상", "year": "('23)*" },
-    { "name": "신동민", "year": "('21)" },
-    { "name": "최지현", "year": "('21)" },
-    { "name": "박재원", "year": "('19)" },
-    { "name": "김선아", "year": "('17)" },
-    { "name": "엄수현", "year": "('16)" },
-    { "name": "황시영", "year": "('15)" },
-    { "name": "이영나", "year": "('14)" },
-    { "name": "최종목", "year": "('14)" },
-    { "name": "정우경", "year": "('13)" },
-    { "name": "송재철", "year": "('12)" },
-    { "name": "장수민", "year": "('11)" }
+    {
+      "name": "육경민",
+      "year": "('25)"
+    },
+    {
+      "name": "장우철",
+      "year": "('24)*"
+    },
+    {
+      "name": "권혁주",
+      "year": "('24)"
+    },
+    {
+      "name": "조용준",
+      "year": "('24)"
+    },
+    {
+      "name": "강태영",
+      "year": "('23)"
+    },
+    {
+      "name": "지영상",
+      "year": "('23)*"
+    },
+    {
+      "name": "신동민",
+      "year": "('21)"
+    },
+    {
+      "name": "최지현",
+      "year": "('21)"
+    },
+    {
+      "name": "박재원",
+      "year": "('19)"
+    },
+    {
+      "name": "김선아",
+      "year": "('17)"
+    },
+    {
+      "name": "엄수현",
+      "year": "('16)"
+    },
+    {
+      "name": "황시영",
+      "year": "('15)"
+    },
+    {
+      "name": "이영나",
+      "year": "('14)"
+    },
+    {
+      "name": "최종목",
+      "year": "('14)"
+    },
+    {
+      "name": "정우경",
+      "year": "('13)"
+    },
+    {
+      "name": "송재철",
+      "year": "('12)"
+    },
+    {
+      "name": "장수민",
+      "year": "('11)"
+    }
   ],
   "undergrad": [
-    { "name": "백혜원", "info": "(Department of Biomedical Engineering, KyungHee University, Mar 2026 - Aug 2026)" }
+    {
+      "name": "백혜원",
+      "info": "(Department of Biomedical Engineering, KyungHee University, Mar 2026 - Aug 2026)"
+    }
   ]
 }
