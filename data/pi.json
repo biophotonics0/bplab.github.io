@@ -1,18 +1,29 @@
 {
-  "photo": "images/uploads/prof-byun.jpg",
   "name": "변 경 민 (Kyung Min Byun, Ph.D.)",
+  "nameKo": "",
   "role": "Professor, Department of Biomedical Engineering, Kyung Hee University",
+  "roleKo": "경희대학교 생체의공학과 교수",
   "office": "Room 709, College of Electronics and Information",
+  "officeKo": "전자정보대학과 709호",
   "tel": "031-201-3842",
   "email": "kmbyun@khu.ac.kr",
+  "photo": "images/uploads/prof-byun.jpg",
   "education": [
     {
       "degree": "Ph.D. 2002.3 - 2007.2",
-      "detail": "서울대학교 전기컴퓨터공학부 공학박사\n(지도교수 : 김성준)"
+      "detail": "서울대학교 전기컴퓨터공학부 공학박사"
+    },
+    {
+      "degree": "(지도교수 : 김성준)",
+      "detail": ""
     },
     {
       "degree": "M.S. 2000.3 - 2002.2",
-      "detail": "서울대학교 전기컴퓨터공학부 공학석사\n(지도교수 : 이병호)"
+      "detail": "서울대학교 전기컴퓨터공학부 공학석사"
+    },
+    {
+      "degree": "(지도교수 : 이병호)",
+      "detail": ""
     },
     {
       "degree": "B.S. 1996.3 - 2000.2",
