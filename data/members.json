@@ -5,9 +5,10 @@
       "name": "손 훈 국",
       "enName": "Hun Guk Son",
       "dept": "Electronics and Information Convergence Engineering",
+      "deptKo": "전자정보융합공학과",
       "email": "guk1323@khu.ac.kr",
-      "photo": "images/uploads/member-son.jpg",
-      "fallback": "손"
+      "fallback": "손",
+      "photo": "images/uploads/member-son.jpg"
     },
     {
       "role": "M.S. Student",
