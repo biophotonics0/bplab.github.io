@@ -14,7 +14,7 @@
     }
   ],
   "welcomeEn": "Welcome to the Biophotonics Laboratory at Kyung Hee University, directed by Prof. Kyung Min Byun. Our laboratory develops integrated plasmonic systems for biosensing, diagnostics, bioimaging, and neural engineering. We conduct multidisciplinary research spanning design, fabrication, and characterization across both experimental and theoretical studies. Our current focus includes ultra-sensitive plasmonic biosensors, SERS-based diagnostics, nanoscale imaging, and optical neural interfaces.",
-  "welcomeKo": "경희대학교 생체의공학과 바이오포토닉스 연구실에 오신 것을 환영합니다. 본 연구실은 나노 스케일 플라즈모닉 소재 및 구조가 가지는 고유한 광학적 특성을 활용하여, 바이오센싱, 바이오진단, 바이오이미징, 신경공학 등 다양한 분야에 적용 가능한 혁신적인 통합 시스템을 개발하는 것을 목표로 합니다.이를 위해 생체의공학, 광학, 전자공학, 나노바이오공학이 융합된 다학제적 연구 환경을 기반으로 연구를 수행하고 있습니다. 또한 나노구조 시스템의 설계, 제작, 집적, 특성 분석에 이르는 전 과정에 적극적으로 참여하며, 실험과 이론을 아우르는 통합적인 연구를 지향합니다. 현재는 나노구조 기반 초고감도 플라즈모닉 바이오센서, 표면증강 라만분광(SERS) 기반 질병 진단 기술, 나노스케일 플라즈모닉 이미징, 그리고 광학적 신경 인터페이스 등 다양한 연구를 활발히 진행하고 있습니다.",
+  "welcomeKo": "경희대학교 생체의공학과 바이오포토닉스 연구실에 오신 것을 환영합니다.\n\n본 연구실은 나노 스케일 플라즈모닉 소재 및 구조가 가지는 고유한 광학적 특성을 활용하여, 바이오센싱, 바이오진단, 바이오이미징, 신경공학 등 다양한 분야에 적용 가능한 혁신적인 통합 시스템을 개발하는 것을 목표로 합니다.이를 위해 생체의공학, 광학, 전자공학, 나노바이오공학이 융합된 다학제적 연구 환경을 기반으로 연구를 수행하고 있습니다. 또한 나노구조 시스템의 설계, 제작, 집적, 특성 분석에 이르는 전 과정에 적극적으로 참여하며, 실험과 이론을 아우르는 통합적인 연구를 지향합니다. 현재는 나노구조 기반 초고감도 플라즈모닉 바이오센서, 표면증강 라만분광(SERS) 기반 질병 진단 기술, 나노스케일 플라즈모닉 이미징, 그리고 광학적 신경 인터페이스 등 다양한 연구를 활발히 진행하고 있습니다.",
   "recruitText": "We welcome motivated M.S., Ph.D., and undergraduate students interested in biophotonics, nanobiosensors, and biomedical instrumentation. Please contact Prof. Kyung Min Byun (kmbyun@khu.ac.kr).",
   "recruitTextKo": ""
 }
