@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Biophotonics Lab | Kyung Hee University</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>Biophotonics LAB | Kyung Hee University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* 관리자 페이지에서 엔터(Enter)로 줄바꿈한 내용 그대로 반영 */
-    .welcome-text p,
-    #homeRecruitText,
-    .research-item p,
-    .notice-post-body,
-    .contact-info-list li div {
-      white-space: pre-line;
-    }
     :root {
-      --khu-burgundy: #8B1C24;
-      --khu-burgundy-dark: #681218;
-      --khu-gold: #B39659;
-      --bg-light: #F8F9FA;
-      --text-main: #1F2937;
+      --primary: #7B1E2B;
+      --primary-dark: #58121C;
+      --primary-light: #9E2B3B;
+      --accent: #B8860B;
+      --bg: #FFFFFF;
+      --bg-alt: #F8F9FA;
+      --text: #1F2937;
       --text-muted: #6B7280;
-      --border-color: #E5E7EB;
+      --border: #E5E7EB;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --radius: 12px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-main);
-      background-color: #ffffff;
+      color: var(--text);
+      background-color: var(--bg);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
-
-    a { text-decoration: none; color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
     /* Navigation */
     header {
@@ -45,758 +40,507 @@
       z-index: 1000;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border);
     }
-
     .nav-container {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 24px;
       height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
       cursor: pointer;
     }
-
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-    }
-
-    .brand-text {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--khu-burgundy);
-      letter-spacing: -0.02em;
-    }
-
-    .brand-text span {
-      font-weight: 400;
+    .brand-sub {
+      font-size: 0.8rem;
+      font-weight: 500;
       color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-left: 0.35rem;
+      border-left: 1px solid var(--border);
+      padding-left: 12px;
     }
-
     nav ul {
       display: flex;
       list-style: none;
-      gap: 0.35rem;
+      gap: 6px;
+      align-items: center;
     }
-
     .nav-btn {
       background: none;
       border: none;
       font-family: inherit;
-      font-size: 0.94rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      color: var(--text-main);
-      padding: 0.5rem 0.95rem;
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: var(--bg-alt); color: var(--primary); }
+    .nav-btn.active { background: var(--primary); color: #fff; }
+
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 190px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 6px;
+      margin-top: 4px;
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 9px 14px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text);
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.2s ease;
     }
-
-    .nav-btn:hover {
-      color: var(--khu-burgundy);
-      background-color: #fdf2f2;
-    }
-
-    .nav-btn.active {
-      color: #ffffff;
-      background-color: var(--khu-burgundy);
-      font-weight: 600;
-    }
+    .dropdown-item:hover { background: var(--bg-alt); color: var(--primary); }
 
     /* Hero Banner */
     .hero {
-      position: relative;
-      background: linear-gradient(135deg, rgba(60, 12, 16, 0.92), rgba(139, 28, 36, 0.85)),
-                  url('research-sers.jpg') center/cover no-repeat;
-      color: #ffffff;
-      padding: 4.5rem 1.5rem;
+      background: linear-gradient(135deg, #3A0B12 0%, var(--primary) 55%, #9B2C3B 100%);
+      color: #fff;
+      padding: 68px 24px;
     }
-
-    .hero-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-
+    .hero-inner { max-width: 1200px; margin: 0 auto; }
     .hero-badge {
       display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #f3e8d2;
-      border: 1px solid rgba(243, 232, 210, 0.4);
-      padding: 0.25rem 0.75rem;
+      background: rgba(255, 255, 255, 0.14);
+      padding: 6px 14px;
       border-radius: 999px;
-      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 16px;
     }
+    .hero h1 { font-size: 2.6rem; font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+    .hero p { font-size: 1.15rem; color: rgba(255, 255, 255, 0.88); max-width: 760px; font-weight: 300; }
 
-    .hero h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
+    /* Main Container */
+    main { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }
+    .section-page { display: none; }
+    .section-page.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    .hero p {
-      font-size: 1.05rem;
-      color: rgba(255, 255, 255, 0.88);
-      max-width: 720px;
-      font-weight: 300;
-    }
-
-    /* Main Layout */
-    main {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
-    }
-
-    .tab-section {
-      display: none;
-      animation: fadeIn 0.25s ease;
-    }
-
-    .tab-section.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--khu-burgundy);
-      margin-bottom: 0.4rem;
-      padding-bottom: 0.65rem;
-      border-bottom: 2px solid var(--border-color);
-    }
-
-    .section-subtitle {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-
-    /* Home Tab */
-    .home-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 1.75rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
-    }
-
-    .card h3 {
-      font-size: 1.2rem;
-      color: var(--khu-burgundy);
-      margin-bottom: 1rem;
+    .section-header {
+      margin-bottom: 32px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 12px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
     }
+    .section-header h2 { font-size: 1.85rem; font-weight: 700; color: var(--primary); }
+    .section-header span { font-size: 0.95rem; color: var(--text-muted); }
 
-    .welcome-text p {
-      margin-bottom: 1rem;
-      color: #374151;
-      font-size: 0.97rem;
+    /* Home Grid & Slider */
+    .home-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 36px; align-items: start; }
+    .welcome-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
     }
-
-    .highlight-box {
-      background: var(--bg-light);
-      border-left: 4px solid var(--khu-burgundy);
-      padding: 1rem 1.25rem;
-      border-radius: 0 6px 6px 0;
-      margin-top: 1.25rem;
+    .welcome-card h3 { font-size: 1.4rem; color: var(--primary); margin-bottom: 16px; }
+    .welcome-text p { margin-bottom: 14px; color: var(--text); font-size: 0.98rem; white-space: pre-line; }
+    .welcome-text p.kr { color: var(--text-muted); font-size: 0.93rem; border-top: 1px solid var(--border); padding-top: 14px; }
+    .recruit-box {
+      margin-top: 20px;
+      background: #FFF9EB;
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 8px;
       font-size: 0.92rem;
     }
+    .recruit-box strong { color: #8A6305; display: block; margin-bottom: 4px; }
+    #homeRecruitText { white-space: pre-line; }
 
-    /* Slider */
-    .slider-container {
+    .slider-wrapper {
       position: relative;
-      border-radius: 10px;
+      border-radius: var(--radius);
       overflow: hidden;
-      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
       background: #111;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 3;
     }
-
-    .slide {
-      display: none;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .slide { display: none; width: 100%; height: 100%; position: relative; }
+    .slide.active { display: block; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; }
     .slide-caption {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.82));
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
       color: #fff;
-      padding: 1.5rem 1rem 0.85rem;
-      font-size: 0.86rem;
+      padding: 28px 20px 16px;
+      font-size: 0.95rem;
     }
-
     .slider-btn {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.45);
-      color: #fff;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.85);
       border: none;
-      width: 34px;
-      height: 34px;
+      width: 36px; height: 36px;
       border-radius: 50%;
       cursor: pointer;
-      font-size: 1rem;
+      font-weight: bold;
+      color: var(--text);
+      font-size: 1.1rem;
     }
-
-    .slider-btn:hover { background: rgba(139, 28, 36, 0.85); }
-    .slider-prev { left: 10px; }
-    .slider-next { right: 10px; }
-
-    /* Recent News Preview on Home */
-    .notice-preview-item {
-      padding: 0.85rem 0;
-      border-bottom: 1px solid var(--border-color);
+    .slider-btn.prev { left: 12px; }
+    .slider-btn.next { right: 12px; }
+    .slider-dots {
+      position: absolute;
+      bottom: 12px; right: 16px;
+      display: flex; gap: 6px;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.45);
       cursor: pointer;
-      transition: color 0.15s;
     }
+    .dot.active { background: #fff; width: 20px; border-radius: 4px; }
 
-    .notice-preview-item:last-child { border-bottom: none; }
-    .notice-preview-item:hover .notice-preview-title { color: var(--khu-burgundy); }
-
-    .notice-preview-date {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .notice-preview-title {
-      font-size: 0.94rem;
-      font-weight: 500;
-    }
-
-    /* Research Tab */
-    .research-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2.25rem;
-    }
-
+    /* Research */
+    .research-list { display: flex; flex-direction: column; gap: 28px; }
     .research-item {
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 2rem;
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 1.75rem;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
       align-items: center;
+      position: relative;
     }
-
-    .research-thumb {
+    .research-item img {
       width: 100%;
-      height: 220px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #f0f0f0;
-      background: var(--bg-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .research-thumb img {
-      width: 100%;
-      height: 100%;
+      height: 210px;
       object-fit: cover;
+      border-radius: 8px;
+      background: var(--bg-alt);
     }
-
     .research-num {
+      display: inline-block;
       font-size: 0.8rem;
       font-weight: 700;
-      color: var(--khu-gold);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.3rem;
+      color: var(--primary);
+      background: #FDF2F4;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
     }
+    .research-item h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--text); }
+    .research-item p { color: var(--text-muted); font-size: 0.95rem; white-space: pre-line; }
 
-    .research-item h3 {
-      font-size: 1.25rem;
-      color: var(--khu-burgundy);
-      margin-bottom: 0.75rem;
-    }
-
-    .research-item p {
-      font-size: 0.95rem;
-      color: #374151;
-    }
-
-    /* Publications Tab */
+    /* Publications */
     .pub-controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.75rem;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .year-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+    .year-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .year-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .year-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .pub-search {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      min-width: 260px;
+    }
+    .pub-year-group { margin-bottom: 32px; }
+    .pub-year-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 14px;
+      padding-left: 10px;
+      border-left: 4px solid var(--primary);
+    }
+    .pub-card {
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: #fff;
+      transition: border-color 0.2s;
+      position: relative;
+    }
+    .pub-card:hover { border-color: var(--primary-light); }
+    .pub-title { font-weight: 600; font-size: 1.02rem; color: var(--text); margin-bottom: 4px; }
+    .pub-authors { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; }
+    .pub-journal { font-size: 0.88rem; font-weight: 600; color: var(--primary); }
+    .pub-link {
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 0.82rem;
+      color: #2563EB;
+      text-decoration: underline;
+    }
+
+    /* Members */
+    .prof-card {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 32px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+    .prof-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #ddd;
+    }
+    .prof-info h3 { font-size: 1.65rem; color: var(--text); }
+    .prof-role { color: var(--primary); font-weight: 600; margin-bottom: 14px; font-size: 1rem; }
+    .prof-meta { font-size: 0.93rem; color: var(--text-muted); margin-bottom: 20px; }
+    .prof-meta div { margin-bottom: 4px; }
+    .prof-section { margin-top: 18px; }
+    .prof-section h4 { font-size: 1.05rem; color: var(--primary); margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+    .prof-section ul { padding-left: 18px; font-size: 0.92rem; color: var(--text); }
+    .prof-section li { margin-bottom: 4px; }
+
+    .member-group-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 28px 0 16px;
+      display: flex;
       align-items: center;
       justify-content: space-between;
     }
-
-    .pub-search {
-      padding: 0.6rem 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.92rem;
-      width: 300px;
-      max-width: 100%;
-    }
-
-    .pub-search:focus {
-      outline: none;
-      border-color: var(--khu-burgundy);
-    }
-
-    .year-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .year-btn {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.84rem;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-
-    .year-btn.active, .year-btn:hover {
-      background: var(--khu-burgundy);
-      color: #fff;
-      border-color: var(--khu-burgundy);
-    }
-
-    .pub-list {
-      list-style: none;
-      border-top: 1px solid var(--border-color);
-    }
-
-    .pub-item {
-      padding: 1.15rem 0.5rem;
-      border-bottom: 1px solid var(--border-color);
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 0.75rem;
-    }
-
-    .pub-num {
-      font-weight: 700;
-      color: var(--khu-burgundy);
-      font-size: 0.92rem;
-    }
-
-    .pub-title {
-      font-weight: 600;
-      font-size: 0.98rem;
-      color: #111827;
-      margin-bottom: 0.25rem;
-    }
-
-    .pub-authors {
-      font-size: 0.9rem;
-      color: #4b5563;
-      margin-bottom: 0.2rem;
-    }
-
-    .pub-journal {
-      font-size: 0.88rem;
-      color: var(--khu-burgundy-dark);
-      font-style: italic;
-    }
-
-    .pub-badge {
-      display: inline-block;
-      background: #fef3c7;
-      color: #92400e;
-      font-style: normal;
-      font-size: 0.76rem;
-      font-weight: 600;
-      padding: 0.1rem 0.5rem;
-      border-radius: 4px;
-      margin-left: 0.4rem;
-    }
-
-    /* Members Tab */
-    .pi-card {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 2.25rem;
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    .pi-photo {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      border-radius: 8px;
-      object-fit: cover;
-      background: #e5e7eb;
-      border: 1px solid var(--border-color);
-    }
-
-    .pi-header h3 {
-      font-size: 1.45rem;
-      color: var(--khu-burgundy);
-      margin-bottom: 0.2rem;
-    }
-
-    .pi-header .pi-role {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .pi-info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 1.25rem;
-      font-size: 0.9rem;
-    }
-
-    .pi-info-grid h4 {
-      color: var(--khu-burgundy);
-      font-size: 0.92rem;
-      margin-bottom: 0.4rem;
-      border-bottom: 1px solid #d1d5db;
-      padding-bottom: 0.2rem;
-    }
-
-    .pi-info-grid ul {
-      list-style: none;
-      color: #374151;
-    }
-
-    .pi-info-grid li { margin-bottom: 0.35rem; }
-
     .members-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
     }
-
     .member-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.75rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+      padding-bottom: 18px;
+      position: relative;
     }
-
-    .member-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-    }
-
-    .member-photo {
-      width: 145px;
-      height: 175px;
-      border-radius: 8px;
+    .member-card img {
+      width: 100%;
+      height: 240px;
       object-fit: cover;
-      object-position: top center;
-      margin: 0 auto 1.1rem;
-      background: #f3f4f6;
-      border: 1px solid #e5e7eb;
-      display: block;
+      background: #ECEFF1;
     }
-
-    .avatar-placeholder {
-      width: 145px;
-      height: 175px;
-      border-radius: 8px;
-      background: #fdf2f2;
-      color: var(--khu-burgundy);
-      border: 1px solid #f3d1d4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.75rem;
-      margin: 0 auto 1.1rem;
-    }
-
-    .member-role {
-      font-size: 0.78rem;
-      color: var(--khu-burgundy);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      margin-bottom: 0.3rem;
-    }
-
-    .member-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #111827;
-    }
-
-    .member-en {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 0.65rem;
-    }
-
-    .member-meta {
-      font-size: 0.84rem;
-      color: #4b5563;
-      line-height: 1.55;
-    }
+    .member-name { font-weight: 700; font-size: 1.08rem; margin-top: 14px; }
+    .member-degree { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin: 2px 0; }
+    .member-topic { font-size: 0.85rem; color: var(--text-muted); padding: 0 12px; }
+    .member-email { font-size: 0.8rem; color: #4B5563; margin-top: 6px; }
 
     .alumni-grid {
       display: grid;
-      grid-template-columns: 0.75fr 1.6fr 0.85fr;
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
     }
-
-    .alumni-box {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.5rem;
-    }
-
-    .alumni-box h4 {
-      color: var(--khu-burgundy);
-      margin-bottom: 0.85rem;
-      font-size: 1.05rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.4rem;
-    }
-
-    .alumni-list {
-      list-style: none;
-      font-size: 0.9rem;
-      color: #374151;
-    }
-
-    .alumni-list li {
-      padding: 0.35rem 0;
-      border-bottom: 1px dashed #e5e7eb;
-    }
-
-    .alumni-list li:last-child { border-bottom: none; }
-
-    .alumni-list-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 1.5rem;
-    }
-
-    .alumni-list-2col li:nth-last-child(2):nth-child(odd) {
-      border-bottom: none;
-    }
-
-    /* News Tab */
-    .notice-post {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
+    .alumni-item {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 2rem;
-      margin-bottom: 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2.25rem;
-      align-items: center;
-    }
-
-    .notice-post.no-image {
-      grid-template-columns: 1fr;
-    }
-
-    .notice-left {
-      min-width: 260px;
-    }
-
-    .notice-post-header {
-      margin-bottom: 0.85rem;
-    }
-
-    .notice-post-title {
-      font-size: 1.22rem;
-      font-weight: 700;
-      margin: 0.45rem 0 0.25rem;
-      line-height: 1.4;
-    }
-
-    .notice-post-date { font-size: 0.85rem; color: var(--text-muted); }
-
-    .notice-post-body {
-      font-size: 0.95rem;
-      color: #374151;
-      line-height: 1.75;
-    }
-
-    .notice-images {
+      padding: 14px 18px;
       display: flex;
-      flex-wrap: nowrap;
-      gap: 0.85rem;
+      justify-content: space-between;
       align-items: center;
-      justify-content: flex-end;
+      gap: 8px;
     }
+    .alumni-name { font-weight: 600; }
+    .alumni-aff { font-size: 0.85rem; color: var(--text-muted); }
 
-    .notice-images a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 320px;
-      border-radius: 6px;
+    /* News */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+    .news-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow: hidden;
-      border: 1px solid #e5e7eb;
-      background: #f9fafb;
-      flex-shrink: 0;
+      background: #fff;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
+    .news-card img { width: 100%; height: 220px; object-fit: cover; background: var(--bg-alt); }
+    .news-body { padding: 20px; flex: 1; }
+    .news-date { font-size: 0.82rem; color: var(--primary); font-weight: 600; margin-bottom: 6px; }
+    .news-title { font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+    .news-desc { font-size: 0.92rem; color: var(--text-muted); white-space: pre-line; }
 
-    .notice-images img {
-      height: 100%;
-      width: auto;
-      max-width: 420px;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.2s;
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .contact-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
     }
-
-    .notice-images img:hover {
-      transform: scale(1.02);
-    }
-
-    .badge-cat {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.15rem 0.55rem;
-      border-radius: 4px;
-      background: #fdf2f2;
-      color: var(--khu-burgundy);
-      margin-right: 0.5rem;
-    }
-
-    /* Contact Tab */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 2.5rem;
-      align-items: stretch;
-    }
-
-    .contact-info-list {
-      list-style: none;
-    }
-
-    .contact-info-list li {
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .contact-info-list li:last-child { border-bottom: none; }
-
-    .contact-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--khu-burgundy);
-      margin-bottom: 0.25rem;
-    }
-
-    .map-frame {
-      width: 100%;
-      height: 100%;
-      min-height: 360px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      display: block;
-    }
+    .contact-card h3 { color: var(--primary); margin-bottom: 16px; font-size: 1.25rem; }
+    .contact-info-list { list-style: none; }
+    .contact-info-list li { margin-bottom: 14px; font-size: 0.95rem; }
+    .contact-info-list strong { display: block; color: var(--text); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .contact-info-list div { white-space: pre-line; }
+    .map-frame { width: 100%; height: 340px; border: 0; border-radius: var(--radius); }
 
     /* Footer */
     footer {
-      background: #111827;
-      color: #9ca3af;
-      padding: 2.5rem 1.5rem;
+      background: #1F2937;
+      color: #D1D5DB;
+      padding: 36px 24px;
       font-size: 0.88rem;
     }
-
     .footer-inner {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
-    .footer-inner strong { color: #f3f4f6; }
-
-    @media (max-width: 960px) {
-      .notice-post {
-        grid-template-columns: 1fr;
-      }
-      .notice-images {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-      }
-      .notice-images a {
-        height: 220px;
-      }
+    /* ================= INLINE ADMIN MODE UI ================= */
+    #adminBar {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: #111827;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
     }
+    body.is-admin #adminBar { display: flex; }
+    .admin-only { display: none !important; }
+    body.is-admin .admin-only { display: inline-flex !important; }
 
-    @media (max-width: 820px) {
-      .home-grid, .pi-card, .contact-grid, .research-item, .pi-info-grid, .alumni-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-container { flex-direction: column; height: auto; padding: 0.85rem 1rem; gap: 0.6rem; }
+    .btn-adm {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.15s;
+    }
+    .btn-adm:hover { opacity: 0.88; }
+    .btn-adm-add { background: var(--primary); color: #fff; padding: 7px 14px; font-size: 0.85rem; }
+    .btn-adm-edit { background: #2563EB; color: #fff; }
+    .btn-adm-del { background: #DC2626; color: #fff; }
+    .btn-adm-out { background: #374151; color: #F9FAFB; }
+
+    .card-adm-tools {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+    .card-adm-tools.left { justify-content: flex-start; }
+
+    /* Admin Modal */
+    .adm-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .adm-modal-backdrop.open { display: flex; }
+    .adm-modal {
+      background: #fff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    .adm-modal h3 { font-size: 1.25rem; color: var(--primary); margin-bottom: 16px; }
+    .adm-field { margin-bottom: 14px; }
+    .adm-field label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--text); }
+    .adm-field input, .adm-field textarea, .adm-field select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.92rem;
+    }
+    .adm-field textarea { min-height: 95px; resize: vertical; }
+    .adm-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .btn-cancel { background: #E5E7EB; color: #374151; padding: 8px 16px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; }
+    .btn-save { background: var(--primary); color: #fff; padding: 8px 18px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    @media (max-width: 860px) {
+      .home-grid, .research-item, .prof-card, .contact-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+      .nav-container { flex-direction: column; height: auto; padding: 12px 16px; gap: 10px; }
       nav ul { flex-wrap: wrap; justify-content: center; }
-      .hero h1 { font-size: 1.85rem; }
     }
   </style>
 </head>
@@ -805,18 +549,25 @@
   <!-- Header & Navigation -->
   <header>
     <div class="nav-container">
-      <div class="brand" onclick="switchTab('home')">
-        <img src="khu-logo.png" alt="KHU Logo" class="brand-logo" onerror="this.style.display='none'">
-        <div class="brand-text">Biophotonics LAB <span>Kyung Hee Univ.</span></div>
+      <div class="brand" onclick="showPage('home')">
+        <span>Biophotonics LAB</span>
+        <span class="brand-sub">Kyung Hee Univ.</span>
       </div>
       <nav>
         <ul>
-          <li><button class="nav-btn active" data-tab="home" onclick="switchTab('home')">Home</button></li>
-          <li><button class="nav-btn" data-tab="research" onclick="switchTab('research')">Research</button></li>
-          <li><button class="nav-btn" data-tab="publications" onclick="switchTab('publications')">Publications</button></li>
-          <li><button class="nav-btn" data-tab="members" onclick="switchTab('members')">Members</button></li>
-          <li><button class="nav-btn" data-tab="notice" onclick="switchTab('notice')">News</button></li>
-          <li><button class="nav-btn" data-tab="contact" onclick="switchTab('contact')">Contact</button></li>
+          <li><button class="nav-btn active" data-page="home" onclick="showPage('home')">Home</button></li>
+          <li><button class="nav-btn" data-page="research" onclick="showPage('research')">Research</button></li>
+          <li><button class="nav-btn" data-page="publications" onclick="showPage('publications')">Publications</button></li>
+          <li class="dropdown">
+            <button class="nav-btn" data-page="members" onclick="showPage('professor')">Members ▾</button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" onclick="showPage('professor')">Professor</button>
+              <button class="dropdown-item" onclick="showPage('current-members')">Current Members</button>
+              <button class="dropdown-item" onclick="showPage('alumni')">Alumni</button>
+            </div>
+          </li>
+          <li><button class="nav-btn" data-page="news" onclick="showPage('news')">News</button></li>
+          <li><button class="nav-btn" data-page="contact" onclick="showPage('contact')">Contact</button></li>
         </ul>
       </nav>
     </div>
@@ -827,422 +578,833 @@
     <div class="hero-inner">
       <div class="hero-badge">Department of Biomedical Engineering · Kyung Hee University</div>
       <h1>Biophotonics Laboratory</h1>
-      <p>Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.</p>
+      <p>Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), Optical Biosensors, and Neural Interfaces.</p>
     </div>
   </section>
 
   <!-- Main Content -->
   <main>
-
-    <!-- 1. HOME TAB -->
-    <section id="tab-home" class="tab-section active">
+    <!-- 1. HOME -->
+    <section id="page-home" class="section-page active">
+      <div class="section-header">
+        <h2>Welcome to Biophotonics LAB</h2>
+        <div>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openEditHome()">✎ 소개글 수정</button>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openAddSlide()">+ 슬라이드 사진 추가</button>
+        </div>
+      </div>
       <div class="home-grid">
-        <div class="card welcome-text">
-          <h3>Welcome to Biophotonics Lab</h3>
-          <p id="homeWelcomeEn"></p>
-          <p id="homeWelcomeKo"></p>
-          <div class="highlight-box">
-            <strong>Prospective Students (대학원생 및 학부연구생 모집):</strong><br>
+        <div class="welcome-card">
+          <h3>Laboratory Overview</h3>
+          <div class="welcome-text">
+            <p id="homeIntroEn"></p>
+            <p id="homeIntroKr" class="kr"></p>
+          </div>
+          <div class="recruit-box">
+            <strong>Graduate &amp; Undergraduate Research Opportunities</strong>
             <span id="homeRecruitText"></span>
           </div>
         </div>
-
-        <div style="display:flex; flex-direction:column; gap:1.75rem;">
-          <!-- Gallery Slider -->
-          <div class="slider-container" id="homeSlider"></div>
-
-          <!-- Recent News Preview -->
-          <div class="card">
-            <h3>
-              Recent News
-              <span style="font-size:0.82rem; font-weight:500; cursor:pointer; color:var(--text-muted);" onclick="switchTab('notice')">View all &rarr;</span>
-            </h3>
-            <div id="homeNoticePreview"></div>
-          </div>
+        <div class="slider-wrapper" id="homeSlider">
+          <button class="slider-btn prev" onclick="moveSlide(-1)">‹</button>
+          <button class="slider-btn next" onclick="moveSlide(1)">›</button>
+          <div class="slider-dots" id="sliderDots"></div>
         </div>
       </div>
     </section>
 
-    <!-- 2. RESEARCH TAB -->
-    <section id="tab-research" class="tab-section">
-      <h2 class="section-title">Research Areas</h2>
-      <p class="section-subtitle">Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.</p>
+    <!-- 2. RESEARCH -->
+    <section id="page-research" class="section-page">
+      <div class="section-header">
+        <h2>Research Areas</h2>
+        <div>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openResearchModal()">+ 새 연구 주제 추가</button>
+        </div>
+      </div>
       <div class="research-list" id="researchList"></div>
     </section>
 
-    <!-- 3. PUBLICATIONS TAB -->
-    <section id="tab-publications" class="tab-section">
-      <h2 class="section-title">Publications</h2>
-      <p class="section-subtitle">Peer-reviewed international journal articles (*Corresponding author).</p>
-
+    <!-- 3. PUBLICATIONS -->
+    <section id="page-publications" class="section-page">
+      <div class="section-header">
+        <h2>Publications</h2>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span id="pubCount"></span>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openPubModal()">+ 새 논문 추가</button>
+        </div>
+      </div>
       <div class="pub-controls">
         <div class="year-filters" id="yearFilters"></div>
-        <input type="text" id="pubSearch" class="pub-search" placeholder="Search title, author, or journal..." oninput="renderPublications()">
+        <input type="text" class="pub-search" id="pubSearch" placeholder="Search title, author, journal..." oninput="renderPublications()" />
       </div>
-
-      <ul class="pub-list" id="pubList"></ul>
+      <div id="pubList"></div>
     </section>
 
-    <!-- 4. MEMBERS TAB -->
-    <section id="tab-members" class="tab-section">
-      <h2 class="section-title">Principal Investigator</h2>
-      <p class="section-subtitle">Faculty Director of the Biophotonics Laboratory.</p>
-      <div class="pi-card" id="piCard"></div>
-
-      <h2 class="section-title">Current Members</h2>
-      <p class="section-subtitle">Graduate and Undergraduate Researchers.</p>
-      <div class="members-grid" id="currentMembersGrid"></div>
-
-      <h2 class="section-title">Alumni</h2>
-      <p class="section-subtitle">Graduated Ph.D. and M.S. Researchers (*Co-advised).</p>
-      <div class="alumni-grid">
-        <div class="alumni-box">
-          <h4>Ph.D. Alumni (박사 졸업생)</h4>
-          <ul class="alumni-list" id="phdAlumniList"></ul>
-        </div>
-        <div class="alumni-box">
-          <h4>M.S. Alumni (석사 졸업생)</h4>
-          <ul class="alumni-list alumni-list-2col" id="msAlumniList"></ul>
-        </div>
-        <div class="alumni-box">
-          <h4>Undergraduate Student</h4>
-          <ul class="alumni-list" id="undergradAlumniList"></ul>
+    <!-- 4-1. PROFESSOR -->
+    <section id="page-professor" class="section-page">
+      <div class="section-header">
+        <h2>Principal Investigator</h2>
+        <div>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openProfModal()">✎ 교수님 정보 수정</button>
         </div>
       </div>
+      <div id="profContainer"></div>
     </section>
 
-    <!-- 5. NEWS TAB -->
-    <section id="tab-notice" class="tab-section">
-      <h2 class="section-title">News &amp; Activities</h2>
-      <p class="section-subtitle">Conference presentations, awards, and laboratory updates.</p>
-      <div id="noticeList"></div>
+    <!-- 4-2. CURRENT MEMBERS -->
+    <section id="page-current-members" class="section-page">
+      <div class="section-header">
+        <h2>Current Members</h2>
+        <div>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openMemberModal('graduate')">+ 대학원생 추가</button>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openMemberModal('undergraduate')">+ 학부연구생 추가</button>
+        </div>
+      </div>
+      <div class="member-group-title">Graduate Students</div>
+      <div class="members-grid" id="gradGrid"></div>
+      <div class="member-group-title">Undergraduate Students</div>
+      <div class="members-grid" id="undergradGrid"></div>
     </section>
 
-    <!-- 6. CONTACT TAB -->
-    <section id="tab-contact" class="tab-section">
-      <h2 class="section-title">Contact &amp; Location</h2>
-      <p class="section-subtitle">How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.</p>
+    <!-- 4-3. ALUMNI -->
+    <section id="page-alumni" class="section-page">
+      <div class="section-header">
+        <h2>Alumni</h2>
+        <div>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openAlumniModal()">+ 졸업생 추가</button>
+        </div>
+      </div>
+      <div class="alumni-grid" id="alumniGrid"></div>
+    </section>
 
+    <!-- 5. NEWS -->
+    <section id="page-news" class="section-page">
+      <div class="section-header">
+        <h2>Lab News &amp; Gallery</h2>
+        <div>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openNewsModal()">+ 새 뉴스/사진 올리기</button>
+        </div>
+      </div>
+      <div class="news-grid" id="newsGrid"></div>
+    </section>
+
+    <!-- 6. CONTACT -->
+    <section id="page-contact" class="section-page">
+      <div class="section-header">
+        <h2>Contact &amp; Location</h2>
+        <div>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openContactModal()">✎ 연락처/주소 수정</button>
+        </div>
+      </div>
       <div class="contact-grid">
-        <div class="card">
+        <div class="contact-card">
+          <h3>Biophotonics Laboratory</h3>
           <ul class="contact-info-list" id="contactInfoList"></ul>
         </div>
-        <div id="contactMapContainer"></div>
+        <div>
+          <iframe class="map-frame"
+            src="https://maps.google.com/maps?q=Kyung%20Hee%20University%20Global%20Campus%20Electronics%20and%20Information%20College&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            loading="lazy" allowfullscreen></iframe>
+        </div>
       </div>
     </section>
-
   </main>
 
   <!-- Footer -->
   <footer>
     <div class="footer-inner">
       <div>
-        <strong>Biophotonics Laboratory</strong> · Department of Biomedical Engineering, Kyung Hee University<br>
-        Room 710, College of Electronics and Information, 1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Korea
+        <strong>Biophotonics Laboratory</strong> · Department of Biomedical Engineering, Kyung Hee University<br />
+        1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Republic of Korea
       </div>
-      <div>
-        Tel: +82-31-201-3842 | E-mail: kmbyun@khu.ac.kr<br>
-        &copy; Biophotonics Lab, Kyung Hee University. All Rights Reserved.
+      <div style="text-align:right;">
+        <div>© Biophotonics LAB. All rights reserved.</div>
+        <button id="footerLoginBtn" onclick="openLoginModal()" style="background:none; border:none; color:#9CA3AF; font-size:0.78rem; cursor:pointer; text-decoration:underline; margin-top:4px;">Admin Login</button>
       </div>
     </div>
   </footer>
 
-  <!-- Real-time JSON Fetch & Dynamic Rendering Script -->
+  <!-- Floating Admin Status Bar -->
+  <div id="adminBar">
+    <span>🟢 <strong>관리자 편집 모드</strong> (수정 즉시 자동 저장)</span>
+    <button class="btn-adm btn-adm-out" onclick="adminLogout()">로그아웃</button>
+  </div>
+
+  <!-- Universal Admin Modal -->
+  <div class="adm-modal-backdrop" id="admModalBackdrop">
+    <div class="adm-modal">
+      <h3 id="admModalTitle">Edit</h3>
+      <div id="admModalBody"></div>
+      <div class="adm-modal-actions">
+        <button class="btn-cancel" onclick="closeAdmModal()">취소</button>
+        <button class="btn-save" id="admModalSaveBtn">저장하기 (GitHub 반영)</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    let homeData = {};
-    let researchItems = [];
-    let piData = {};
-    let currentMembers = [];
-    let alumniData = { phd: [], ms: [], undergrad: [] };
-    let newsItems = [];
-    let publications = [];
-    let contactData = {};
+    const REPO_OWNER = 'biophotonics0';
+    const REPO_NAME = 'bplab.github.io';
+    const BRANCH = 'main';
+
+    let siteData = {
+      home: {},
+      research: [],
+      publications: [],
+      professor: {},
+      members: { graduate: [], undergraduate: [] },
+      alumni: [],
+      news: [],
+      contact: {}
+    };
+
+    let currentSlide = 0;
     let selectedYear = 'ALL';
-    let slideIndex = 0;
 
-    // Tab Switching
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    // ================= AUTH & GITHUB API =================
+    function getToken() { return localStorage.getItem('bplab_gh_token') || ''; }
+    function checkAdminState() {
+      const hasToken = !!getToken();
+      document.body.classList.toggle('is-admin', hasToken);
+      document.getElementById('footerLoginBtn').textContent = hasToken ? 'Admin Mode Active' : 'Admin Login';
+    }
 
-      document.getElementById('tab-' + tabId).classList.add('active');
-      const activeBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
-      if (activeBtn) activeBtn.classList.add('active');
+    function openLoginModal() {
+      if (getToken()) return;
+      document.getElementById('admModalTitle').textContent = '관리자 로그인 (GitHub Token)';
+      document.getElementById('admModalBody').innerHTML = `
+        <p style="font-size:0.88rem; color:#4B5563; margin-bottom:12px;">
+          연구실 공용 계정(<strong>@biophotonics0</strong>)의 GitHub Personal Access Token을 입력하면 현재 브라우저에 자동 저장되며, 홈페이지 화면에서 바로 글을 추가·수정할 수 있습니다.
+        </p>
+        <div class="adm-field">
+          <label>GitHub Personal Access Token (ghp_...)</label>
+          <input type="password" id="loginTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+        </div>
+      `;
+      const saveBtn = document.getElementById('admModalSaveBtn');
+      saveBtn.textContent = '로그인';
+      saveBtn.onclick = async () => {
+        const val = document.getElementById('loginTokenInput').value.trim();
+        if (!val) return alert('토큰을 입력해 주세요.');
+        saveBtn.disabled = true;
+        saveBtn.textContent = '확인 중...';
+        try {
+          const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
+            headers: { Authorization: `token ${val}` }
+          });
+          const info = await res.json();
+          if (!res.ok || !info.permissions || !info.permissions.push) {
+            throw new Error('저장소 쓰기 권한이 없는 토큰입니다.');
+          }
+          localStorage.setItem('bplab_gh_token', val);
+          checkAdminState();
+          closeAdmModal();
+          alert('관리자 모드로 로그인되었습니다! 이제 각 섹션에서 직접 추가/수정/삭제할 수 있습니다.');
+        } catch (err) {
+          alert('로그인 실패: ' + err.message);
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '저장하기 (GitHub 반영)';
+        }
+      };
+      document.getElementById('admModalBackdrop').classList.add('open');
+    }
+
+    function adminLogout() {
+      localStorage.removeItem('bplab_gh_token');
+      checkAdminState();
+      alert('관리자 모드에서 로그아웃되었습니다.');
+    }
+
+    function closeAdmModal() {
+      document.getElementById('admModalBackdrop').classList.remove('open');
+    }
+
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    async function saveJsonToGitHub(filePath, dataObj, commitMsg) {
+      const token = getToken();
+      if (!token) throw new Error('로그인이 필요합니다.');
+      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+      const getRes = await fetch(url + `?ref=${BRANCH}&t=${Date.now()}`, {
+        headers: { Authorization: `token ${token}` }
+      });
+      let sha = undefined;
+      if (getRes.ok) {
+        const existing = await getRes.json();
+        sha = existing.sha;
+      }
+      const putRes = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: commitMsg,
+          content: utf8ToBase64(JSON.stringify(dataObj, null, 2)),
+          branch: BRANCH,
+          ...(sha ? { sha } : {})
+        })
+      });
+      if (!putRes.ok) {
+        const errData = await putRes.json();
+        throw new Error(errData.message || 'GitHub 저장 실패');
+      }
+    }
+
+    async function uploadImageToGitHub(fileInput) {
+      if (!fileInput || !fileInput.files || !fileInput.files[0]) return null;
+      const file = fileInput.files[0];
+      const token = getToken();
+      const safeName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const filePath = `assets/uploads/${safeName}`;
+
+      const base64Content = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+      const putRes = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Upload image ${safeName}`,
+          content: base64Content,
+          branch: BRANCH
+        })
+      });
+      if (!putRes.ok) throw new Error('이미지 업로드 실패');
+      return filePath;
+    }
+
+    // ================= NAVIGATION =================
+    function showPage(pageId) {
+      document.querySelectorAll('.section-page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if (['professor', 'current-members', 'alumni'].includes(pageId)) {
+        document.querySelector('.nav-btn[data-page="members"]').classList.add('active');
+      } else {
+        const btn = document.querySelector(`.nav-btn[data-page="${pageId}"]`);
+        if (btn) btn.classList.add('active');
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Home Slider & Welcome
-    function renderHome() {
-      document.getElementById('homeWelcomeEn').textContent = homeData.welcomeEn || '';
-      document.getElementById('homeWelcomeKo').textContent = homeData.welcomeKo || '';
-      document.getElementById('homeRecruitText').innerHTML = (homeData.recruitText || '').replace(
-        /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
-        '<a href="mailto:$1" style="color:var(--khu-burgundy); font-weight:600;">$1</a>'
+    // ================= DATA LOADING =================
+    async function loadAllData() {
+      const bust = '?t=' + Date.now();
+      const files = ['home', 'research', 'publications', 'professor', 'members', 'alumni', 'news', 'contact'];
+      const results = await Promise.all(
+        files.map(f => fetch(`data/${f}.json${bust}`).then(r => r.json()).catch(() => null))
       );
+      if (results[0]) siteData.home = results[0];
+      if (results[1]) siteData.research = results[1].items || results[1];
+      if (results[2]) siteData.publications = results[2].items || results[2];
+      if (results[3]) siteData.professor = results[3];
+      if (results[4]) siteData.members = results[4];
+      if (results[5]) siteData.alumni = results[5].items || results[5];
+      if (results[6]) siteData.news = results[6].items || results[6];
+      if (results[7]) siteData.contact = results[7];
 
-      const slides = homeData.slides || [];
-      const sliderEl = document.getElementById('homeSlider');
-      if (slides.length === 0) {
-        sliderEl.style.display = 'none';
-        return;
-      }
-      sliderEl.style.display = 'block';
-      slideIndex = 0;
-      sliderEl.innerHTML = slides.map((s, idx) => `
-        <div class="slide ${idx === 0 ? 'active' : ''}">
-          <img src="${s.image}" alt="${s.caption || 'Lab Slide'}">
-          <div class="slide-caption">${s.caption || ''}</div>
-        </div>
-      `).join('') + (slides.length > 1 ? `
-        <button class="slider-btn slider-prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="slider-btn slider-next" onclick="moveSlide(1)">&#10095;</button>
-      ` : '');
+      renderHome();
+      renderResearch();
+      initPublications();
+      renderProfessor();
+      renderMembers();
+      renderAlumni();
+      renderNews();
+      renderContact();
     }
 
-    function moveSlide(step) {
+    // ================= 1. HOME =================
+    function renderHome() {
+      document.getElementById('homeIntroEn').textContent = siteData.home.intro_en || '';
+      document.getElementById('homeIntroKr').textContent = siteData.home.intro_kr || '';
+      document.getElementById('homeRecruitText').textContent = siteData.home.recruit_text || '';
+
+      const slider = document.getElementById('homeSlider');
+      const dots = document.getElementById('sliderDots');
+      slider.querySelectorAll('.slide').forEach(el => el.remove());
+      dots.innerHTML = '';
+
+      const slides = siteData.home.slides || [];
+      slides.forEach((s, idx) => {
+        const div = document.createElement('div');
+        div.className = 'slide' + (idx === 0 ? ' active' : '');
+        div.innerHTML = `
+          <img src="${s.image}" alt="${s.caption || ''}" onerror="this.src='https://placehold.co/800x600/7B1E2B/FFF?text=Biophotonics+LAB'" />
+          <div class="slide-caption">
+            ${s.caption || ''}
+            <button class="btn-adm btn-adm-del admin-only" style="margin-left:10px;" onclick="deleteSlide(${idx})">삭제</button>
+          </div>
+        `;
+        slider.insertBefore(div, slider.querySelector('.prev'));
+
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (idx === 0 ? ' active' : '');
+        dot.onclick = () => goToSlide(idx);
+        dots.appendChild(dot);
+      });
+      currentSlide = 0;
+    }
+
+    function goToSlide(n) {
       const slides = document.querySelectorAll('#homeSlider .slide');
+      const dots = document.querySelectorAll('#sliderDots .dot');
       if (!slides.length) return;
-      slides[slideIndex].classList.remove('active');
-      slideIndex = (slideIndex + step + slides.length) % slides.length;
-      slides[slideIndex].classList.add('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+      dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
     }
-    setInterval(() => moveSlide(1), 5000);
+    function moveSlide(step) { goToSlide(currentSlide + step); }
 
-    // Render Research
+    function openEditHome() {
+      document.getElementById('admModalTitle').textContent = 'Home 소개글 및 모집 안내 수정';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>영문 소개글</label><textarea id="f_intro_en">${siteData.home.intro_en || ''}</textarea></div>
+        <div class="adm-field"><label>국문 소개글</label><textarea id="f_intro_kr">${siteData.home.intro_kr || ''}</textarea></div>
+        <div class="adm-field"><label>학생 모집 안내문</label><textarea id="f_recruit">${siteData.home.recruit_text || ''}</textarea></div>
+      `;
+      bindSave(async () => {
+        siteData.home.intro_en = document.getElementById('f_intro_en').value;
+        siteData.home.intro_kr = document.getElementById('f_intro_kr').value;
+        siteData.home.recruit_text = document.getElementById('f_recruit').value;
+        await saveJsonToGitHub('data/home.json', siteData.home, 'Update home intro');
+        renderHome();
+      });
+    }
+
+    function openAddSlide() {
+      document.getElementById('admModalTitle').textContent = 'Home 슬라이드 사진 추가';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>사진 파일 선택</label><input type="file" id="f_slide_file" accept="image/*" /></div>
+        <div class="adm-field"><label>사진 설명 (캡션)</label><input type="text" id="f_slide_cap" placeholder="예: 2026 Biophotonics Lab Group Photo" /></div>
+      `;
+      bindSave(async () => {
+        const uploaded = await uploadImageToGitHub(document.getElementById('f_slide_file'));
+        if (!uploaded) throw new Error('사진 파일을 선택해 주세요.');
+        siteData.home.slides = siteData.home.slides || [];
+        siteData.home.slides.push({ image: uploaded, caption: document.getElementById('f_slide_cap').value });
+        await saveJsonToGitHub('data/home.json', siteData.home, 'Add home slide');
+        renderHome();
+      });
+    }
+
+    async function deleteSlide(idx) {
+      if (!confirm('이 슬라이드 사진을 삭제할까요?')) return;
+      siteData.home.slides.splice(idx, 1);
+      await saveJsonToGitHub('data/home.json', siteData.home, 'Delete home slide');
+      renderHome();
+    }
+
+    // ================= 2. RESEARCH =================
     function renderResearch() {
       const container = document.getElementById('researchList');
-      container.innerHTML = researchItems.map(r => `
+      container.innerHTML = siteData.research.map((item, idx) => `
         <div class="research-item">
-          <div class="research-thumb">
-            <img src="${r.image}" alt="${r.title}">
-          </div>
+          <img src="${item.image}" alt="${item.title}" onerror="this.src='https://placehold.co/600x400/F3F4F6/7B1E2B?text=Research+Area+${idx+1}'" />
           <div>
-            <div class="research-num">${r.label || ''}</div>
-            <h3>${r.title}</h3>
-            <p>${r.description}</p>
+            <span class="research-num">Research Thrust 0${idx + 1}</span>
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <div class="card-adm-tools left admin-only">
+              <button class="btn-adm btn-adm-edit" onclick="openResearchModal(${idx})">✎ 수정</button>
+              <button class="btn-adm btn-adm-del" onclick="deleteResearch(${idx})">삭제</button>
+            </div>
           </div>
         </div>
       `).join('');
     }
 
-    // Render PI, Current Members & Alumni
-    function renderMembers() {
-      const piCard = document.getElementById('piCard');
-      if (piData && piData.name) {
-        piCard.innerHTML = `
-          <img src="${piData.photo || 'prof-byun.jpg'}" alt="${piData.name}" class="pi-photo"
-               onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22290%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23e5e7eb%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%236b7280%22>Prof. K. M. Byun</text></svg>'">
-          <div>
-            <div class="pi-header">
-              <h3>${piData.name}</h3>
-              <div class="pi-role">${piData.role || ''}</div>
-            </div>
-            <p style="font-size:0.92rem; color:#374151;">
-              <strong>Office:</strong> ${piData.office || ''} &nbsp;|&nbsp;
-              <strong>Tel:</strong> ${piData.tel || ''} &nbsp;|&nbsp;
-              <strong>E-mail:</strong> <a href="mailto:${piData.email}" style="color:var(--khu-burgundy); font-weight:600;">${piData.email || ''}</a>
-            </p>
-            <div class="pi-info-grid">
-              <div>
-                <h4>Education</h4>
-                <ul>
-                  ${(piData.education || []).map(e => `<li><strong>${e.degree}</strong> ${e.detail}</li>`).join('')}
-                </ul>
-              </div>
-              <div>
-                <h4>Academic Career</h4>
-                <ul>
-                  ${(piData.career || []).map(c => `<li><strong>${c.period}</strong> ${c.detail}</li>`).join('')}
-                </ul>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      const grid = document.getElementById('currentMembersGrid');
-      grid.innerHTML = currentMembers.map(m => `
-        <div class="member-card">
-          ${m.photo ? `
-            <img src="${m.photo}" alt="${m.enName}" class="member-photo"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="avatar-placeholder" style="display:none;">${m.fallback || ''}</div>
-          ` : `
-            <div class="avatar-placeholder">${m.fallback || ''}</div>
-          `}
-          <div class="member-role">${m.role}</div>
-          <div class="member-name">${m.name}</div>
-          <div class="member-en">${m.enName}</div>
-          <div class="member-meta">
-            <div style="margin-bottom: 0.5rem;">${m.dept}</div>
-            ${m.email}
-          </div>
-        </div>
-      `).join('');
-
-      document.getElementById('phdAlumniList').innerHTML = (alumniData.phd || []).map(a =>
-        `<li><strong>${a.name}</strong> ${a.year || ''}</li>`
-      ).join('');
-
-      document.getElementById('msAlumniList').innerHTML = (alumniData.ms || []).map(a =>
-        `<li><strong>${a.name}</strong> ${a.year || ''}</li>`
-      ).join('');
-
-      document.getElementById('undergradAlumniList').innerHTML = (alumniData.undergrad || []).map(a =>
-        `<li><strong>${a.name}</strong> ${a.info || ''}</li>`
-      ).join('');
+    function openResearchModal(idx = null) {
+      const item = idx !== null ? siteData.research[idx] : { title: '', description: '', image: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '연구 주제 수정' : '새 연구 주제 추가';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>연구 분야 제목</label><input type="text" id="f_res_title" value="${item.title}" /></div>
+        <div class="adm-field"><label>연구 내용 설명</label><textarea id="f_res_desc">${item.description}</textarea></div>
+        <div class="adm-field"><label>대표 이미지 변경/업로드 (선택)</label><input type="file" id="f_res_file" accept="image/*" /></div>
+      `;
+      bindSave(async () => {
+        const uploaded = await uploadImageToGitHub(document.getElementById('f_res_file'));
+        const newObj = {
+          title: document.getElementById('f_res_title').value,
+          description: document.getElementById('f_res_desc').value,
+          image: uploaded || item.image || ''
+        };
+        if (idx !== null) siteData.research[idx] = newObj;
+        else siteData.research.push(newObj);
+        await saveJsonToGitHub('data/research.json', { items: siteData.research }, 'Update research');
+        renderResearch();
+      });
     }
 
-    // Render News & Home Preview
-    function renderNotices() {
-      const homePreview = document.getElementById('homeNoticePreview');
-      homePreview.innerHTML = newsItems.slice(0, 3).map(n => `
-        <div class="notice-preview-item" onclick="switchTab('notice')">
-          <div class="notice-preview-date">${n.date} · ${n.category}</div>
-          <div class="notice-preview-title">${n.title}</div>
-        </div>
-      `).join('');
-
-      const noticeList = document.getElementById('noticeList');
-      noticeList.innerHTML = newsItems.map(n => {
-        const imgs = (n.images || []).map(item => typeof item === 'string' ? item : item.image).filter(Boolean);
-        const hasImg = imgs.length > 0;
-        return `
-          <article class="notice-post ${hasImg ? '' : 'no-image'}">
-            <div class="notice-left">
-              <div class="notice-post-header">
-                <span class="badge-cat">${n.category}</span>
-                <span class="notice-post-date">${n.date}</span>
-                <h3 class="notice-post-title">${n.title}</h3>
-              </div>
-              <div class="notice-post-body">${n.body}</div>
-            </div>
-            ${hasImg ? `
-              <div class="notice-images">
-                ${imgs.map(img => `<a href="${img}" target="_blank" title="클릭하여 원본 크기로 보기"><img src="${img}" alt="News attachment" onerror="this.parentElement.style.display='none'"></a>`).join('')}
-              </div>
-            ` : ''}
-          </article>
-        `;
-      }).join('');
+    async function deleteResearch(idx) {
+      if (!confirm('이 연구 주제를 삭제할까요?')) return;
+      siteData.research.splice(idx, 1);
+      await saveJsonToGitHub('data/research.json', { items: siteData.research }, 'Delete research');
+      renderResearch();
     }
 
-    // Render Publications
-    function initYearFilters() {
-      const years = ['ALL', ...new Set(publications.map(p => p.year))];
-      const container = document.getElementById('yearFilters');
-      container.innerHTML = years.map(y => `
-        <button class="year-btn ${y === selectedYear ? 'active' : ''}" onclick="filterYear('${y}')">
-          ${y === 'ALL' ? 'All (' + publications.length + ')' : y}
-        </button>
-      `).join('');
+    // ================= 3. PUBLICATIONS =================
+    function initPublications() {
+      const years = [...new Set(siteData.publications.map(p => p.year))].sort((a, b) => b - a);
+      const filterEl = document.getElementById('yearFilters');
+      filterEl.innerHTML = `<button class="year-btn active" onclick="setYearFilter('ALL', this)">All (${siteData.publications.length})</button>` +
+        years.map(y => `<button class="year-btn" onclick="setYearFilter('${y}', this)">${y}</button>`).join('');
+      renderPublications();
     }
 
-    function filterYear(year) {
+    function setYearFilter(year, btn) {
       selectedYear = year;
-      initYearFilters();
+      document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       renderPublications();
     }
 
     function renderPublications() {
       const query = document.getElementById('pubSearch').value.toLowerCase();
-      const filtered = publications.filter(p => {
+      const indexed = siteData.publications.map((p, origIdx) => ({ ...p, origIdx }));
+      const filtered = indexed.filter(p => {
         const matchYear = selectedYear === 'ALL' || String(p.year) === String(selectedYear);
-        const matchText = p.title.toLowerCase().includes(query) ||
-                          p.authors.toLowerCase().includes(query) ||
-                          p.journal.toLowerCase().includes(query);
+        const matchText = !query ||
+          (p.title && p.title.toLowerCase().includes(query)) ||
+          (p.authors && p.authors.toLowerCase().includes(query)) ||
+          (p.journal && p.journal.toLowerCase().includes(query));
         return matchYear && matchText;
       });
 
-      const list = document.getElementById('pubList');
-      if (filtered.length === 0) {
-        list.innerHTML = '<li style="padding:2rem; text-align:center; color:#6b7280;">No matching publications found.</li>';
-        return;
-      }
+      document.getElementById('pubCount').textContent = `Showing ${filtered.length} publications`;
+      const grouped = {};
+      filtered.forEach(p => {
+        if (!grouped[p.year]) grouped[p.year] = [];
+        grouped[p.year].push(p);
+      });
 
-      list.innerHTML = filtered.map(p => `
-        <li class="pub-item">
-          <div class="pub-num">[${p.num}]</div>
-          <div>
-            <div class="pub-title">${p.title}</div>
-            <div class="pub-authors">${p.authors}</div>
-            <div class="pub-journal">
-              ${p.journal}
-              ${p.badge ? `<span class="pub-badge">${p.badge}</span>` : ''}
+      const sortedYears = Object.keys(grouped).sort((a, b) => b - a);
+      document.getElementById('pubList').innerHTML = sortedYears.map(year => `
+        <div class="pub-year-group">
+          <div class="pub-year-title">${year}</div>
+          ${grouped[year].map(p => `
+            <div class="pub-card">
+              <div class="pub-title">${p.title}</div>
+              <div class="pub-authors">${p.authors}</div>
+              <div class="pub-journal">
+                ${p.journal}
+                ${p.url ? `<a class="pub-link" href="${p.url}" target="_blank" rel="noopener">DOI / Link ↗</a>` : ''}
+              </div>
+              <div class="card-adm-tools left admin-only">
+                <button class="btn-adm btn-adm-edit" onclick="openPubModal(${p.origIdx})">✎ 수정</button>
+                <button class="btn-adm btn-adm-del" onclick="deletePub(${p.origIdx})">삭제</button>
+              </div>
             </div>
-          </div>
-        </li>
+          `).join('')}
+        </div>
       `).join('');
     }
 
-    // Render Contact
-    function renderContact() {
-      const infoList = document.getElementById('contactInfoList');
-      infoList.innerHTML = `
-        <li>
-          <div class="contact-label">Laboratory Location (연구실 위치)</div>
-          <div>${(contactData.addressEn || '').replace(/\n/g, '<br>')}</div>
-          <div style="font-size:0.88rem; color:var(--text-muted); margin-top:0.3rem;">${contactData.addressKo || ''}</div>
-        </li>
-        <li>
-          <div class="contact-label">Principal Investigator</div>
-          <div>${contactData.piName || ''}</div>
-        </li>
-        <li>
-          <div class="contact-label">Phone </div>
-          <div>${contactData.phoneFax || ''}</div>
-        </li>
-        <li>
-          <div class="contact-label">E-mail</div>
-          <div><a href="mailto:${contactData.email}" style="color:var(--khu-burgundy); font-weight:600;">${contactData.email || ''}</a></div>
-        </li>
+    function openPubModal(idx = null) {
+      const p = idx !== null ? siteData.publications[idx] : { year: new Date().getFullYear(), title: '', authors: '', journal: '', url: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '논문 정보 수정' : '새 논문 추가';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>출판 연도</label><input type="number" id="f_pub_year" value="${p.year}" /></div>
+        <div class="adm-field"><label>논문 제목</label><textarea id="f_pub_title">${p.title}</textarea></div>
+        <div class="adm-field"><label>저자 목록</label><textarea id="f_pub_authors">${p.authors}</textarea></div>
+        <div class="adm-field"><label>저널명 및 권/호/날짜</label><input type="text" id="f_pub_journal" value="${p.journal}" /></div>
+        <div class="adm-field"><label>DOI / 논문 링크 (선택)</label><input type="text" id="f_pub_url" value="${p.url || ''}" placeholder="https://doi.org/..." /></div>
       `;
+      bindSave(async () => {
+        const newObj = {
+          year: Number(document.getElementById('f_pub_year').value),
+          title: document.getElementById('f_pub_title').value,
+          authors: document.getElementById('f_pub_authors').value,
+          journal: document.getElementById('f_pub_journal').value,
+          url: document.getElementById('f_pub_url').value
+        };
+        if (idx !== null) siteData.publications[idx] = newObj;
+        else siteData.publications.unshift(newObj);
+        await saveJsonToGitHub('data/publications.json', { items: siteData.publications }, 'Update publications');
+        initPublications();
+      });
+    }
 
-      const query = encodeURIComponent(contactData.mapQuery || '경희대학교 국제캠퍼스 전자정보대학관');
-      document.getElementById('contactMapContainer').innerHTML = `
-        <iframe
-          class="map-frame"
-          src="https://maps.google.com/maps?q=${query}&t=&z=16&ie=UTF8&iwloc=&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+    async function deletePub(idx) {
+      if (!confirm('이 논문을 삭제할까요?')) return;
+      siteData.publications.splice(idx, 1);
+      await saveJsonToGitHub('data/publications.json', { items: siteData.publications }, 'Delete publication');
+      initPublications();
+    }
+
+    // ================= 4. MEMBERS =================
+    function renderProfessor() {
+      const p = siteData.professor;
+      if (!p.name) return;
+      document.getElementById('profContainer').innerHTML = `
+        <div class="prof-card">
+          <img class="prof-photo" src="${p.photo}" alt="${p.name}" onerror="this.src='https://placehold.co/400x500/E5E7EB/6B7280?text=Professor'" />
+          <div class="prof-info">
+            <h3>${p.name}</h3>
+            <div class="prof-role">${p.title || ''}</div>
+            <div class="prof-meta">
+              <div><strong>Affiliation:</strong> ${p.affiliation || ''}</div>
+              <div><strong>Office:</strong> ${p.office || ''}</div>
+              <div><strong>Email:</strong> ${p.email || ''}</div>
+              <div><strong>Tel:</strong> ${p.tel || ''}</div>
+            </div>
+            <div class="prof-section">
+              <h4>Education</h4>
+              <ul>${(p.education || []).map(e => `<li>${e}</li>`).join('')}</ul>
+            </div>
+            <div class="prof-section">
+              <h4>Academic &amp; Professional Career</h4>
+              <ul>${(p.career || []).map(c => `<li>${c}</li>`).join('')}</ul>
+            </div>
+          </div>
+        </div>
       `;
     }
 
-    // Load All JSON Files in Real-Time
-    async function loadAllData() {
-      try {
-        const opts = { cache: 'no-store' };
-        const [hRes, rRes, piRes, mRes, aRes, nRes, pRes, cRes] = await Promise.all([
-          fetch('data/home.json', opts),
-          fetch('data/research.json', opts),
-          fetch('data/pi.json', opts),
-          fetch('data/members.json', opts),
-          fetch('data/alumni.json', opts),
-          fetch('data/news.json', opts),
-          fetch('data/publications.json', opts),
-          fetch('data/contact.json', opts)
-        ]);
-        if (hRes.ok) homeData = await hRes.json();
-        if (rRes.ok) researchItems = (await rRes.json()).items || [];
-        if (piRes.ok) piData = await piRes.json();
-        if (mRes.ok) currentMembers = (await mRes.json()).items || [];
-        if (aRes.ok) alumniData = await aRes.json();
-        if (nRes.ok) newsItems = (await nRes.json()).items || [];
-        if (pRes.ok) publications = (await pRes.json()).items || [];
-        if (cRes.ok) contactData = await cRes.json();
-      } catch (e) {
-        console.error('데이터 로드 오류:', e);
-      }
-      renderHome();
-      renderResearch();
+    function openProfModal() {
+      const p = siteData.professor;
+      document.getElementById('admModalTitle').textContent = '교수님(PI) 정보 수정';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>성함</label><input type="text" id="f_prof_name" value="${p.name || ''}" /></div>
+        <div class="adm-field"><label>직위</label><input type="text" id="f_prof_title" value="${p.title || ''}" /></div>
+        <div class="adm-field"><label>소속</label><input type="text" id="f_prof_aff" value="${p.affiliation || ''}" /></div>
+        <div class="adm-field"><label>연구실 위치</label><input type="text" id="f_prof_office" value="${p.office || ''}" /></div>
+        <div class="adm-field"><label>이메일</label><input type="text" id="f_prof_email" value="${p.email || ''}" /></div>
+        <div class="adm-field"><label>전화번호</label><input type="text" id="f_prof_tel" value="${p.tel || ''}" /></div>
+        <div class="adm-field"><label>학력 (한 줄에 한 항목씩 입력)</label><textarea id="f_prof_edu">${(p.education || []).join('\n')}</textarea></div>
+        <div class="adm-field"><label>경력 (한 줄에 한 항목씩 입력)</label><textarea id="f_prof_car">${(p.career || []).join('\n')}</textarea></div>
+        <div class="adm-field"><label>프로필 사진 변경 (선택)</label><input type="file" id="f_prof_file" accept="image/*" /></div>
+      `;
+      bindSave(async () => {
+        const uploaded = await uploadImageToGitHub(document.getElementById('f_prof_file'));
+        siteData.professor = {
+          name: document.getElementById('f_prof_name').value,
+          title: document.getElementById('f_prof_title').value,
+          affiliation: document.getElementById('f_prof_aff').value,
+          office: document.getElementById('f_prof_office').value,
+          email: document.getElementById('f_prof_email').value,
+          tel: document.getElementById('f_prof_tel').value,
+          education: document.getElementById('f_prof_edu').value.split('\n').map(s => s.trim()).filter(Boolean),
+          career: document.getElementById('f_prof_car').value.split('\n').map(s => s.trim()).filter(Boolean),
+          photo: uploaded || p.photo || ''
+        };
+        await saveJsonToGitHub('data/professor.json', siteData.professor, 'Update professor info');
+        renderProfessor();
+      });
+    }
+
+    function renderMembers() {
+      const renderCard = (m, type, idx) => `
+        <div class="member-card">
+          <img src="${m.photo}" alt="${m.name}" onerror="this.src='https://placehold.co/400x420/F3F4F6/6B7280?text=${encodeURIComponent(m.name)}'" />
+          <div class="member-name">${m.name}</div>
+          <div class="member-degree">${m.degree}</div>
+          <div class="member-topic">${m.topic || ''}</div>
+          ${m.email ? `<div class="member-email">${m.email}</div>` : ''}
+          <div class="card-adm-tools admin-only">
+            <button class="btn-adm btn-adm-edit" onclick="openMemberModal('${type}', ${idx})">✎ 수정</button>
+            <button class="btn-adm btn-adm-del" onclick="deleteMember('${type}', ${idx})">삭제</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('gradGrid').innerHTML = (siteData.members.graduate || []).map((m, i) => renderCard(m, 'graduate', i)).join('');
+      document.getElementById('undergradGrid').innerHTML = (siteData.members.undergraduate || []).map((m, i) => renderCard(m, 'undergraduate', i)).join('');
+    }
+
+    function openMemberModal(type, idx = null) {
+      const list = siteData.members[type] || [];
+      const m = idx !== null ? list[idx] : { name: '', degree: type === 'graduate' ? 'M.S. Student' : 'Undergraduate Intern', topic: '', email: '', photo: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '멤버 정보 수정' : '새 멤버 추가';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>이름</label><input type="text" id="f_mem_name" value="${m.name}" /></div>
+        <div class="adm-field"><label>과정 (예: Ph.D. Student, M.S. Student, Undergraduate Intern)</label><input type="text" id="f_mem_deg" value="${m.degree}" /></div>
+        <div class="adm-field"><label>연구 분야 (선택)</label><input type="text" id="f_mem_topic" value="${m.topic || ''}" /></div>
+        <div class="adm-field"><label>이메일 (선택)</label><input type="text" id="f_mem_email" value="${m.email || ''}" /></div>
+        <div class="adm-field"><label>프로필 사진 업로드 (선택)</label><input type="file" id="f_mem_file" accept="image/*" /></div>
+      `;
+      bindSave(async () => {
+        const uploaded = await uploadImageToGitHub(document.getElementById('f_mem_file'));
+        const newObj = {
+          name: document.getElementById('f_mem_name').value,
+          degree: document.getElementById('f_mem_deg').value,
+          topic: document.getElementById('f_mem_topic').value,
+          email: document.getElementById('f_mem_email').value,
+          photo: uploaded || m.photo || ''
+        };
+        if (idx !== null) list[idx] = newObj;
+        else list.push(newObj);
+        siteData.members[type] = list;
+        await saveJsonToGitHub('data/members.json', siteData.members, 'Update members');
+        renderMembers();
+      });
+    }
+
+    async function deleteMember(type, idx) {
+      if (!confirm('이 멤버를 삭제할까요?')) return;
+      siteData.members[type].splice(idx, 1);
+      await saveJsonToGitHub('data/members.json', siteData.members, 'Delete member');
       renderMembers();
-      renderNotices();
-      initYearFilters();
-      renderPublications();
-      renderContact();
     }
 
+    function renderAlumni() {
+      document.getElementById('alumniGrid').innerHTML = siteData.alumni.map((a, idx) => `
+        <div class="alumni-item">
+          <div>
+            <div class="alumni-name">${a.name}</div>
+            <div class="alumni-aff">${a.affiliation || ''}</div>
+          </div>
+          <div class="admin-only" style="gap:4px;">
+            <button class="btn-adm btn-adm-edit" onclick="openAlumniModal(${idx})">수정</button>
+            <button class="btn-adm btn-adm-del" onclick="deleteAlumni(${idx})">삭제</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openAlumniModal(idx = null) {
+      const a = idx !== null ? siteData.alumni[idx] : { name: '', affiliation: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '졸업생 수정' : '졸업생 추가';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>이름 및 졸업연도 (예: 홍길동 ('26))</label><input type="text" id="f_alu_name" value="${a.name}" /></div>
+        <div class="adm-field"><label>현재 소속 / 진로 (선택)</label><input type="text" id="f_alu_aff" value="${a.affiliation || ''}" /></div>
+      `;
+      bindSave(async () => {
+        const newObj = { name: document.getElementById('f_alu_name').value, affiliation: document.getElementById('f_alu_aff').value };
+        if (idx !== null) siteData.alumni[idx] = newObj;
+        else siteData.alumni.push(newObj);
+        await saveJsonToGitHub('data/alumni.json', { items: siteData.alumni }, 'Update alumni');
+        renderAlumni();
+      });
+    }
+
+    async function deleteAlumni(idx) {
+      if (!confirm('이 졸업생 항목을 삭제할까요?')) return;
+      siteData.alumni.splice(idx, 1);
+      await saveJsonToGitHub('data/alumni.json', { items: siteData.alumni }, 'Delete alumni');
+      renderAlumni();
+    }
+
+    // ================= 5. NEWS =================
+    function renderNews() {
+      document.getElementById('newsGrid').innerHTML = siteData.news.map((n, idx) => `
+        <div class="news-card">
+          ${n.image ? `<img src="${n.image}" alt="${n.title}" onerror="this.style.display='none'" />` : ''}
+          <div class="news-body">
+            <div class="news-date">${n.date}</div>
+            <div class="news-title">${n.title}</div>
+            <div class="news-desc">${n.description}</div>
+            <div class="card-adm-tools left admin-only">
+              <button class="btn-adm btn-adm-edit" onclick="openNewsModal(${idx})">✎ 수정</button>
+              <button class="btn-adm btn-adm-del" onclick="deleteNews(${idx})">삭제</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openNewsModal(idx = null) {
+      const today = new Date().toISOString().slice(0, 10);
+      const n = idx !== null ? siteData.news[idx] : { date: today, title: '', description: '', image: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '뉴스 수정' : '새 뉴스/사진 올리기';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>날짜 (YYYY-MM-DD)</label><input type="text" id="f_news_date" value="${n.date}" /></div>
+        <div class="adm-field"><label>제목</label><input type="text" id="f_news_title" value="${n.title}" /></div>
+        <div class="adm-field"><label>본문 내용</label><textarea id="f_news_desc">${n.description}</textarea></div>
+        <div class="adm-field"><label>첨부 사진 (선택)</label><input type="file" id="f_news_file" accept="image/*" /></div>
+      `;
+      bindSave(async () => {
+        const uploaded = await uploadImageToGitHub(document.getElementById('f_news_file'));
+        const newObj = {
+          date: document.getElementById('f_news_date').value,
+          title: document.getElementById('f_news_title').value,
+          description: document.getElementById('f_news_desc').value,
+          image: uploaded || n.image || ''
+        };
+        if (idx !== null) siteData.news[idx] = newObj;
+        else siteData.news.unshift(newObj);
+        await saveJsonToGitHub('data/news.json', { items: siteData.news }, 'Update news');
+        renderNews();
+      });
+    }
+
+    async function deleteNews(idx) {
+      if (!confirm('이 뉴스 게시물을 삭제할까요?')) return;
+      siteData.news.splice(idx, 1);
+      await saveJsonToGitHub('data/news.json', { items: siteData.news }, 'Delete news');
+      renderNews();
+    }
+
+    // ================= 6. CONTACT =================
+    function renderContact() {
+      const c = siteData.contact;
+      document.getElementById('contactInfoList').innerHTML = `
+        <li><strong>Address (English)</strong><div>${c.address_en || ''}</div></li>
+        <li><strong>주소 (국문)</strong><div>${c.address_kr || ''}</div></li>
+        <li><strong>Principal Investigator</strong><div>${c.pi || ''}</div></li>
+        <li><strong>Phone / Fax</strong><div>${c.phone || ''}</div></li>
+        <li><strong>Email</strong><div>${c.email || ''}</div></li>
+      `;
+    }
+
+    function openContactModal() {
+      const c = siteData.contact;
+      document.getElementById('admModalTitle').textContent = '연락처 및 주소 수정';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>영문 주소</label><textarea id="f_con_en">${c.address_en || ''}</textarea></div>
+        <div class="adm-field"><label>국문 주소</label><textarea id="f_con_kr">${c.address_kr || ''}</textarea></div>
+        <div class="adm-field"><label>연구책임자(PI) 표기</label><input type="text" id="f_con_pi" value="${c.pi || ''}" /></div>
+        <div class="adm-field"><label>전화 및 팩스 번호</label><input type="text" id="f_con_phone" value="${c.phone || ''}" /></div>
+        <div class="adm-field"><label>대표 이메일</label><input type="text" id="f_con_email" value="${c.email || ''}" /></div>
+      `;
+      bindSave(async () => {
+        siteData.contact = {
+          address_en: document.getElementById('f_con_en').value,
+          address_kr: document.getElementById('f_con_kr').value,
+          pi: document.getElementById('f_con_pi').value,
+          phone: document.getElementById('f_con_phone').value,
+          email: document.getElementById('f_con_email').value
+        };
+        await saveJsonToGitHub('data/contact.json', siteData.contact, 'Update contact info');
+        renderContact();
+      });
+    }
+
+    // ================= MODAL SAVE HELPER =================
+    function bindSave(asyncAction) {
+      const saveBtn = document.getElementById('admModalSaveBtn');
+      saveBtn.textContent = '저장하기 (GitHub 반영)';
+      saveBtn.disabled = false;
+      saveBtn.onclick = async () => {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'GitHub에 저장 중...';
+        try {
+          await asyncAction();
+          closeAdmModal();
+        } catch (err) {
+          alert('저장 중 오류가 발생했습니다: ' + err.message);
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '저장하기 (GitHub 반영)';
+        }
+      };
+      document.getElementById('admModalBackdrop').classList.add('open');
+    }
+
+    checkAdminState();
     loadAllData();
   </script>
 </body>
