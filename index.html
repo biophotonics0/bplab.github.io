@@ -12,7 +12,9 @@
     #homeRecruitText,
     .research-item p,
     .notice-post-body,
-    .contact-info-list li div {
+    .contact-info-list li div,
+    #footerLeftText,
+    #footerRightText {
       white-space: pre-line;
     }
     :root {
@@ -876,7 +878,7 @@
       background: #fff;
       border-radius: 12px;
       width: 100%;
-      max-width: 580px;
+      max-width: 600px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 24px;
@@ -894,6 +896,11 @@
       font-size: 0.9rem;
     }
     .adm-field textarea { min-height: 85px; resize: vertical; }
+    .adm-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
     .adm-modal-actions {
       display: flex;
       justify-content: flex-end;
@@ -911,7 +918,7 @@
     }
 
     @media (max-width: 820px) {
-      .home-grid, .pi-card, .contact-grid, .research-item, .pi-info-grid, .alumni-grid {
+      .home-grid, .pi-card, .contact-grid, .research-item, .pi-info-grid, .alumni-grid, .adm-grid-2 {
         grid-template-columns: 1fr;
       }
       .nav-container { flex-direction: column; height: auto; padding: 0.85rem 1rem; gap: 0.6rem; }
@@ -927,16 +934,16 @@
     <div class="nav-container">
       <div class="brand" onclick="switchTab('home')">
         <img src="khu-logo.png" alt="KHU Logo" class="brand-logo" onerror="this.style.display='none'">
-        <div class="brand-text">Biophotonics LAB <span>Kyung Hee Univ.</span></div>
+        <div class="brand-text"><span id="brandMain" style="font-weight:700; color:var(--khu-burgundy); font-size:1.15rem; margin:0;">Biophotonics LAB</span> <span id="brandSub">Kyung Hee Univ.</span></div>
       </div>
       <nav>
         <ul>
-          <li><button class="nav-btn active" data-tab="home" onclick="switchTab('home')">Home</button></li>
-          <li><button class="nav-btn" data-tab="research" onclick="switchTab('research')">Research</button></li>
-          <li><button class="nav-btn" data-tab="publications" onclick="switchTab('publications')">Publications</button></li>
-          <li><button class="nav-btn" data-tab="members" onclick="switchTab('members')">Members</button></li>
-          <li><button class="nav-btn" data-tab="notice" onclick="switchTab('notice')">News</button></li>
-          <li><button class="nav-btn" data-tab="contact" onclick="switchTab('contact')">Contact</button></li>
+          <li><button class="nav-btn active" data-tab="home" id="navHome" onclick="switchTab('home')">Home</button></li>
+          <li><button class="nav-btn" data-tab="research" id="navResearch" onclick="switchTab('research')">Research</button></li>
+          <li><button class="nav-btn" data-tab="publications" id="navPub" onclick="switchTab('publications')">Publications</button></li>
+          <li><button class="nav-btn" data-tab="members" id="navMembers" onclick="switchTab('members')">Members</button></li>
+          <li><button class="nav-btn" data-tab="notice" id="navNews" onclick="switchTab('notice')">News</button></li>
+          <li><button class="nav-btn" data-tab="contact" id="navContact" onclick="switchTab('contact')">Contact</button></li>
         </ul>
         <div class="lang-switch">
           <button class="lang-btn active" id="langEnBtn" onclick="setLang('en')">EN</button>
@@ -948,7 +955,10 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-badge" id="heroBadge">Department of Biomedical Engineering · Kyung Hee University</div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+        <div class="hero-badge" id="heroBadge">Department of Biomedical Engineering · Kyung Hee University</div>
+        <button class="btn-adm btn-adm-edit admin-only" onclick="openSiteHeaderModal()">✎ 상단·배너 문구 수정</button>
+      </div>
       <h1 id="heroTitle">Biophotonics Laboratory</h1>
       <p id="heroDesc">Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.</p>
     </div>
@@ -961,7 +971,10 @@
         <div class="card welcome-text">
           <h3>
             <span id="homeCardTitle">Welcome to Biophotonics Lab</span>
-            <button class="btn-adm btn-adm-edit admin-only" onclick="openEditHome()">✎ 소개글 수정</button>
+            <span style="display:flex; gap:5px; flex-wrap:wrap;">
+              <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('home')">✎ 제목 수정</button>
+              <button class="btn-adm btn-adm-edit admin-only" onclick="openEditHome()">✎ 소개글 수정</button>
+            </span>
           </h3>
           <p id="homeWelcomeMain"></p>
           <div class="highlight-box">
@@ -981,7 +994,7 @@
           <div class="card">
             <h3>
               <span id="homeRecentTitle">Recent News</span>
-              <span style="font-size:0.82rem; font-weight:500; cursor:pointer; color:var(--text-muted);" onclick="switchTab('notice')">View all &rarr;</span>
+              <span id="homeViewAllText" style="font-size:0.82rem; font-weight:500; cursor:pointer; color:var(--text-muted);" onclick="switchTab('notice')">View all &rarr;</span>
             </h3>
             <div id="homeNoticePreview"></div>
           </div>
@@ -992,7 +1005,10 @@
     <section id="tab-research" class="tab-section">
       <h2 class="section-title">
         <span id="secResearchTitle">Research Areas</span>
-        <button class="btn-adm btn-adm-add admin-only" onclick="openResearchModal()">+ 새 연구 주제 추가</button>
+        <span style="display:flex; gap:6px;">
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('research')">✎ 제목 수정</button>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openResearchModal()">+ 새 연구 주제 추가</button>
+        </span>
       </h2>
       <p class="section-subtitle" id="secResearchSub">Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.</p>
       <div class="research-list" id="researchList"></div>
@@ -1001,7 +1017,10 @@
     <section id="tab-publications" class="tab-section">
       <h2 class="section-title">
         <span id="secPubTitle">Publications</span>
-        <button class="btn-adm btn-adm-add admin-only" onclick="openPubModal()">+ 새 논문 추가</button>
+        <span style="display:flex; gap:6px;">
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('publications')">✎ 제목 수정</button>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openPubModal()">+ 새 논문 추가</button>
+        </span>
       </h2>
       <p class="section-subtitle" id="secPubSub">Peer-reviewed international journal articles (*Corresponding author).</p>
 
@@ -1016,38 +1035,47 @@
     <section id="tab-members" class="tab-section">
       <h2 class="section-title">
         <span id="secPiTitle">Principal Investigator</span>
-        <button class="btn-adm btn-adm-edit admin-only" onclick="openPiModal()">✎ 교수님 정보 수정</button>
+        <span style="display:flex; gap:6px;">
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('pi')">✎ 제목 수정</button>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openPiModal()">✎ 교수님 정보 수정</button>
+        </span>
       </h2>
       <p class="section-subtitle" id="secPiSub">Faculty Director of the Biophotonics Laboratory.</p>
       <div class="pi-card" id="piCard"></div>
 
       <h2 class="section-title">
         <span id="secCurTitle">Current Members</span>
-        <button class="btn-adm btn-adm-add admin-only" onclick="openMemberModal()">+ 새 멤버 추가</button>
+        <span style="display:flex; gap:6px;">
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('current')">✎ 제목 수정</button>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openMemberModal()">+ 새 멤버 추가</button>
+        </span>
       </h2>
       <p class="section-subtitle" id="secCurSub">Graduate and Undergraduate Researchers.</p>
       <div class="members-grid" id="currentMembersGrid"></div>
 
-      <h2 class="section-title" id="secAluTitle">Alumni</h2>
+      <h2 class="section-title">
+        <span id="secAluTitle">Alumni</span>
+        <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('alumni')">✎ Alumni 제목 수정</button>
+      </h2>
       <p class="section-subtitle" id="secAluSub">Graduated Ph.D. and M.S. Researchers (*Co-advised).</p>
       <div class="alumni-grid">
         <div class="alumni-box">
           <h4>
-            <span>Ph.D. Alumni</span>
+            <span id="boxPhdTitle">Ph.D. Alumni</span>
             <button class="btn-adm btn-adm-add admin-only" style="padding:2px 7px; font-size:0.74rem;" onclick="openAlumniModal('phd')">+ 추가</button>
           </h4>
           <ul class="alumni-list" id="phdAlumniList"></ul>
         </div>
         <div class="alumni-box">
           <h4>
-            <span>M.S. Alumni</span>
+            <span id="boxMsTitle">M.S. Alumni</span>
             <button class="btn-adm btn-adm-add admin-only" style="padding:2px 7px; font-size:0.74rem;" onclick="openAlumniModal('ms')">+ 추가</button>
           </h4>
           <ul class="alumni-list alumni-list-2col" id="msAlumniList"></ul>
         </div>
         <div class="alumni-box">
           <h4>
-            <span>Undergraduate Student</span>
+            <span id="boxUnderTitle">Undergraduate Student</span>
             <button class="btn-adm btn-adm-add admin-only" style="padding:2px 7px; font-size:0.74rem;" onclick="openAlumniModal('undergrad')">+ 추가</button>
           </h4>
           <ul class="alumni-list" id="undergradAlumniList"></ul>
@@ -1058,7 +1086,10 @@
     <section id="tab-notice" class="tab-section">
       <h2 class="section-title">
         <span id="secNewsTitle">News &amp; Activities</span>
-        <button class="btn-adm btn-adm-add admin-only" onclick="openNewsModal()">+ 새 뉴스/사진 올리기</button>
+        <span style="display:flex; gap:6px;">
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('news')">✎ 제목 수정</button>
+          <button class="btn-adm btn-adm-add admin-only" onclick="openNewsModal()">+ 새 뉴스/사진 올리기</button>
+        </span>
       </h2>
       <p class="section-subtitle" id="secNewsSub">Conference presentations, awards, and laboratory updates.</p>
       <div id="noticeList"></div>
@@ -1067,7 +1098,10 @@
     <section id="tab-contact" class="tab-section">
       <h2 class="section-title">
         <span id="secContactTitle">Contact &amp; Location</span>
-        <button class="btn-adm btn-adm-edit admin-only" onclick="openContactModal()">✎ 연락처/지도 수정</button>
+        <span style="display:flex; gap:6px;">
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('contact')">✎ 제목 수정</button>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openContactModal()">✎ 연락처/지도 수정</button>
+        </span>
       </h2>
       <p class="section-subtitle" id="secContactSub">How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.</p>
 
@@ -1084,13 +1118,14 @@
   <footer>
     <div class="footer-inner" style="align-items: flex-end;">
       <div>
-        <strong>Biophotonics Laboratory</strong> · Department of Biomedical Engineering, Kyung Hee University<br>
-        Room 710, College of Electronics and Information, 1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Korea
+        <strong id="footerLabName">Biophotonics Laboratory</strong> <span id="footerDeptText">· Department of Biomedical Engineering, Kyung Hee University</span><br>
+        <span id="footerAddrText">Room 710, College of Electronics and Information, 1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Korea</span>
       </div>
       <div style="text-align: right; margin-left: auto;">
-        Tel: +82-31-201-3842 | E-mail: kmbyun@khu.ac.kr<br>
-        &copy; Biophotonics Lab, Kyung Hee University. All Rights Reserved.
+        <span id="footerContactText">Tel: +82-31-201-3842 | E-mail: kmbyun@khu.ac.kr</span><br>
+        <span id="footerCopyText">&copy; Biophotonics Lab, Kyung Hee University. All Rights Reserved.</span>
         <button id="footerLoginBtn" onclick="openLoginModal()" style="background:none; border:none; color:#9ca3af; font-size:0.78rem; cursor:pointer; text-decoration:underline; margin-left:8px;">Admin Login</button>
+        <button class="btn-adm btn-adm-edit admin-only" style="margin-left:8px; padding:2px 8px; font-size:0.74rem;" onclick="openFooterModal()">✎ 하단 정보 수정</button>
       </div>
     </div>
   </footer>
@@ -1116,7 +1151,75 @@
     const REPO_NAME = 'bplab.github.io';
     const BRANCH = 'main';
 
+    const defaultSiteData = {
+      brandMain: 'Biophotonics LAB',
+      brandSub: 'Kyung Hee Univ.',
+      navHomeEn: 'Home', navHomeKo: 'Home',
+      navResearchEn: 'Research', navResearchKo: 'Research',
+      navPubEn: 'Publications', navPubKo: 'Publications',
+      navMembersEn: 'Members', navMembersKo: 'Members',
+      navNewsEn: 'News', navNewsKo: 'News',
+      navContactEn: 'Contact', navContactKo: 'Contact',
+      heroBadgeEn: 'Department of Biomedical Engineering · Kyung Hee University',
+      heroBadgeKo: '경희대학교 생체의공학과 · 바이오포토닉스 연구실',
+      heroTitleEn: 'Biophotonics Laboratory',
+      heroTitleKo: '바이오포토닉스 연구실 (Biophotonics Lab)',
+      heroDescEn: 'Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.',
+      heroDescKo: '플라즈모닉 나노구조, 표면증강라만분광(SERS), 광학 바이오센서 및 차세대 바이오메디컬 시스템을 연구합니다.',
+      homeCardTitleEn: 'Welcome to Biophotonics Lab',
+      homeCardTitleKo: '바이오포토닉스 연구실 소개',
+      homeRecruitLabelEn: 'Prospective Students:',
+      homeRecruitLabelKo: '대학원생 및 학부연구생 모집:',
+      homeRecentTitleEn: 'Recent News',
+      homeRecentTitleKo: '최근 소식',
+      secResearchTitleEn: 'Research Areas',
+      secResearchTitleKo: '연구 분야 (Research Areas)',
+      secResearchSubEn: 'Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.',
+      secResearchSubKo: '나노포토닉스, 바이오센싱 및 의료기기 분야의 핵심 융합 연구 주제입니다.',
+      secPubTitleEn: 'Publications',
+      secPubTitleKo: '논문 실적 (Publications)',
+      secPubSubEn: 'Peer-reviewed international journal articles (*Corresponding author).',
+      secPubSubKo: '국제 저명 학술지 게재 논문 목록 (*교신저자).',
+      secPiTitleEn: 'Principal Investigator',
+      secPiTitleKo: '지도교수 (Principal Investigator)',
+      secPiSubEn: 'Faculty Director of the Biophotonics Laboratory.',
+      secPiSubKo: '바이오포토닉스 연구실 연구책임자',
+      secCurTitleEn: 'Current Members',
+      secCurTitleKo: '연구원 (Current Members)',
+      secCurSubEn: 'Graduate and Undergraduate Researchers.',
+      secCurSubKo: '대학원생 및 학부연구생 구성원',
+      secAluTitleEn: 'Alumni',
+      secAluTitleKo: '졸업생 (Alumni)',
+      secAluSubEn: 'Graduated Ph.D. and M.S. Researchers (*Co-advised).',
+      secAluSubKo: '박사 및 석사 졸업생 목록 (*공동지도)',
+      boxPhdTitleEn: 'Ph.D. Alumni',
+      boxPhdTitleKo: 'Ph.D. Alumni',
+      boxMsTitleEn: 'M.S. Alumni',
+      boxMsTitleKo: 'M.S. Alumni',
+      boxUnderTitleEn: 'Undergraduate Student',
+      boxUnderTitleKo: 'Undergraduate Student',
+      secNewsTitleEn: 'News & Activities',
+      secNewsTitleKo: '연구실 소식 (News & Activities)',
+      secNewsSubEn: 'Conference presentations, awards, and laboratory updates.',
+      secNewsSubKo: '학술대회 발표, 수상 및 연구실 주요 활동 소식입니다.',
+      secContactTitleEn: 'Contact & Location',
+      secContactTitleKo: '연락처 및 오시는 길',
+      secContactSubEn: 'How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.',
+      secContactSubKo: '경희대학교 국제캠퍼스 바이오포토닉스 연구실 위치 및 연락처 안내입니다.',
+      footerLabNameEn: 'Biophotonics Laboratory',
+      footerLabNameKo: '바이오포토닉스 연구실',
+      footerDeptEn: '· Department of Biomedical Engineering, Kyung Hee University',
+      footerDeptKo: '· 경희대학교 생체의공학과',
+      footerAddrEn: 'Room 710, College of Electronics and Information, 1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Korea',
+      footerAddrKo: '경기도 용인시 기흥구 덕영대로 1732 경희대학교 국제캠퍼스 전자정보대학관 710호 (우 17104)',
+      footerContactEn: 'Tel: +82-31-201-3842 | E-mail: kmbyun@khu.ac.kr',
+      footerContactKo: 'Tel: 031-201-3842 | E-mail: kmbyun@khu.ac.kr',
+      footerCopyEn: '© Biophotonics Lab, Kyung Hee University. All Rights Reserved.',
+      footerCopyKo: '© 경희대학교 바이오포토닉스 연구실. All Rights Reserved.'
+    };
+
     let currentLang = localStorage.getItem('bplab_lang') || 'en';
+    let siteData = { ...defaultSiteData };
     let homeData = {};
     let researchItems = [];
     let piData = {};
@@ -1139,7 +1242,7 @@
       document.documentElement.lang = lang;
       document.getElementById('langEnBtn').classList.toggle('active', lang === 'en');
       document.getElementById('langKoBtn').classList.toggle('active', lang === 'ko');
-      updateStaticLabels();
+      renderSiteText();
       renderHome();
       renderResearch();
       renderMembers();
@@ -1147,50 +1250,53 @@
       renderContact();
     }
 
-    function updateStaticLabels() {
-      const isKo = currentLang === 'ko';
-      document.getElementById('heroBadge').textContent = isKo
-        ? '경희대학교 생체의공학과 · 바이오포토닉스 연구실'
-        : 'Department of Biomedical Engineering · Kyung Hee University';
-      document.getElementById('heroTitle').textContent = isKo
-        ? '바이오포토닉스 연구실 (Biophotonics Lab)'
-        : 'Biophotonics Laboratory';
-      document.getElementById('heroDesc').textContent = isKo
-        ? '플라즈모닉 나노구조, 표면증강라만분광(SERS), 광학 바이오센서 및 차세대 바이오메디컬 시스템을 연구합니다.'
-        : 'Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.';
+    function renderSiteText() {
+      const s = siteData;
+      document.getElementById('brandMain').textContent = s.brandMain || defaultSiteData.brandMain;
+      document.getElementById('brandSub').textContent = s.brandSub || defaultSiteData.brandSub;
 
-      document.getElementById('homeCardTitle').textContent = isKo
-        ? '바이오포토닉스 연구실 소개'
-        : 'Welcome to Biophotonics Lab';
-      document.getElementById('homeRecruitLabel').textContent = isKo
-        ? '대학원생 및 학부연구생 모집:'
-        : 'Prospective Students:';
-      document.getElementById('homeRecentTitle').textContent = isKo ? '최근 소식' : 'Recent News';
+      document.getElementById('navHome').textContent = pick(s.navHomeEn, s.navHomeKo);
+      document.getElementById('navResearch').textContent = pick(s.navResearchEn, s.navResearchKo);
+      document.getElementById('navPub').textContent = pick(s.navPubEn, s.navPubKo);
+      document.getElementById('navMembers').textContent = pick(s.navMembersEn, s.navMembersKo);
+      document.getElementById('navNews').textContent = pick(s.navNewsEn, s.navNewsKo);
+      document.getElementById('navContact').textContent = pick(s.navContactEn, s.navContactKo);
 
-      document.getElementById('secResearchTitle').textContent = isKo ? '연구 분야 (Research Areas)' : 'Research Areas';
-      document.getElementById('secResearchSub').textContent = isKo
-        ? '나노포토닉스, 바이오센싱 및 의료기기 분야의 핵심 융합 연구 주제입니다.'
-        : 'Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.';
+      document.getElementById('heroBadge').textContent = pick(s.heroBadgeEn, s.heroBadgeKo);
+      document.getElementById('heroTitle').textContent = pick(s.heroTitleEn, s.heroTitleKo);
+      document.getElementById('heroDesc').textContent = pick(s.heroDescEn, s.heroDescKo);
 
-      document.getElementById('secPubTitle').textContent = isKo ? '논문 실적 (Publications)' : 'Publications';
-      document.getElementById('secPubSub').textContent = isKo
-        ? '국제 저명 학술지 게재 논문 목록 (*교신저자).'
-        : 'Peer-reviewed international journal articles (*Corresponding author).';
+      document.getElementById('homeCardTitle').textContent = pick(s.homeCardTitleEn, s.homeCardTitleKo);
+      document.getElementById('homeRecruitLabel').textContent = pick(s.homeRecruitLabelEn, s.homeRecruitLabelKo);
+      document.getElementById('homeRecentTitle').textContent = pick(s.homeRecentTitleEn, s.homeRecentTitleKo);
 
-      document.getElementById('secPiTitle').textContent = isKo ? '지도교수 (Principal Investigator)' : 'Principal Investigator';
-      document.getElementById('secPiSub').textContent = isKo ? '바이오포토닉스 연구실 연구책임자' : 'Faculty Director of the Biophotonics Laboratory.';
-      document.getElementById('secCurTitle').textContent = isKo ? '연구원 (Current Members)' : 'Current Members';
-      document.getElementById('secCurSub').textContent = isKo ? '대학원생 및 학부연구생 구성원' : 'Graduate and Undergraduate Researchers.';
-      document.getElementById('secAluTitle').textContent = isKo ? '졸업생 (Alumni)' : 'Alumni';
-      document.getElementById('secAluSub').textContent = isKo ? '박사 및 석사 졸업생 목록 (*공동지도)' : 'Graduated Ph.D. and M.S. Researchers (*Co-advised).';
+      document.getElementById('secResearchTitle').textContent = pick(s.secResearchTitleEn, s.secResearchTitleKo);
+      document.getElementById('secResearchSub').textContent = pick(s.secResearchSubEn, s.secResearchSubKo);
 
-      document.getElementById('secNewsTitle').textContent = isKo ? '연구실 소식 (News & Activities)' : 'News & Activities';
-      document.getElementById('secNewsSub').textContent = isKo ? '학술대회 발표, 수상 및 연구실 주요 활동 소식입니다.' : 'Conference presentations, awards, and laboratory updates.';
+      document.getElementById('secPubTitle').textContent = pick(s.secPubTitleEn, s.secPubTitleKo);
+      document.getElementById('secPubSub').textContent = pick(s.secPubSubEn, s.secPubSubKo);
 
-      document.getElementById('secContactTitle').textContent = isKo ? '연락처 및 오시는 길' : 'Contact & Location';
-      document.getElementById('secContactSub').textContent = isKo
-        ? '경희대학교 국제캠퍼스 바이오포토닉스 연구실 위치 및 연락처 안내입니다.'
-        : 'How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.';
+      document.getElementById('secPiTitle').textContent = pick(s.secPiTitleEn, s.secPiTitleKo);
+      document.getElementById('secPiSub').textContent = pick(s.secPiSubEn, s.secPiSubKo);
+      document.getElementById('secCurTitle').textContent = pick(s.secCurTitleEn, s.secCurTitleKo);
+      document.getElementById('secCurSub').textContent = pick(s.secCurSubEn, s.secCurSubKo);
+      document.getElementById('secAluTitle').textContent = pick(s.secAluTitleEn, s.secAluTitleKo);
+      document.getElementById('secAluSub').textContent = pick(s.secAluSubEn, s.secAluSubKo);
+      document.getElementById('boxPhdTitle').textContent = pick(s.boxPhdTitleEn, s.boxPhdTitleKo);
+      document.getElementById('boxMsTitle').textContent = pick(s.boxMsTitleEn, s.boxMsTitleKo);
+      document.getElementById('boxUnderTitle').textContent = pick(s.boxUnderTitleEn, s.boxUnderTitleKo);
+
+      document.getElementById('secNewsTitle').textContent = pick(s.secNewsTitleEn, s.secNewsTitleKo);
+      document.getElementById('secNewsSub').textContent = pick(s.secNewsSubEn, s.secNewsSubKo);
+
+      document.getElementById('secContactTitle').textContent = pick(s.secContactTitleEn, s.secContactTitleKo);
+      document.getElementById('secContactSub').textContent = pick(s.secContactSubEn, s.secContactSubKo);
+
+      document.getElementById('footerLabName').textContent = pick(s.footerLabNameEn, s.footerLabNameKo);
+      document.getElementById('footerDeptText').textContent = pick(s.footerDeptEn, s.footerDeptKo);
+      document.getElementById('footerAddrText').textContent = pick(s.footerAddrEn, s.footerAddrKo);
+      document.getElementById('footerContactText').textContent = pick(s.footerContactEn, s.footerContactKo);
+      document.getElementById('footerCopyText').textContent = pick(s.footerCopyEn, s.footerCopyKo);
     }
 
     function getToken() { return localStorage.getItem('bplab_gh_token') || ''; }
@@ -1338,6 +1444,176 @@
         }
       };
       document.getElementById('admModalBackdrop').classList.add('open');
+    }
+
+    function openSiteHeaderModal() {
+      const s = siteData;
+      document.getElementById('admModalTitle').textContent = '상단 로고 · 메뉴 · 히어로 배너 문구 수정';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>상단 연구실 로고명</label><input type="text" id="f_sh_bm" value="${s.brandMain || ''}" /></div>
+          <div class="adm-field"><label>상단 소속 표기</label><input type="text" id="f_sh_bs" value="${s.brandSub || ''}" /></div>
+        </div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>메뉴 1 (EN)</label><input type="text" id="f_sh_m1e" value="${s.navHomeEn || ''}" /></div>
+          <div class="adm-field"><label>메뉴 1 (KR)</label><input type="text" id="f_sh_m1k" value="${s.navHomeKo || ''}" /></div>
+          <div class="adm-field"><label>메뉴 2 (EN)</label><input type="text" id="f_sh_m2e" value="${s.navResearchEn || ''}" /></div>
+          <div class="adm-field"><label>메뉴 2 (KR)</label><input type="text" id="f_sh_m2k" value="${s.navResearchKo || ''}" /></div>
+          <div class="adm-field"><label>메뉴 3 (EN)</label><input type="text" id="f_sh_m3e" value="${s.navPubEn || ''}" /></div>
+          <div class="adm-field"><label>메뉴 3 (KR)</label><input type="text" id="f_sh_m3k" value="${s.navPubKo || ''}" /></div>
+          <div class="adm-field"><label>메뉴 4 (EN)</label><input type="text" id="f_sh_m4e" value="${s.navMembersEn || ''}" /></div>
+          <div class="adm-field"><label>메뉴 4 (KR)</label><input type="text" id="f_sh_m4k" value="${s.navMembersKo || ''}" /></div>
+          <div class="adm-field"><label>메뉴 5 (EN)</label><input type="text" id="f_sh_m5e" value="${s.navNewsEn || ''}" /></div>
+          <div class="adm-field"><label>메뉴 5 (KR)</label><input type="text" id="f_sh_m5k" value="${s.navNewsKo || ''}" /></div>
+          <div class="adm-field"><label>메뉴 6 (EN)</label><input type="text" id="f_sh_m6e" value="${s.navContactEn || ''}" /></div>
+          <div class="adm-field"><label>메뉴 6 (KR)</label><input type="text" id="f_sh_m6k" value="${s.navContactKo || ''}" /></div>
+        </div>
+        <div class="adm-field"><label>배너 상단 학과 뱃지 (EN)</label><input type="text" id="f_sh_hbe" value="${s.heroBadgeEn || ''}" /></div>
+        <div class="adm-field"><label>배너 상단 학과 뱃지 (KR)</label><input type="text" id="f_sh_hbk" value="${s.heroBadgeKo || ''}" /></div>
+        <div class="adm-field"><label>배너 연구실 이름 (EN)</label><input type="text" id="f_sh_hte" value="${s.heroTitleEn || ''}" /></div>
+        <div class="adm-field"><label>배너 연구실 이름 (KR)</label><input type="text" id="f_sh_htk" value="${s.heroTitleKo || ''}" /></div>
+        <div class="adm-field"><label>배너 연구실 간단소개 (EN)</label><textarea id="f_sh_hde">${s.heroDescEn || ''}</textarea></div>
+        <div class="adm-field"><label>배너 연구실 간단소개 (KR)</label><textarea id="f_sh_hdk">${s.heroDescKo || ''}</textarea></div>
+      `;
+      bindSave(async () => {
+        Object.assign(siteData, {
+          brandMain: document.getElementById('f_sh_bm').value,
+          brandSub: document.getElementById('f_sh_bs').value,
+          navHomeEn: document.getElementById('f_sh_m1e').value,
+          navHomeKo: document.getElementById('f_sh_m1k').value,
+          navResearchEn: document.getElementById('f_sh_m2e').value,
+          navResearchKo: document.getElementById('f_sh_m2k').value,
+          navPubEn: document.getElementById('f_sh_m3e').value,
+          navPubKo: document.getElementById('f_sh_m3k').value,
+          navMembersEn: document.getElementById('f_sh_m4e').value,
+          navMembersKo: document.getElementById('f_sh_m4k').value,
+          navNewsEn: document.getElementById('f_sh_m5e').value,
+          navNewsKo: document.getElementById('f_sh_m5k').value,
+          navContactEn: document.getElementById('f_sh_m6e').value,
+          navContactKo: document.getElementById('f_sh_m6k').value,
+          heroBadgeEn: document.getElementById('f_sh_hbe').value,
+          heroBadgeKo: document.getElementById('f_sh_hbk').value,
+          heroTitleEn: document.getElementById('f_sh_hte').value,
+          heroTitleKo: document.getElementById('f_sh_htk').value,
+          heroDescEn: document.getElementById('f_sh_hde').value,
+          heroDescKo: document.getElementById('f_sh_hdk').value
+        });
+        await saveJsonToGitHub('data/site.json', siteData, 'Update site header/hero texts');
+        renderSiteText();
+      });
+    }
+
+    function openSectionTextModal(secKey) {
+      const s = siteData;
+      const configs = {
+        home: {
+          title: 'Home 섹션 제목 수정',
+          fields: [
+            ['homeCardTitleEn', '소개 카드 제목 (EN)'], ['homeCardTitleKo', '소개 카드 제목 (KR)'],
+            ['homeRecruitLabelEn', '모집 안내 라벨 (EN)'], ['homeRecruitLabelKo', '모집 안내 라벨 (KR)'],
+            ['homeRecentTitleEn', '최근 소식 카드 제목 (EN)'], ['homeRecentTitleKo', '최근 소식 카드 제목 (KR)']
+          ]
+        },
+        research: {
+          title: 'Research 섹션 제목·부제목 수정',
+          fields: [
+            ['secResearchTitleEn', '섹션 제목 (EN)'], ['secResearchTitleKo', '섹션 제목 (KR)'],
+            ['secResearchSubEn', '섹션 부제목 (EN)'], ['secResearchSubKo', '섹션 부제목 (KR)']
+          ]
+        },
+        publications: {
+          title: 'Publications 섹션 제목·부제목 수정',
+          fields: [
+            ['secPubTitleEn', '섹션 제목 (EN)'], ['secPubTitleKo', '섹션 제목 (KR)'],
+            ['secPubSubEn', '섹션 부제목 (EN)'], ['secPubSubKo', '섹션 부제목 (KR)']
+          ]
+        },
+        pi: {
+          title: 'Principal Investigator 섹션 제목·부제목 수정',
+          fields: [
+            ['secPiTitleEn', '섹션 제목 (EN)'], ['secPiTitleKo', '섹션 제목 (KR)'],
+            ['secPiSubEn', '섹션 부제목 (EN)'], ['secPiSubKo', '섹션 부제목 (KR)']
+          ]
+        },
+        current: {
+          title: 'Current Members 섹션 제목·부제목 수정',
+          fields: [
+            ['secCurTitleEn', '섹션 제목 (EN)'], ['secCurTitleKo', '섹션 제목 (KR)'],
+            ['secCurSubEn', '섹션 부제목 (EN)'], ['secCurSubKo', '섹션 부제목 (KR)']
+          ]
+        },
+        alumni: {
+          title: 'Alumni 섹션 및 하위 박스 제목 수정',
+          fields: [
+            ['secAluTitleEn', '섹션 큰 제목 (EN)'], ['secAluTitleKo', '섹션 큰 제목 (KR)'],
+            ['secAluSubEn', '섹션 부제목 (EN)'], ['secAluSubKo', '섹션 부제목 (KR)'],
+            ['boxPhdTitleEn', '박사 박스 제목 (EN)'], ['boxPhdTitleKo', '박사 박스 제목 (KR)'],
+            ['boxMsTitleEn', '석사 박스 제목 (EN)'], ['boxMsTitleKo', '석사 박스 제목 (KR)'],
+            ['boxUnderTitleEn', '학부생 박스 제목 (EN)'], ['boxUnderTitleKo', '학부생 박스 제목 (KR)']
+          ]
+        },
+        news: {
+          title: 'News 섹션 제목·부제목 수정',
+          fields: [
+            ['secNewsTitleEn', '섹션 제목 (EN)'], ['secNewsTitleKo', '섹션 제목 (KR)'],
+            ['secNewsSubEn', '섹션 부제목 (EN)'], ['secNewsSubKo', '섹션 부제목 (KR)']
+          ]
+        },
+        contact: {
+          title: 'Contact 섹션 제목·부제목 수정',
+          fields: [
+            ['secContactTitleEn', '섹션 제목 (EN)'], ['secContactTitleKo', '섹션 제목 (KR)'],
+            ['secContactSubEn', '섹션 부제목 (EN)'], ['secContactSubKo', '섹션 부제목 (KR)']
+          ]
+        }
+      };
+
+      const cfg = configs[secKey];
+      document.getElementById('admModalTitle').textContent = cfg.title;
+      document.getElementById('admModalBody').innerHTML = cfg.fields.map(([k, lbl]) => `
+        <div class="adm-field"><label>${lbl}</label><input type="text" id="f_st_${k}" value="${s[k] || ''}" /></div>
+      `).join('');
+
+      bindSave(async () => {
+        cfg.fields.forEach(([k]) => {
+          siteData[k] = document.getElementById('f_st_' + k).value;
+        });
+        await saveJsonToGitHub('data/site.json', siteData, `Update ${secKey} section titles`);
+        renderSiteText();
+      });
+    }
+
+    function openFooterModal() {
+      const s = siteData;
+      document.getElementById('admModalTitle').textContent = '하단(Footer) 연구실 정보 수정';
+      document.getElementById('admModalBody').innerHTML = `
+        <div class="adm-field"><label>연구실명 (EN)</label><input type="text" id="f_ft_lne" value="${s.footerLabNameEn || ''}" /></div>
+        <div class="adm-field"><label>연구실명 (KR)</label><input type="text" id="f_ft_lnk" value="${s.footerLabNameKo || ''}" /></div>
+        <div class="adm-field"><label>학과/학교명 (EN)</label><input type="text" id="f_ft_dpe" value="${s.footerDeptEn || ''}" /></div>
+        <div class="adm-field"><label>학과/학교명 (KR)</label><input type="text" id="f_ft_dpk" value="${s.footerDeptKo || ''}" /></div>
+        <div class="adm-field"><label>주소 (EN)</label><input type="text" id="f_ft_ade" value="${s.footerAddrEn || ''}" /></div>
+        <div class="adm-field"><label>주소 (KR)</label><input type="text" id="f_ft_adk" value="${s.footerAddrKo || ''}" /></div>
+        <div class="adm-field"><label>전화번호·이메일 줄 (EN)</label><input type="text" id="f_ft_cte" value="${s.footerContactEn || ''}" /></div>
+        <div class="adm-field"><label>전화번호·이메일 줄 (KR)</label><input type="text" id="f_ft_ctk" value="${s.footerContactKo || ''}" /></div>
+        <div class="adm-field"><label>카피라이트 문구 (EN)</label><input type="text" id="f_ft_cpe" value="${s.footerCopyEn || ''}" /></div>
+        <div class="adm-field"><label>카피라이트 문구 (KR)</label><input type="text" id="f_ft_cpk" value="${s.footerCopyKo || ''}" /></div>
+      `;
+      bindSave(async () => {
+        Object.assign(siteData, {
+          footerLabNameEn: document.getElementById('f_ft_lne').value,
+          footerLabNameKo: document.getElementById('f_ft_lnk').value,
+          footerDeptEn: document.getElementById('f_ft_dpe').value,
+          footerDeptKo: document.getElementById('f_ft_dpk').value,
+          footerAddrEn: document.getElementById('f_ft_ade').value,
+          footerAddrKo: document.getElementById('f_ft_adk').value,
+          footerContactEn: document.getElementById('f_ft_cte').value,
+          footerContactKo: document.getElementById('f_ft_ctk').value,
+          footerCopyEn: document.getElementById('f_ft_cpe').value,
+          footerCopyKo: document.getElementById('f_ft_cpk').value
+        });
+        await saveJsonToGitHub('data/site.json', siteData, 'Update footer texts');
+        renderSiteText();
+      });
     }
 
     function switchTab(tabId) {
@@ -1931,7 +2207,8 @@
     async function loadAllData() {
       try {
         const opts = { cache: 'no-store' };
-        const [hRes, rRes, piRes, mRes, aRes, nRes, pRes, cRes] = await Promise.all([
+        const [sRes, hRes, rRes, piRes, mRes, aRes, nRes, pRes, cRes] = await Promise.all([
+          fetch('data/site.json', opts),
           fetch('data/home.json', opts),
           fetch('data/research.json', opts),
           fetch('data/pi.json', opts),
@@ -1941,6 +2218,10 @@
           fetch('data/publications.json', opts),
           fetch('data/contact.json', opts)
         ]);
+        if (sRes.ok) {
+          const loadedSite = await sRes.json();
+          siteData = { ...defaultSiteData, ...loadedSite };
+        }
         if (hRes.ok) homeData = await hRes.json();
         if (rRes.ok) researchItems = (await rRes.json()).items || [];
         if (piRes.ok) piData = await piRes.json();
