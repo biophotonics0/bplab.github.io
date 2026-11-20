@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* 관리자 페이지에서 엔터(Enter)로 줄바꿈한 내용 그대로 반영 */
     .welcome-text p,
     #homeRecruitText,
     .research-item p,
@@ -38,7 +37,6 @@
 
     a { text-decoration: none; color: inherit; }
 
-    /* Navigation */
     header {
       position: sticky;
       top: 0;
@@ -85,6 +83,12 @@
       margin-left: 0.35rem;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
     nav ul {
       display: flex;
       list-style: none;
@@ -115,7 +119,31 @@
       font-weight: 600;
     }
 
-    /* Hero Banner */
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-left: 0.35rem;
+    }
+
+    .lang-btn {
+      background: #ffffff;
+      border: none;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.32rem 0.6rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--khu-burgundy);
+      color: #ffffff;
+    }
+
     .hero {
       position: relative;
       background: linear-gradient(135deg, rgba(60, 12, 16, 0.92), rgba(139, 28, 36, 0.85)),
@@ -156,7 +184,6 @@
       font-weight: 300;
     }
 
-    /* Main Layout */
     main {
       max-width: 1180px;
       margin: 0 auto;
@@ -197,7 +224,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Home Tab */
     .home-grid {
       display: grid;
       grid-template-columns: 1.3fr 1fr;
@@ -238,7 +264,6 @@
       font-size: 0.92rem;
     }
 
-    /* Slider */
     .slider-container {
       position: relative;
       border-radius: 10px;
@@ -297,7 +322,6 @@
     .slider-prev { left: 10px; }
     .slider-next { right: 10px; }
 
-    /* Recent News Preview on Home */
     .notice-preview-item {
       padding: 0.85rem 0;
       border-bottom: 1px solid var(--border-color);
@@ -319,7 +343,6 @@
       font-weight: 500;
     }
 
-    /* Research Tab */
     .research-list {
       display: flex;
       flex-direction: column;
@@ -375,7 +398,6 @@
       color: #374151;
     }
 
-    /* Publications Tab */
     .pub-controls {
       display: flex;
       flex-wrap: wrap;
@@ -471,7 +493,6 @@
       margin-left: 0.4rem;
     }
 
-    /* Members Tab */
     .pi-card {
       display: grid;
       grid-template-columns: 220px 1fr;
@@ -646,17 +667,16 @@
 
     .alumni-list li:last-child { border-bottom: none; }
 
-.alumni-list-2col {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 1.25rem;
-}
+    .alumni-list-2col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.25rem;
+    }
 
-.alumni-list-2col li:nth-last-child(-n+3) {
-  border-bottom: none;
-}
+    .alumni-list-2col li:nth-last-child(-n+3) {
+      border-bottom: none;
+    }
 
-    /* News Tab */
     .notice-post {
       background: #ffffff;
       border: 1px solid var(--border-color);
@@ -740,7 +760,6 @@
       margin-right: 0.5rem;
     }
 
-    /* Contact Tab */
     .contact-grid {
       display: grid;
       grid-template-columns: 1.6fr 1fr;
@@ -776,7 +795,6 @@
       display: block;
     }
 
-    /* Footer */
     footer {
       background: #111827;
       color: #9ca3af;
@@ -795,7 +813,6 @@
 
     .footer-inner strong { color: #f3f4f6; }
 
-    /* ================= INLINE ADMIN MODE UI ================= */
     #adminBar {
       display: none;
       position: fixed;
@@ -859,7 +876,7 @@
       background: #fff;
       border-radius: 12px;
       width: 100%;
-      max-width: 540px;
+      max-width: 580px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 24px;
@@ -876,7 +893,7 @@
       font-family: inherit;
       font-size: 0.9rem;
     }
-    .adm-field textarea { min-height: 90px; resize: vertical; }
+    .adm-field textarea { min-height: 85px; resize: vertical; }
     .adm-modal-actions {
       display: flex;
       justify-content: flex-end;
@@ -898,6 +915,7 @@
         grid-template-columns: 1fr;
       }
       .nav-container { flex-direction: column; height: auto; padding: 0.85rem 1rem; gap: 0.6rem; }
+      nav { flex-wrap: wrap; justify-content: center; }
       nav ul { flex-wrap: wrap; justify-content: center; }
       .hero h1 { font-size: 1.85rem; }
     }
@@ -905,7 +923,6 @@
 </head>
 <body>
 
-  <!-- Header & Navigation -->
   <header>
     <div class="nav-container">
       <div class="brand" onclick="switchTab('home')">
@@ -921,40 +938,39 @@
           <li><button class="nav-btn" data-tab="notice" onclick="switchTab('notice')">News</button></li>
           <li><button class="nav-btn" data-tab="contact" onclick="switchTab('contact')">Contact</button></li>
         </ul>
+        <div class="lang-switch">
+          <button class="lang-btn active" id="langEnBtn" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" id="langKoBtn" onclick="setLang('ko')">KR</button>
+        </div>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Banner -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-badge">Department of Biomedical Engineering · Kyung Hee University</div>
-      <h1>Biophotonics Laboratory</h1>
-      <p>Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.</p>
+      <div class="hero-badge" id="heroBadge">Department of Biomedical Engineering · Kyung Hee University</div>
+      <h1 id="heroTitle">Biophotonics Laboratory</h1>
+      <p id="heroDesc">Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.</p>
     </div>
   </section>
 
-  <!-- Main Content -->
   <main>
 
-    <!-- 1. HOME TAB -->
     <section id="tab-home" class="tab-section active">
       <div class="home-grid">
         <div class="card welcome-text">
           <h3>
-            <span>Welcome to Biophotonics Lab</span>
+            <span id="homeCardTitle">Welcome to Biophotonics Lab</span>
             <button class="btn-adm btn-adm-edit admin-only" onclick="openEditHome()">✎ 소개글 수정</button>
           </h3>
-          <p id="homeWelcomeEn"></p>
-          <p id="homeWelcomeKo"></p>
+          <p id="homeWelcomeMain"></p>
           <div class="highlight-box">
-            <strong>Prospective Students (대학원생 및 학부연구생 모집):</strong><br>
+            <strong id="homeRecruitLabel">Prospective Students:</strong><br>
             <span id="homeRecruitText"></span>
           </div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:1.75rem;">
-          <!-- Gallery Slider -->
           <div>
             <div class="admin-only" style="margin-bottom:8px; justify-content:flex-end; width:100%;">
               <button class="btn-adm btn-adm-add" onclick="openAddSlide()">+ 슬라이드 사진 추가</button>
@@ -962,10 +978,9 @@
             <div class="slider-container" id="homeSlider"></div>
           </div>
 
-          <!-- Recent News Preview -->
           <div class="card">
             <h3>
-              <span>Recent News</span>
+              <span id="homeRecentTitle">Recent News</span>
               <span style="font-size:0.82rem; font-weight:500; cursor:pointer; color:var(--text-muted);" onclick="switchTab('notice')">View all &rarr;</span>
             </h3>
             <div id="homeNoticePreview"></div>
@@ -974,23 +989,21 @@
       </div>
     </section>
 
-    <!-- 2. RESEARCH TAB -->
     <section id="tab-research" class="tab-section">
       <h2 class="section-title">
-        <span>Research Areas</span>
+        <span id="secResearchTitle">Research Areas</span>
         <button class="btn-adm btn-adm-add admin-only" onclick="openResearchModal()">+ 새 연구 주제 추가</button>
       </h2>
-      <p class="section-subtitle">Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.</p>
+      <p class="section-subtitle" id="secResearchSub">Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.</p>
       <div class="research-list" id="researchList"></div>
     </section>
 
-    <!-- 3. PUBLICATIONS TAB -->
     <section id="tab-publications" class="tab-section">
       <h2 class="section-title">
-        <span>Publications</span>
+        <span id="secPubTitle">Publications</span>
         <button class="btn-adm btn-adm-add admin-only" onclick="openPubModal()">+ 새 논문 추가</button>
       </h2>
-      <p class="section-subtitle">Peer-reviewed international journal articles (*Corresponding author).</p>
+      <p class="section-subtitle" id="secPubSub">Peer-reviewed international journal articles (*Corresponding author).</p>
 
       <div class="pub-controls">
         <div class="year-filters" id="yearFilters"></div>
@@ -1000,24 +1013,23 @@
       <ul class="pub-list" id="pubList"></ul>
     </section>
 
-    <!-- 4. MEMBERS TAB -->
     <section id="tab-members" class="tab-section">
       <h2 class="section-title">
-        <span>Principal Investigator</span>
+        <span id="secPiTitle">Principal Investigator</span>
         <button class="btn-adm btn-adm-edit admin-only" onclick="openPiModal()">✎ 교수님 정보 수정</button>
       </h2>
-      <p class="section-subtitle">Faculty Director of the Biophotonics Laboratory.</p>
+      <p class="section-subtitle" id="secPiSub">Faculty Director of the Biophotonics Laboratory.</p>
       <div class="pi-card" id="piCard"></div>
 
       <h2 class="section-title">
-        <span>Current Members</span>
+        <span id="secCurTitle">Current Members</span>
         <button class="btn-adm btn-adm-add admin-only" onclick="openMemberModal()">+ 새 멤버 추가</button>
       </h2>
-      <p class="section-subtitle">Graduate and Undergraduate Researchers.</p>
+      <p class="section-subtitle" id="secCurSub">Graduate and Undergraduate Researchers.</p>
       <div class="members-grid" id="currentMembersGrid"></div>
 
-      <h2 class="section-title">Alumni</h2>
-      <p class="section-subtitle">Graduated Ph.D. and M.S. Researchers (*Co-advised).</p>
+      <h2 class="section-title" id="secAluTitle">Alumni</h2>
+      <p class="section-subtitle" id="secAluSub">Graduated Ph.D. and M.S. Researchers (*Co-advised).</p>
       <div class="alumni-grid">
         <div class="alumni-box">
           <h4>
@@ -1043,23 +1055,21 @@
       </div>
     </section>
 
-    <!-- 5. NEWS TAB -->
     <section id="tab-notice" class="tab-section">
       <h2 class="section-title">
-        <span>News &amp; Activities</span>
+        <span id="secNewsTitle">News &amp; Activities</span>
         <button class="btn-adm btn-adm-add admin-only" onclick="openNewsModal()">+ 새 뉴스/사진 올리기</button>
       </h2>
-      <p class="section-subtitle">Conference presentations, awards, and laboratory updates.</p>
+      <p class="section-subtitle" id="secNewsSub">Conference presentations, awards, and laboratory updates.</p>
       <div id="noticeList"></div>
     </section>
 
-    <!-- 6. CONTACT TAB -->
     <section id="tab-contact" class="tab-section">
       <h2 class="section-title">
-        <span>Contact &amp; Location</span>
+        <span id="secContactTitle">Contact &amp; Location</span>
         <button class="btn-adm btn-adm-edit admin-only" onclick="openContactModal()">✎ 연락처/지도 수정</button>
       </h2>
-      <p class="section-subtitle">How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.</p>
+      <p class="section-subtitle" id="secContactSub">How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.</p>
 
       <div class="contact-grid">
         <div class="card">
@@ -1071,7 +1081,6 @@
 
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-inner" style="align-items: flex-end;">
       <div>
@@ -1086,13 +1095,11 @@
     </div>
   </footer>
 
-  <!-- Floating Admin Bar -->
   <div id="adminBar">
     <span>🟢 <strong>관리자 편집 모드</strong></span>
     <button class="btn-adm btn-adm-out" onclick="adminLogout()">로그아웃</button>
   </div>
 
-  <!-- Universal Admin Modal -->
   <div class="adm-modal-backdrop" id="admModalBackdrop">
     <div class="adm-modal">
       <h3 id="admModalTitle">Edit</h3>
@@ -1104,12 +1111,12 @@
     </div>
   </div>
 
-  <!-- Real-time JSON Fetch & Inline Admin Script -->
   <script>
     const REPO_OWNER = 'biophotonics0';
     const REPO_NAME = 'bplab.github.io';
     const BRANCH = 'main';
 
+    let currentLang = localStorage.getItem('bplab_lang') || 'en';
     let homeData = {};
     let researchItems = [];
     let piData = {};
@@ -1121,7 +1128,71 @@
     let selectedYear = 'ALL';
     let slideIndex = 0;
 
-    // ================= AUTH & GITHUB API =================
+    function pick(enVal, koVal) {
+      if (currentLang === 'ko') return koVal || enVal || '';
+      return enVal || koVal || '';
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('bplab_lang', lang);
+      document.documentElement.lang = lang;
+      document.getElementById('langEnBtn').classList.toggle('active', lang === 'en');
+      document.getElementById('langKoBtn').classList.toggle('active', lang === 'ko');
+      updateStaticLabels();
+      renderHome();
+      renderResearch();
+      renderMembers();
+      renderNotices();
+      renderContact();
+    }
+
+    function updateStaticLabels() {
+      const isKo = currentLang === 'ko';
+      document.getElementById('heroBadge').textContent = isKo
+        ? '경희대학교 생체의공학과 · 바이오포토닉스 연구실'
+        : 'Department of Biomedical Engineering · Kyung Hee University';
+      document.getElementById('heroTitle').textContent = isKo
+        ? '바이오포토닉스 연구실 (Biophotonics Lab)'
+        : 'Biophotonics Laboratory';
+      document.getElementById('heroDesc').textContent = isKo
+        ? '플라즈모닉 나노구조, 표면증강라만분광(SERS), 광학 바이오센서 및 차세대 바이오메디컬 시스템을 연구합니다.'
+        : 'Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.';
+
+      document.getElementById('homeCardTitle').textContent = isKo
+        ? '바이오포토닉스 연구실 소개'
+        : 'Welcome to Biophotonics Lab';
+      document.getElementById('homeRecruitLabel').textContent = isKo
+        ? '대학원생 및 학부연구생 모집:'
+        : 'Prospective Students:';
+      document.getElementById('homeRecentTitle').textContent = isKo ? '최근 소식' : 'Recent News';
+
+      document.getElementById('secResearchTitle').textContent = isKo ? '연구 분야 (Research Areas)' : 'Research Areas';
+      document.getElementById('secResearchSub').textContent = isKo
+        ? '나노포토닉스, 바이오센싱 및 의료기기 분야의 핵심 융합 연구 주제입니다.'
+        : 'Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.';
+
+      document.getElementById('secPubTitle').textContent = isKo ? '논문 실적 (Publications)' : 'Publications';
+      document.getElementById('secPubSub').textContent = isKo
+        ? '국제 저명 학술지 게재 논문 목록 (*교신저자).'
+        : 'Peer-reviewed international journal articles (*Corresponding author).';
+
+      document.getElementById('secPiTitle').textContent = isKo ? '지도교수 (Principal Investigator)' : 'Principal Investigator';
+      document.getElementById('secPiSub').textContent = isKo ? '바이오포토닉스 연구실 연구책임자' : 'Faculty Director of the Biophotonics Laboratory.';
+      document.getElementById('secCurTitle').textContent = isKo ? '연구원 (Current Members)' : 'Current Members';
+      document.getElementById('secCurSub').textContent = isKo ? '대학원생 및 학부연구생 구성원' : 'Graduate and Undergraduate Researchers.';
+      document.getElementById('secAluTitle').textContent = isKo ? '졸업생 (Alumni)' : 'Alumni';
+      document.getElementById('secAluSub').textContent = isKo ? '박사 및 석사 졸업생 목록 (*공동지도)' : 'Graduated Ph.D. and M.S. Researchers (*Co-advised).';
+
+      document.getElementById('secNewsTitle').textContent = isKo ? '연구실 소식 (News & Activities)' : 'News & Activities';
+      document.getElementById('secNewsSub').textContent = isKo ? '학술대회 발표, 수상 및 연구실 주요 활동 소식입니다.' : 'Conference presentations, awards, and laboratory updates.';
+
+      document.getElementById('secContactTitle').textContent = isKo ? '연락처 및 오시는 길' : 'Contact & Location';
+      document.getElementById('secContactSub').textContent = isKo
+        ? '경희대학교 국제캠퍼스 바이오포토닉스 연구실 위치 및 연락처 안내입니다.'
+        : 'How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.';
+    }
+
     function getToken() { return localStorage.getItem('bplab_gh_token') || ''; }
     function checkAdminState() {
       const hasToken = !!getToken();
@@ -1269,7 +1340,6 @@
       document.getElementById('admModalBackdrop').classList.add('open');
     }
 
-    // Tab Switching
     function switchTab(tabId) {
       document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -1280,11 +1350,10 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ================= 1. HOME =================
     function renderHome() {
-      document.getElementById('homeWelcomeEn').textContent = homeData.welcomeEn || '';
-      document.getElementById('homeWelcomeKo').textContent = homeData.welcomeKo || '';
-      document.getElementById('homeRecruitText').innerHTML = (homeData.recruitText || '').replace(
+      document.getElementById('homeWelcomeMain').textContent = pick(homeData.welcomeEn, homeData.welcomeKo);
+      const recText = pick(homeData.recruitText, homeData.recruitTextKo || homeData.recruitText);
+      document.getElementById('homeRecruitText').innerHTML = recText.replace(
         /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
         '<a href="mailto:$1" style="color:var(--khu-burgundy); font-weight:600;">$1</a>'
       );
@@ -1299,9 +1368,9 @@
       slideIndex = 0;
       sliderEl.innerHTML = slides.map((s, idx) => `
         <div class="slide ${idx === 0 ? 'active' : ''}">
-          <img src="${s.image}" alt="${s.caption || 'Lab Slide'}">
+          <img src="${s.image}" alt="${pick(s.caption, s.captionKo) || 'Lab Slide'}">
           <div class="slide-caption">
-            <span>${s.caption || ''}</span>
+            <span>${pick(s.caption, s.captionKo)}</span>
             <button class="btn-adm btn-adm-del admin-only" onclick="deleteSlide(${idx})">삭제</button>
           </div>
         </div>
@@ -1321,16 +1390,18 @@
     setInterval(() => moveSlide(1), 5000);
 
     function openEditHome() {
-      document.getElementById('admModalTitle').textContent = 'Home 소개글 및 모집 안내 수정';
+      document.getElementById('admModalTitle').textContent = 'Home 소개글 및 모집 안내 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>영문 소개글 (welcomeEn)</label><textarea id="f_h_en">${homeData.welcomeEn || ''}</textarea></div>
-        <div class="adm-field"><label>국문 소개글 (welcomeKo)</label><textarea id="f_h_ko">${homeData.welcomeKo || ''}</textarea></div>
-        <div class="adm-field"><label>모집 안내문 (recruitText)</label><textarea id="f_h_rec">${homeData.recruitText || ''}</textarea></div>
+        <div class="adm-field"><label>영문 소개글 (EN)</label><textarea id="f_h_en">${homeData.welcomeEn || ''}</textarea></div>
+        <div class="adm-field"><label>국문 소개글 (KR)</label><textarea id="f_h_ko">${homeData.welcomeKo || ''}</textarea></div>
+        <div class="adm-field"><label>영문 모집 안내문 (EN)</label><textarea id="f_h_rec">${homeData.recruitText || ''}</textarea></div>
+        <div class="adm-field"><label>국문 모집 안내문 (KR)</label><textarea id="f_h_rec_ko">${homeData.recruitTextKo || ''}</textarea></div>
       `;
       bindSave(async () => {
         homeData.welcomeEn = document.getElementById('f_h_en').value;
         homeData.welcomeKo = document.getElementById('f_h_ko').value;
         homeData.recruitText = document.getElementById('f_h_rec').value;
+        homeData.recruitTextKo = document.getElementById('f_h_rec_ko').value;
         await saveJsonToGitHub('data/home.json', homeData, 'Update home.json');
         renderHome();
       });
@@ -1340,13 +1411,18 @@
       document.getElementById('admModalTitle').textContent = 'Home 슬라이드 사진 추가';
       document.getElementById('admModalBody').innerHTML = `
         <div class="adm-field"><label>사진 파일 선택</label><input type="file" id="f_s_file" accept="image/*" /></div>
-        <div class="adm-field"><label>사진 설명 (Caption)</label><input type="text" id="f_s_cap" placeholder="예: 2026 Conference Group Photo" /></div>
+        <div class="adm-field"><label>영문 캡션 (EN)</label><input type="text" id="f_s_cap" placeholder="예: 2026 Conference Group Photo" /></div>
+        <div class="adm-field"><label>국문 캡션 (KR)</label><input type="text" id="f_s_cap_ko" placeholder="예: 2026 학술대회 단체사진" /></div>
       `;
       bindSave(async () => {
         const uploaded = await uploadImageToGitHub(document.getElementById('f_s_file'));
         if (!uploaded) throw new Error('사진 파일을 선택해 주세요.');
         homeData.slides = homeData.slides || [];
-        homeData.slides.push({ image: uploaded, caption: document.getElementById('f_s_cap').value });
+        homeData.slides.push({
+          image: uploaded,
+          caption: document.getElementById('f_s_cap').value,
+          captionKo: document.getElementById('f_s_cap_ko').value
+        });
         await saveJsonToGitHub('data/home.json', homeData, 'Add home slide');
         renderHome();
       });
@@ -1359,18 +1435,17 @@
       renderHome();
     }
 
-    // ================= 2. RESEARCH =================
     function renderResearch() {
       const container = document.getElementById('researchList');
       container.innerHTML = researchItems.map((r, idx) => `
         <div class="research-item">
           <div class="research-thumb">
-            <img src="${r.image}" alt="${r.title}">
+            <img src="${r.image}" alt="${pick(r.title, r.titleKo)}">
           </div>
           <div>
             <div class="research-num">${r.label || ''}</div>
-            <h3>${r.title}</h3>
-            <p>${r.description}</p>
+            <h3>${pick(r.title, r.titleKo)}</h3>
+            <p>${pick(r.description, r.descriptionKo)}</p>
             <div class="card-adm-tools left admin-only">
               <button class="btn-adm btn-adm-edit" onclick="openResearchModal(${idx})">✎ 수정</button>
               <button class="btn-adm btn-adm-del" onclick="deleteResearch(${idx})">삭제</button>
@@ -1381,12 +1456,14 @@
     }
 
     function openResearchModal(idx = null) {
-      const r = idx !== null ? researchItems[idx] : { label: `Research Area 0${researchItems.length + 1}`, title: '', description: '', image: '' };
-      document.getElementById('admModalTitle').textContent = idx !== null ? '연구 주제 수정' : '새 연구 주제 추가';
+      const r = idx !== null ? researchItems[idx] : { label: `Research Area 0${researchItems.length + 1}`, title: '', titleKo: '', description: '', descriptionKo: '', image: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '연구 주제 수정 (한/영)' : '새 연구 주제 추가 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
         <div class="adm-field"><label>상단 라벨 (예: Research Area 01)</label><input type="text" id="f_r_lbl" value="${r.label || ''}" /></div>
-        <div class="adm-field"><label>연구 분야 제목</label><input type="text" id="f_r_tit" value="${r.title || ''}" /></div>
-        <div class="adm-field"><label>연구 내용 설명</label><textarea id="f_r_des">${r.description || ''}</textarea></div>
+        <div class="adm-field"><label>영문 연구 제목 (EN)</label><input type="text" id="f_r_tit" value="${r.title || ''}" /></div>
+        <div class="adm-field"><label>국문 연구 제목 (KR)</label><input type="text" id="f_r_tit_ko" value="${r.titleKo || ''}" /></div>
+        <div class="adm-field"><label>영문 연구 설명 (EN)</label><textarea id="f_r_des">${r.description || ''}</textarea></div>
+        <div class="adm-field"><label>국문 연구 설명 (KR)</label><textarea id="f_r_des_ko">${r.descriptionKo || ''}</textarea></div>
         <div class="adm-field"><label>이미지 업로드/변경 (선택)</label><input type="file" id="f_r_file" accept="image/*" /></div>
       `;
       bindSave(async () => {
@@ -1394,7 +1471,9 @@
         const obj = {
           label: document.getElementById('f_r_lbl').value,
           title: document.getElementById('f_r_tit').value,
+          titleKo: document.getElementById('f_r_tit_ko').value,
           description: document.getElementById('f_r_des').value,
+          descriptionKo: document.getElementById('f_r_des_ko').value,
           image: uploaded || r.image || ''
         };
         if (idx !== null) researchItems[idx] = obj;
@@ -1411,7 +1490,6 @@
       renderResearch();
     }
 
-    // ================= 3. PUBLICATIONS =================
     function initYearFilters() {
       const years = ['ALL', ...new Set(publications.map(p => p.year))];
       const container = document.getElementById('yearFilters');
@@ -1501,7 +1579,6 @@
       renderPublications();
     }
 
-    // ================= 4. MEMBERS (PI, Current, Alumni) =================
     function renderMembers() {
       const piCard = document.getElementById('piCard');
       if (piData && piData.name) {
@@ -1510,11 +1587,11 @@
                onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22290%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23e5e7eb%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%236b7280%22>Prof. K. M. Byun</text></svg>'">
           <div>
             <div class="pi-header">
-              <h3>${piData.name}</h3>
-              <div class="pi-role">${piData.role || ''}</div>
+              <h3>${pick(piData.name, piData.nameKo)}</h3>
+              <div class="pi-role">${pick(piData.role, piData.roleKo)}</div>
             </div>
             <p style="font-size:0.92rem; color:#374151;">
-              <strong>Office:</strong> ${piData.office || ''} &nbsp;|&nbsp;
+              <strong>Office:</strong> ${pick(piData.office, piData.officeKo)} &nbsp;|&nbsp;
               <strong>Tel:</strong> ${piData.tel || ''} &nbsp;|&nbsp;
               <strong>E-mail:</strong> <a href="mailto:${piData.email}" style="color:var(--khu-burgundy); font-weight:600;">${piData.email || ''}</a>
             </p>
@@ -1547,10 +1624,10 @@
             <div class="avatar-placeholder">${m.fallback || ''}</div>
           `}
           <div class="member-role">${m.role}</div>
-          <div class="member-name">${m.name}</div>
-          <div class="member-en">${m.enName}</div>
+          <div class="member-name">${currentLang === 'ko' ? (m.name || m.enName) : (m.enName || m.name)}</div>
+          <div class="member-en">${currentLang === 'ko' ? (m.enName || '') : (m.name || '')}</div>
           <div class="member-meta">
-            <div style="margin-bottom: 0.5rem;">${m.dept}</div>
+            <div style="margin-bottom: 0.5rem;">${pick(m.dept, m.deptKo)}</div>
             ${m.email}
           </div>
           <div class="card-adm-tools admin-only">
@@ -1594,11 +1671,14 @@
     function openPiModal() {
       const eduText = (piData.education || []).map(e => `${e.degree} | ${e.detail}`).join('\n');
       const carText = (piData.career || []).map(c => `${c.period} | ${c.detail}`).join('\n');
-      document.getElementById('admModalTitle').textContent = '교수님(PI) 정보 수정';
+      document.getElementById('admModalTitle').textContent = '교수님(PI) 정보 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>성함</label><input type="text" id="f_pi_name" value="${piData.name || ''}" /></div>
-        <div class="adm-field"><label>직위</label><input type="text" id="f_pi_role" value="${piData.role || ''}" /></div>
-        <div class="adm-field"><label>연구실 위치</label><input type="text" id="f_pi_off" value="${piData.office || ''}" /></div>
+        <div class="adm-field"><label>성함 (EN/기본)</label><input type="text" id="f_pi_name" value="${piData.name || ''}" /></div>
+        <div class="adm-field"><label>성함 (KR)</label><input type="text" id="f_pi_name_ko" value="${piData.nameKo || ''}" /></div>
+        <div class="adm-field"><label>직위 (EN)</label><input type="text" id="f_pi_role" value="${piData.role || ''}" /></div>
+        <div class="adm-field"><label>직위 (KR)</label><input type="text" id="f_pi_role_ko" value="${piData.roleKo || ''}" /></div>
+        <div class="adm-field"><label>연구실 위치 (EN)</label><input type="text" id="f_pi_off" value="${piData.office || ''}" /></div>
+        <div class="adm-field"><label>연구실 위치 (KR)</label><input type="text" id="f_pi_off_ko" value="${piData.officeKo || ''}" /></div>
         <div class="adm-field"><label>전화번호</label><input type="text" id="f_pi_tel" value="${piData.tel || ''}" /></div>
         <div class="adm-field"><label>이메일</label><input type="text" id="f_pi_eml" value="${piData.email || ''}" /></div>
         <div class="adm-field"><label>Education (형식: 학위/연도 | 세부내용)</label><textarea id="f_pi_edu">${eduText}</textarea></div>
@@ -1613,8 +1693,11 @@
         });
         piData = {
           name: document.getElementById('f_pi_name').value,
+          nameKo: document.getElementById('f_pi_name_ko').value,
           role: document.getElementById('f_pi_role').value,
+          roleKo: document.getElementById('f_pi_role_ko').value,
           office: document.getElementById('f_pi_off').value,
+          officeKo: document.getElementById('f_pi_off_ko').value,
           tel: document.getElementById('f_pi_tel').value,
           email: document.getElementById('f_pi_eml').value,
           photo: uploaded || piData.photo || 'prof-byun.jpg',
@@ -1627,13 +1710,14 @@
     }
 
     function openMemberModal(idx = null) {
-      const m = idx !== null ? currentMembers[idx] : { role: 'M.S. Student', name: '', enName: '', dept: 'Dept. of Biomedical Engineering', email: '', photo: '', fallback: '' };
-      document.getElementById('admModalTitle').textContent = idx !== null ? '멤버 정보 수정' : '새 멤버 추가';
+      const m = idx !== null ? currentMembers[idx] : { role: 'M.S. Student', name: '', enName: '', dept: 'Biomedical Engineering', deptKo: '생체의공학과', email: '', photo: '', fallback: '' };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '멤버 정보 수정 (한/영)' : '새 멤버 추가 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>과정 (예: Ph.D. Student, M.S. Student, Undergraduate Researcher)</label><input type="text" id="f_m_role" value="${m.role || ''}" /></div>
-        <div class="adm-field"><label>국문 이름</label><input type="text" id="f_m_name" value="${m.name || ''}" /></div>
-        <div class="adm-field"><label>영문 이름</label><input type="text" id="f_m_en" value="${m.enName || ''}" /></div>
-        <div class="adm-field"><label>소속 학과</label><input type="text" id="f_m_dept" value="${m.dept || ''}" /></div>
+        <div class="adm-field"><label>과정 (예: Ph.D. Student, M.S. Student, Undergraduate Student)</label><input type="text" id="f_m_role" value="${m.role || ''}" /></div>
+        <div class="adm-field"><label>국문 이름 (KR)</label><input type="text" id="f_m_name" value="${m.name || ''}" /></div>
+        <div class="adm-field"><label>영문 이름 (EN)</label><input type="text" id="f_m_en" value="${m.enName || ''}" /></div>
+        <div class="adm-field"><label>영문 소속 학과 (EN)</label><input type="text" id="f_m_dept" value="${m.dept || ''}" /></div>
+        <div class="adm-field"><label>국문 소속 학과 (KR)</label><input type="text" id="f_m_dept_ko" value="${m.deptKo || ''}" /></div>
         <div class="adm-field"><label>이메일</label><input type="text" id="f_m_eml" value="${m.email || ''}" /></div>
         <div class="adm-field"><label>사진 없을 때 표시할 이니셜 (예: HB)</label><input type="text" id="f_m_fb" value="${m.fallback || ''}" /></div>
         <div class="adm-field"><label>프로필 사진 업로드 (선택)</label><input type="file" id="f_m_file" accept="image/*" /></div>
@@ -1645,6 +1729,7 @@
           name: document.getElementById('f_m_name').value,
           enName: document.getElementById('f_m_en').value,
           dept: document.getElementById('f_m_dept').value,
+          deptKo: document.getElementById('f_m_dept_ko').value,
           email: document.getElementById('f_m_eml').value,
           fallback: document.getElementById('f_m_fb').value,
           photo: uploaded || m.photo || ''
@@ -1670,7 +1755,7 @@
       document.getElementById('admModalTitle').textContent = idx !== null ? '졸업생/학부생 수정' : '졸업생/학부생 추가';
       document.getElementById('admModalBody').innerHTML = `
         <div class="adm-field"><label>이름</label><input type="text" id="f_a_name" value="${item.name || ''}" /></div>
-        <div class="adm-field"><label>${isUnder ? '연도/소속 정보' : '졸업연도 / 진로 (예: (2026.02))'}</label><input type="text" id="f_a_sub" value="${isUnder ? (item.info || '') : (item.year || '')}" /></div>
+        <div class="adm-field"><label>${isUnder ? '연도/소속 정보' : '졸업연도 / 진로 (예: (\'26))'}</label><input type="text" id="f_a_sub" value="${isUnder ? (item.info || '') : (item.year || '')}" /></div>
       `;
       bindSave(async () => {
         const obj = isUnder
@@ -1691,13 +1776,12 @@
       renderMembers();
     }
 
-    // ================= 5. NEWS =================
     function renderNotices() {
       const homePreview = document.getElementById('homeNoticePreview');
       homePreview.innerHTML = newsItems.slice(0, 3).map(n => `
         <div class="notice-preview-item" onclick="switchTab('notice')">
           <div class="notice-preview-date">${n.date} · ${n.category}</div>
-          <div class="notice-preview-title">${n.title}</div>
+          <div class="notice-preview-title">${pick(n.title, n.titleKo)}</div>
         </div>
       `).join('');
 
@@ -1711,9 +1795,9 @@
               <div class="notice-post-header">
                 <span class="badge-cat">${n.category}</span>
                 <span class="notice-post-date">${n.date}</span>
-                <h3 class="notice-post-title">${n.title}</h3>
+                <h3 class="notice-post-title">${pick(n.title, n.titleKo)}</h3>
               </div>
-              <div class="notice-post-body">${n.body}</div>
+              <div class="notice-post-body">${pick(n.body, n.bodyKo)}</div>
               <div class="card-adm-tools left admin-only">
                 <button class="btn-adm btn-adm-edit" onclick="openNewsModal(${idx})">✎ 수정</button>
                 <button class="btn-adm btn-adm-del" onclick="deleteNews(${idx})">삭제</button>
@@ -1731,13 +1815,15 @@
 
     function openNewsModal(idx = null) {
       const today = new Date().toISOString().slice(0, 10);
-      const n = idx !== null ? newsItems[idx] : { category: 'Conference', date: today, title: '', body: '', images: [] };
-      document.getElementById('admModalTitle').textContent = idx !== null ? '뉴스 게시물 수정' : '새 뉴스/사진 올리기';
+      const n = idx !== null ? newsItems[idx] : { category: 'Conference', date: today, title: '', titleKo: '', body: '', bodyKo: '', images: [] };
+      document.getElementById('admModalTitle').textContent = idx !== null ? '뉴스 게시물 수정 (한/영)' : '새 뉴스/사진 올리기 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
         <div class="adm-field"><label>카테고리 (예: Conference, Award, Notice)</label><input type="text" id="f_n_cat" value="${n.category || ''}" /></div>
         <div class="adm-field"><label>날짜 (YYYY-MM-DD)</label><input type="text" id="f_n_date" value="${n.date || today}" /></div>
-        <div class="adm-field"><label>제목</label><input type="text" id="f_n_tit" value="${n.title || ''}" /></div>
-        <div class="adm-field"><label>본문 내용</label><textarea id="f_n_body">${n.body || ''}</textarea></div>
+        <div class="adm-field"><label>영문 제목 (EN)</label><input type="text" id="f_n_tit" value="${n.title || ''}" /></div>
+        <div class="adm-field"><label>국문 제목 (KR)</label><input type="text" id="f_n_tit_ko" value="${n.titleKo || ''}" /></div>
+        <div class="adm-field"><label>영문 본문 내용 (EN)</label><textarea id="f_n_body">${n.body || ''}</textarea></div>
+        <div class="adm-field"><label>국문 본문 내용 (KR)</label><textarea id="f_n_body_ko">${n.bodyKo || ''}</textarea></div>
         <div class="adm-field"><label>사진 추가 업로드 (여러 장 선택 가능)</label><input type="file" id="f_n_files" accept="image/*" multiple /></div>
         ${idx !== null && (n.images || []).length > 0 ? `<div class="adm-field"><label><input type="checkbox" id="f_n_clear_imgs" style="width:auto; margin-right:6px;">기존 첨부 사진 모두 지우기</label></div>` : ''}
       `;
@@ -1757,7 +1843,9 @@
           category: document.getElementById('f_n_cat').value,
           date: document.getElementById('f_n_date').value,
           title: document.getElementById('f_n_tit').value,
+          titleKo: document.getElementById('f_n_tit_ko').value,
           body: document.getElementById('f_n_body').value,
+          bodyKo: document.getElementById('f_n_body_ko').value,
           images: currentImgs
         };
         if (idx !== null) newsItems[idx] = obj;
@@ -1774,21 +1862,27 @@
       renderNotices();
     }
 
-    // ================= 6. CONTACT =================
     function renderContact() {
       const infoList = document.getElementById('contactInfoList');
+      const mainAddr = currentLang === 'ko'
+        ? (contactData.addressKo || contactData.addressEn || '')
+        : (contactData.addressEn || contactData.addressKo || '');
+      const subAddr = currentLang === 'ko'
+        ? (contactData.addressEn || '')
+        : (contactData.addressKo || '');
+
       infoList.innerHTML = `
         <li>
-          <div class="contact-label">Laboratory Location (연구실 위치)</div>
-          <div>${(contactData.addressEn || '').replace(/\n/g, '<br>')}</div>
-          <div style="font-size:0.88rem; color:var(--text-muted); margin-top:0.3rem;">${contactData.addressKo || ''}</div>
+          <div class="contact-label">${currentLang === 'ko' ? '연구실 위치 (Laboratory Location)' : 'Laboratory Location'}</div>
+          <div>${mainAddr.replace(/\n/g, '<br>')}</div>
+          ${subAddr ? `<div style="font-size:0.88rem; color:var(--text-muted); margin-top:0.3rem;">${subAddr.replace(/\n/g, '<br>')}</div>` : ''}
         </li>
         <li>
-          <div class="contact-label">Principal Investigator</div>
-          <div>${contactData.piName || ''}</div>
+          <div class="contact-label">${currentLang === 'ko' ? '연구책임자 (Principal Investigator)' : 'Principal Investigator'}</div>
+          <div>${pick(contactData.piName, contactData.piNameKo)}</div>
         </li>
         <li>
-          <div class="contact-label">Phone </div>
+          <div class="contact-label">Phone</div>
           <div>${contactData.phoneFax || ''}</div>
         </li>
         <li>
@@ -1809,20 +1903,22 @@
     }
 
     function openContactModal() {
-      document.getElementById('admModalTitle').textContent = '연락처 및 위치 수정';
+      document.getElementById('admModalTitle').textContent = '연락처 및 위치 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>영문 주소 (addressEn)</label><textarea id="f_c_en">${contactData.addressEn || ''}</textarea></div>
-        <div class="adm-field"><label>국문 주소 (addressKo)</label><textarea id="f_c_ko">${contactData.addressKo || ''}</textarea></div>
-        <div class="adm-field"><label>연구책임자 표기 (piName)</label><input type="text" id="f_c_pi" value="${contactData.piName || ''}" /></div>
-        <div class="adm-field"><label>전화번호 (phoneFax)</label><input type="text" id="f_c_ph" value="${contactData.phoneFax || ''}" /></div>
-        <div class="adm-field"><label>이메일 (email)</label><input type="text" id="f_c_em" value="${contactData.email || ''}" /></div>
-        <div class="adm-field"><label>구글 지도 검색어 (mapQuery)</label><input type="text" id="f_c_map" value="${contactData.mapQuery || ''}" /></div>
+        <div class="adm-field"><label>영문 주소 (EN)</label><textarea id="f_c_en">${contactData.addressEn || ''}</textarea></div>
+        <div class="adm-field"><label>국문 주소 (KR)</label><textarea id="f_c_ko">${contactData.addressKo || ''}</textarea></div>
+        <div class="adm-field"><label>연구책임자 표기 (EN)</label><input type="text" id="f_c_pi" value="${contactData.piName || ''}" /></div>
+        <div class="adm-field"><label>연구책임자 표기 (KR)</label><input type="text" id="f_c_pi_ko" value="${contactData.piNameKo || ''}" /></div>
+        <div class="adm-field"><label>전화번호</label><input type="text" id="f_c_ph" value="${contactData.phoneFax || ''}" /></div>
+        <div class="adm-field"><label>이메일</label><input type="text" id="f_c_em" value="${contactData.email || ''}" /></div>
+        <div class="adm-field"><label>구글 지도 검색어</label><input type="text" id="f_c_map" value="${contactData.mapQuery || ''}" /></div>
       `;
       bindSave(async () => {
         contactData = {
           addressEn: document.getElementById('f_c_en').value,
           addressKo: document.getElementById('f_c_ko').value,
           piName: document.getElementById('f_c_pi').value,
+          piNameKo: document.getElementById('f_c_pi_ko').value,
           phoneFax: document.getElementById('f_c_ph').value,
           email: document.getElementById('f_c_em').value,
           mapQuery: document.getElementById('f_c_map').value
@@ -1832,7 +1928,6 @@
       });
     }
 
-    // Load All JSON Files in Real-Time
     async function loadAllData() {
       try {
         const opts = { cache: 'no-store' };
@@ -1855,15 +1950,11 @@
         if (pRes.ok) publications = (await pRes.json()).items || [];
         if (cRes.ok) contactData = await cRes.json();
       } catch (e) {
-        console.error('데이터 로드 오류:', e);
+        console.error(e);
       }
-      renderHome();
-      renderResearch();
-      renderMembers();
-      renderNotices();
+      setLang(currentLang);
       initYearFilters();
       renderPublications();
-      renderContact();
     }
 
     checkAdminState();
