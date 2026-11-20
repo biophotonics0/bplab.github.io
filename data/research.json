@@ -19,7 +19,9 @@
     {
       "label": "Research Theme 03",
       "title": "Optical Detection of Neural Signals and Study of Neural Activity Mechanisms",
+      "titleKo": "신경신호의 광학적 검출 및 신경활동 매커니즘 연구",
       "description": "This research focuses on developing optical technologies to detect neural signals using plasmonic optical sensors rather than conventional electrical methods. By integrating optical sensing systems with electrical or ultrasonic stimulation, signals generated from neural cells and tissues can be measured non-invasively.\nFurthermore, by developing optical neuromodulation systems capable of selectively stimulating and recording targeted neural regions, we investigate and control the underlying mechanisms of neural activity.",
+      "descriptionKo": "  본 연구는 기존의 전기적 방식 대신 플라즈모닉 광학센서를 활용하여 신경신호를 광학적으로 검출하는 기술을 개발하는 데 목적이 있습니다. 광학 센서 시스템을 전기적 또는 초음파 자극 시스템과 결합함으로써, 신경세포 및 조직에서 발생하는 신호를 비침습적으로 측정할 수 있습니다.\n\n  또한 특정 부위의 신경을 선택적으로 자극하고 측정할 수 있는 광학 기반 신경조율(Neuromodulation) 시스템 개발을 통해 신경활동의 메커니즘을 이해하고 제어하는 연구를 수행하고 있습니다.\n\n",
       "image": "images/uploads/대학휘장-01.png"
     }
   ]
