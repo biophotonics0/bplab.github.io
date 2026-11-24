@@ -1231,6 +1231,18 @@
     let selectedYear = 'ALL';
     let slideIndex = 0;
 
+    function esc(str) {
+          return String(str ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+    function renderCustomFieldsHtml(fields, centered = false) {
+      const valid = (fields || []).filter(f => f && (f.labelEn || f.labelKo || f.valueEn || f.valueKo));
+      if (!valid.length) return '';
+      return `<div style="margin-top:0.5rem; font-size:0.85rem; color:#4b5563; text-align:${centered ? 'center' : 'left'};">` +
+        valid.map(f => `<div>${pick(f.labelEn, f.labelKo) ? `<strong>${esc(pick(f.labelEn, f.labelKo))}:</strong> ` : ''}${esc(pick(f.valueEn, f.valueKo))}</div>`).join('') +
+      `</div>`;
+    }
+    
     function pick(enVal, koVal) {
       if (currentLang === 'ko') return koVal || enVal || '';
       return enVal || koVal || '';
