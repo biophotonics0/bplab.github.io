@@ -39,16 +39,6 @@
       "email": "jhbae0605@khu.ac.kr",
       "fallback": "배",
       "photo": "images/uploads/1795152382767_member-bae.jpg"
-    },
-    {
-      "role": "M.S. Student",
-      "name": "ㅂ",
-      "enName": "ㅂ",
-      "dept": "Biomedical Engineering",
-      "deptKo": "생체의공학과",
-      "email": "ㅂ",
-      "fallback": "",
-      "photo": "images/uploads/1795487799676_slide-4.jpg"
     }
   ]
 }
