@@ -1784,16 +1784,18 @@
     }
 
     function renderPublications() {
-      const query = document.getElementById('pubSearch').value.trim().toLowerCase();
-      const indexed = publications.map((p, origIdx) => ({ ...p, origIdx }));
+      const searchEl = document.getElementById('pubSearch');
+      const query = searchEl ? searchEl.value.trim().toLowerCase() : '';
+      const indexed = (publications || []).map((p, origIdx) => ({ ...p, origIdx }));
       const filtered = indexed.filter(p => {
+        if (!p) return false;
         const matchYear = selectedYear === 'ALL' || String(p.year) === String(selectedYear);
         const titleStr = String(p.title || '').toLowerCase();
         const rawAuthors = Array.isArray(p.authors) ? p.authors.join(', ') : (p.authors || p.author || '');
         const authorStr = String(rawAuthors).toLowerCase();
         const journalStr = String(p.journal || '').toLowerCase();
         const customStr = (p.customFields || [])
-          .map(f => `${f.valueEn || ''} ${f.valueKo || ''}`)
+          .map(f => `${f && f.valueEn ? f.valueEn : ''} ${f && f.valueKo ? f.valueKo : ''}`)
           .join(' ')
           .toLowerCase();
 
@@ -1806,6 +1808,7 @@
       });
 
       const list = document.getElementById('pubList');
+      if (!list) return;
       if (filtered.length === 0) {
         list.innerHTML = '<li style="padding:2rem; text-align:center; color:#6b7280;">No matching publications found.</li>';
         return;
@@ -1815,12 +1818,12 @@
         const displayAuthors = Array.isArray(p.authors) ? p.authors.join(', ') : (p.authors || p.author || '');
         return `
           <li class="pub-item">
-            <div class="pub-num">[${p.num}]</div>
+            <div class="pub-num">[${p.num ?? ''}]</div>
             <div>
-              <div class="pub-title">${esc(p.title)}</div>
+              <div class="pub-title">${esc(p.title || '')}</div>
               <div class="pub-authors">${esc(displayAuthors)}</div>
               <div class="pub-journal">
-                ${esc(p.journal)}
+                ${esc(p.journal || '')}
                 ${p.badge ? `<span class="pub-badge">${esc(p.badge)}</span>` : ''}
               </div>
               ${renderCustomFieldsHtml(p.customFields, false)}
@@ -1833,6 +1836,7 @@
         `;
       }).join('');
     }
+    
     function openPubModal(idx = null) {
       const nextNum = publications.length > 0 ? Math.max(...publications.map(x => Number(x.num) || 0)) + 1 : 1;
       const p = idx !== null ? publications[idx] : { num: nextNum, year: new Date().getFullYear(), title: '', authors: '', journal: '', badge: '' };
