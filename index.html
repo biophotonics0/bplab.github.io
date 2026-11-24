@@ -1769,9 +1769,10 @@
     function initYearFilters() {
       const years = ['ALL', ...new Set(publications.map(p => p.year))];
       const container = document.getElementById('yearFilters');
+      const allText = pick(siteData.pubAllLabelEn, siteData.pubAllLabelKo) || 'All';
       container.innerHTML = years.map(y => `
-        <button class="year-btn ${y === selectedYear ? 'active' : ''}" onclick="filterYear('${y}')">
-          ${y === 'ALL' ? 'All (' + publications.length + ')' : y}
+        <button class="year-btn ${String(y) === String(selectedYear) ? 'active' : ''}" onclick="filterYear('${y}')">
+          ${y === 'ALL' ? allText + ' (' + publications.length + ')' : y}
         </button>
       `).join('');
     }
@@ -1783,13 +1784,24 @@
     }
 
     function renderPublications() {
-      const query = document.getElementById('pubSearch').value.toLowerCase();
+      const query = document.getElementById('pubSearch').value.trim().toLowerCase();
       const indexed = publications.map((p, origIdx) => ({ ...p, origIdx }));
       const filtered = indexed.filter(p => {
         const matchYear = selectedYear === 'ALL' || String(p.year) === String(selectedYear);
-        const matchText = p.title.toLowerCase().includes(query) ||
-                          p.authors.toLowerCase().includes(query) ||
-                          p.journal.toLowerCase().includes(query);
+        const titleStr = String(p.title || '').toLowerCase();
+        const rawAuthors = Array.isArray(p.authors) ? p.authors.join(', ') : (p.authors || p.author || '');
+        const authorStr = String(rawAuthors).toLowerCase();
+        const journalStr = String(p.journal || '').toLowerCase();
+        const customStr = (p.customFields || [])
+          .map(f => `${f.valueEn || ''} ${f.valueKo || ''}`)
+          .join(' ')
+          .toLowerCase();
+
+        const matchText = !query ||
+          titleStr.includes(query) ||
+          authorStr.includes(query) ||
+          journalStr.includes(query) ||
+          customStr.includes(query);
         return matchYear && matchText;
       });
 
@@ -1799,25 +1811,28 @@
         return;
       }
 
-      list.innerHTML = filtered.map(p => `
-        <li class="pub-item">
-          <div class="pub-num">[${p.num}]</div>
-          <div>
-            <div class="pub-title">${p.title}</div>
-            <div class="pub-authors">${p.authors}</div>
-            <div class="pub-journal">
-              ${p.journal}
-              ${p.badge ? `<span class="pub-badge">${p.badge}</span>` : ''}
+      list.innerHTML = filtered.map(p => {
+        const displayAuthors = Array.isArray(p.authors) ? p.authors.join(', ') : (p.authors || p.author || '');
+        return `
+          <li class="pub-item">
+            <div class="pub-num">[${p.num}]</div>
+            <div>
+              <div class="pub-title">${esc(p.title)}</div>
+              <div class="pub-authors">${esc(displayAuthors)}</div>
+              <div class="pub-journal">
+                ${esc(p.journal)}
+                ${p.badge ? `<span class="pub-badge">${esc(p.badge)}</span>` : ''}
+              </div>
+              ${renderCustomFieldsHtml(p.customFields, false)}
+              <div class="card-adm-tools left admin-only">
+                <button class="btn-adm btn-adm-edit" onclick="openPubModal(${p.origIdx})">✎ 수정</button>
+                <button class="btn-adm btn-adm-del" onclick="deletePub(${p.origIdx})">삭제</button>
+              </div>
             </div>
-            <div class="card-adm-tools left admin-only">
-              <button class="btn-adm btn-adm-edit" onclick="openPubModal(${p.origIdx})">✎ 수정</button>
-              <button class="btn-adm btn-adm-del" onclick="deletePub(${p.origIdx})">삭제</button>
-            </div>
-          </div>
-        </li>
-      `).join('');
+          </li>
+        `;
+      }).join('');
     }
-
     function openPubModal(idx = null) {
       const nextNum = publications.length > 0 ? Math.max(...publications.map(x => Number(x.num) || 0)) + 1 : 1;
       const p = idx !== null ? publications[idx] : { num: nextNum, year: new Date().getFullYear(), title: '', authors: '', journal: '', badge: '' };
