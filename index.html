@@ -1738,10 +1738,11 @@
 
     function openEditHome() {
       const isChecked = homeData.showRecruit !== false;
+      const safeVal = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       document.getElementById('admModalTitle').textContent = 'Home 소개글 및 모집 안내 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>영문 소개글 (EN)</label><textarea id="f_h_en">${esc(homeData.welcomeEn)}</textarea></div>
-        <div class="adm-field"><label>국문 소개글 (KR)</label><textarea id="f_h_ko">${esc(homeData.welcomeKo)}</textarea></div>
+        <div class="adm-field"><label>영문 소개글 (EN)</label><textarea id="f_h_en">${safeVal(homeData.welcomeEn)}</textarea></div>
+        <div class="adm-field"><label>국문 소개글 (KR)</label><textarea id="f_h_ko">${safeVal(homeData.welcomeKo)}</textarea></div>
         <div class="adm-field" style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-color);">
           <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.92rem; color:var(--khu-burgundy);">
             <input type="checkbox" id="f_h_show_rec" ${isChecked ? 'checked' : ''} style="width:16px; height:16px;"
@@ -1750,10 +1751,9 @@
           </label>
         </div>
         <div id="f_h_rec_wrap" style="display:${isChecked ? 'block' : 'none'};">
-          <div class="adm-field"><label>영문 모집 안내문 (EN)</label><textarea id="f_h_rec">${esc(homeData.recruitText)}</textarea></div>
-          <div class="adm-field"><label>국문 모집 안내문 (KR)</label><textarea id="f_h_rec_ko">${esc(homeData.recruitTextKo)}</textarea></div>
+          <div class="adm-field"><label>영문 모집 안내문 (EN)</label><textarea id="f_h_rec">${safeVal(homeData.recruitText)}</textarea></div>
+          <div class="adm-field"><label>국문 모집 안내문 (KR)</label><textarea id="f_h_rec_ko">${safeVal(homeData.recruitTextKo)}</textarea></div>
         </div>
-        ${buildCustomFieldsEditor(homeData.customFields)}
       `;
       bindSave(async () => {
         homeData.welcomeEn = document.getElementById('f_h_en').value;
@@ -1761,11 +1761,11 @@
         homeData.showRecruit = document.getElementById('f_h_show_rec').checked;
         homeData.recruitText = document.getElementById('f_h_rec').value;
         homeData.recruitTextKo = document.getElementById('f_h_rec_ko').value;
-        homeData.customFields = readCustomFields();
         await saveJsonToGitHub('data/home.json', homeData, 'Update home.json');
         renderHome();
       });
     }
+    
     function openAddSlide() {
       document.getElementById('admModalTitle').textContent = 'Home 슬라이드 사진 추가';
       document.getElementById('admModalBody').innerHTML = `
