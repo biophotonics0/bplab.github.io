@@ -149,12 +149,25 @@
       background: linear-gradient(135deg, rgba(60, 12, 16, 0.92), rgba(139, 28, 36, 0.85)),
                   url('research-sers.jpg') center/cover no-repeat;
       color: #ffffff;
-      padding: 4.5rem 1.5rem;
+      padding: 3.5rem 1.5rem;
     }
 
     .hero-inner {
       max-width: 1180px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-inner.single-col {
+      grid-template-columns: 1fr;
+    }
+
+    .hero .slider-container {
+      border: 2px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
     }
 
     .hero-badge {
@@ -171,10 +184,11 @@
     }
 
     .hero h1 {
-      font-size: 2.4rem;
+      font-size: 2.35rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 0.75rem;
+      line-height: 1.25;
     }
 
     .hero p {
@@ -980,7 +994,7 @@
     }
 
     @media (max-width: 820px) {
-      .home-grid, .pi-card, .contact-grid, .research-item, .pi-info-grid, .alumni-grid, .adm-grid-2 {
+      .hero-inner, .home-grid, .pi-card, .contact-grid, .research-item, .pi-info-grid, .alumni-grid, .adm-grid-2 {
         grid-template-columns: 1fr;
       }
       .nav-container {
@@ -1014,7 +1028,7 @@
         padding: 0.26rem 0.45rem;
       }
       .hero {
-        padding: 2.75rem 1.25rem;
+        padding: 2.5rem 1.25rem;
       }
       .hero-badge {
         font-size: 0.66rem;
@@ -1052,13 +1066,22 @@
   </header>
 
   <section class="hero">
-    <div class="hero-inner">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
-        <div class="hero-badge" id="heroBadge">Department of Biomedical Engineering · Kyung Hee University</div>
-        <button class="btn-adm btn-adm-edit admin-only" onclick="openSiteHeaderModal()">✎ 상단·배너 문구 수정</button>
+    <div class="hero-inner" id="heroInner">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.75rem; flex-wrap:wrap;">
+          <div class="hero-badge" id="heroBadge">Department of Biomedical Engineering · Kyung Hee University</div>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSiteHeaderModal()">✎ 상단·배너 문구 수정</button>
+        </div>
+        <h1 id="heroTitle">Biophotonics Laboratory</h1>
+        <p id="heroDesc">Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.</p>
       </div>
-      <h1 id="heroTitle">Biophotonics Laboratory</h1>
-      <p id="heroDesc">Advancing Plasmonic Nanostructures, Surface-Enhanced Raman Spectroscopy (SERS), and Optical Biosensors.</p>
+
+      <div id="heroSliderWrap">
+        <div class="admin-only" style="margin-bottom:8px; justify-content:flex-end; width:100%;">
+          <button class="btn-adm btn-adm-add" onclick="openAddSlide()">+ 슬라이드 사진 추가</button>
+        </div>
+        <div class="slider-container" id="homeSlider"></div>
+      </div>
     </div>
   </section>
 
@@ -1082,21 +1105,12 @@
           <div id="homeCustomFields" class="custom-kv-list" style="margin-top:1rem;"></div>
         </div>
 
-        <div style="display:flex; flex-direction:column; gap:1.75rem;">
-          <div>
-            <div class="admin-only" style="margin-bottom:8px; justify-content:flex-end; width:100%;">
-              <button class="btn-adm btn-adm-add" onclick="openAddSlide()">+ 슬라이드 사진 추가</button>
-            </div>
-            <div class="slider-container" id="homeSlider"></div>
-          </div>
-
-          <div class="card">
-            <h3>
-              <span id="homeRecentTitle">Recent News</span>
-              <span id="homeViewAllText" style="font-size:0.82rem; font-weight:500; cursor:pointer; color:var(--text-muted);" onclick="switchTab('notice')">View all &rarr;</span>
-            </h3>
-            <div id="homeNoticePreview"></div>
-          </div>
+        <div class="card">
+          <h3>
+            <span id="homeRecentTitle">Recent News</span>
+            <span id="homeViewAllText" style="font-size:0.82rem; font-weight:500; cursor:pointer; color:var(--text-muted);" onclick="switchTab('notice')">View all &rarr;</span>
+          </h3>
+          <div id="homeNoticePreview"></div>
         </div>
       </div>
     </section>
@@ -1869,10 +1883,15 @@
 
       const slides = homeData.slides || [];
       const sliderEl = document.getElementById('homeSlider');
+      const heroInner = document.getElementById('heroInner');
       if (slides.length === 0) {
         sliderEl.style.display = 'none';
+        if (heroInner && !document.body.classList.contains('is-admin')) {
+          heroInner.classList.add('single-col');
+        }
         return;
       }
+      if (heroInner) heroInner.classList.remove('single-col');
       sliderEl.style.display = 'block';
       slideIndex = 0;
       sliderEl.innerHTML = slides.map((s, idx) => {
@@ -1939,7 +1958,7 @@
     }
 
     function openAddSlide() {
-      document.getElementById('admModalTitle').textContent = 'Home 슬라이드 사진 추가';
+      document.getElementById('admModalTitle').textContent = '배너 슬라이드 사진 추가';
       document.getElementById('admModalBody').innerHTML = `
         <div class="adm-field"><label>사진 파일 선택</label><input type="file" id="f_s_file" accept="image/*" /></div>
         <div class="adm-field"><label>영문 캡션 (EN)</label><input type="text" id="f_s_cap" placeholder="예: 2026 Conference Group Photo" /></div>
