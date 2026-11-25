@@ -1865,6 +1865,22 @@
       document.getElementById('tab-' + tabId).classList.add('active');
       const activeBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
       if (activeBtn) activeBtn.classList.add('active');
+
+      const heroSliderWrap = document.getElementById('heroSliderWrap');
+      const heroInner = document.getElementById('heroInner');
+      const isHome = tabId === 'home';
+      const hasSlides = (homeData.slides || []).length > 0 || document.body.classList.contains('is-admin');
+
+      if (heroSliderWrap && heroInner) {
+        if (isHome && hasSlides) {
+          heroSliderWrap.style.display = 'block';
+          heroInner.classList.remove('single-col');
+        } else {
+          heroSliderWrap.style.display = 'none';
+          heroInner.classList.add('single-col');
+        }
+      }
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
