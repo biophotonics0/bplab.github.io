@@ -12,9 +12,7 @@
     #homeRecruitText,
     .research-item p,
     .notice-post-body,
-    .contact-info-list li div,
-    #footerLeftText,
-    #footerRightText {
+    .contact-info-list li div {
       white-space: pre-line;
     }
     :root {
@@ -398,6 +396,22 @@
     .research-item p {
       font-size: 0.95rem;
       color: #374151;
+    }
+
+    .custom-kv-list {
+      margin-top: 0.65rem;
+      font-size: 0.85rem;
+      color: #4b5563;
+      line-height: 1.55;
+    }
+
+    .custom-kv-item {
+      margin-top: 0.25rem;
+    }
+
+    .custom-kv-item strong {
+      color: var(--khu-burgundy-dark);
+      font-weight: 600;
     }
 
     .pub-controls {
@@ -854,6 +868,7 @@
     .btn-adm-edit { background: #2563EB; color: #fff; }
     .btn-adm-del { background: #DC2626; color: #fff; }
     .btn-adm-out { background: #374151; color: #F9FAFB; }
+    .btn-adm-sub { background: #059669; color: #fff; padding: 5px 10px; font-size: 0.78rem; }
 
     .card-adm-tools {
       margin-top: 10px;
@@ -878,7 +893,7 @@
       background: #fff;
       border-radius: 12px;
       width: 100%;
-      max-width: 600px;
+      max-width: 640px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 24px;
@@ -900,6 +915,34 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+    .cf-section {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .cf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .cf-header span {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--khu-burgundy);
+    }
+    .cf-row {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .cf-row-top {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 6px;
     }
     .adm-modal-actions {
       display: flex;
@@ -1028,7 +1071,7 @@
             <span id="homeCardTitle">Welcome to Biophotonics Lab</span>
             <span style="display:flex; gap:5px; flex-wrap:wrap;">
               <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('home')">✎ 제목 수정</button>
-              <button class="btn-adm btn-adm-edit admin-only" onclick="openEditHome()">✎ 소개글 수정</button>
+              <button class="btn-adm btn-adm-edit admin-only" onclick="openEditHome()">✎ 소개글·항목 수정</button>
             </span>
           </h3>
           <p id="homeWelcomeMain"></p>
@@ -1036,6 +1079,7 @@
             <strong id="homeRecruitLabel">Prospective Students:</strong><br>
             <span id="homeRecruitText"></span>
           </div>
+          <div id="homeCustomFields" class="custom-kv-list" style="margin-top:1rem;"></div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:1.75rem;">
@@ -1091,8 +1135,8 @@
       <h2 class="section-title">
         <span id="secPiTitle">Principal Investigator</span>
         <span style="display:flex; gap:6px;">
-          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('pi')">✎ 제목 수정</button>
-          <button class="btn-adm btn-adm-edit admin-only" onclick="openPiModal()">✎ 교수님 정보 수정</button>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('pi')">✎ 제목·라벨 수정</button>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openPiModal()">✎ 교수님 정보·항목 수정</button>
         </span>
       </h2>
       <p class="section-subtitle" id="secPiSub">Faculty Director of the Biophotonics Laboratory.</p>
@@ -1154,8 +1198,8 @@
       <h2 class="section-title">
         <span id="secContactTitle">Contact &amp; Location</span>
         <span style="display:flex; gap:6px;">
-          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('contact')">✎ 제목 수정</button>
-          <button class="btn-adm btn-adm-edit admin-only" onclick="openContactModal()">✎ 연락처/지도 수정</button>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openSectionTextModal('contact')">✎ 제목·항목라벨 수정</button>
+          <button class="btn-adm btn-adm-edit admin-only" onclick="openContactModal()">✎ 연락처·항목 추가/수정</button>
         </span>
       </h2>
       <p class="section-subtitle" id="secContactSub">How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.</p>
@@ -1227,6 +1271,8 @@
       homeRecruitLabelKo: '대학원생 및 학부연구생 모집:',
       homeRecentTitleEn: 'Recent News',
       homeRecentTitleKo: '최근 소식',
+      homeViewAllEn: 'View all →',
+      homeViewAllKo: '전체보기 →',
       secResearchTitleEn: 'Research Areas',
       secResearchTitleKo: '연구 분야 (Research Areas)',
       secResearchSubEn: 'Core interdisciplinary research themes in nanophotonics, biosensing, and medical devices.',
@@ -1235,10 +1281,24 @@
       secPubTitleKo: '논문 실적 (Publications)',
       secPubSubEn: 'Peer-reviewed international journal articles (*Corresponding author).',
       secPubSubKo: '국제 저명 학술지 게재 논문 목록 (*교신저자).',
+      pubAllLabelEn: 'All',
+      pubAllLabelKo: '전체',
+      pubSearchPlaceholderEn: 'Search title, author, or journal...',
+      pubSearchPlaceholderKo: '논문 제목, 저자, 저널명 검색...',
       secPiTitleEn: 'Principal Investigator',
       secPiTitleKo: '지도교수 (Principal Investigator)',
       secPiSubEn: 'Faculty Director of the Biophotonics Laboratory.',
       secPiSubKo: '바이오포토닉스 연구실 연구책임자',
+      piOfficeLabelEn: 'Office:',
+      piOfficeLabelKo: '연구실:',
+      piTelLabelEn: 'Tel:',
+      piTelLabelKo: '전화:',
+      piEmailLabelEn: 'E-mail:',
+      piEmailLabelKo: '이메일:',
+      piEduTitleEn: 'Education',
+      piEduTitleKo: '학력 (Education)',
+      piCareerTitleEn: 'Academic Career',
+      piCareerTitleKo: '주요 경력 (Academic Career)',
       secCurTitleEn: 'Current Members',
       secCurTitleKo: '연구원 (Current Members)',
       secCurSubEn: 'Graduate and Undergraduate Researchers.',
@@ -1261,6 +1321,14 @@
       secContactTitleKo: '연락처 및 오시는 길',
       secContactSubEn: 'How to reach the Biophotonics Laboratory at Kyung Hee University Global Campus.',
       secContactSubKo: '경희대학교 국제캠퍼스 바이오포토닉스 연구실 위치 및 연락처 안내입니다.',
+      contactLocLabelEn: 'Laboratory Location',
+      contactLocLabelKo: '연구실 위치 (Laboratory Location)',
+      contactPiLabelEn: 'Principal Investigator',
+      contactPiLabelKo: '연구책임자 (Principal Investigator)',
+      contactPhoneLabelEn: 'Phone',
+      contactPhoneLabelKo: '전화번호 (Phone)',
+      contactEmailLabelEn: 'E-mail',
+      contactEmailLabelKo: '이메일 (E-mail)',
       footerLabNameEn: 'Biophotonics Laboratory',
       footerLabNameKo: '바이오포토닉스 연구실',
       footerDeptEn: '· Department of Biomedical Engineering, Kyung Hee University',
@@ -1285,22 +1353,96 @@
     let contactData = {};
     let selectedYear = 'ALL';
     let slideIndex = 0;
+    let slideTimer = null;
 
     function esc(str) {
-          return String(str ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function pick(enVal, koVal) {
+      if (currentLang === 'ko') return koVal || enVal || '';
+      return enVal || koVal || '';
+    }
 
     function renderCustomFieldsHtml(fields, centered = false) {
       const valid = (fields || []).filter(f => f && (f.labelEn || f.labelKo || f.valueEn || f.valueKo));
       if (!valid.length) return '';
-      return `<div style="margin-top:0.5rem; font-size:0.85rem; color:#4b5563; text-align:${centered ? 'center' : 'left'};">` +
-        valid.map(f => `<div>${pick(f.labelEn, f.labelKo) ? `<strong>${esc(pick(f.labelEn, f.labelKo))}:</strong> ` : ''}${esc(pick(f.valueEn, f.valueKo))}</div>`).join('') +
+      return `<div class="custom-kv-list" style="text-align:${centered ? 'center' : 'left'};">` +
+        valid.map(f => {
+          const lbl = pick(f.labelEn, f.labelKo);
+          const val = pick(f.valueEn, f.valueKo);
+          return `<div class="custom-kv-item">${lbl ? `<strong>${esc(lbl)}:</strong> ` : ''}${esc(val)}</div>`;
+        }).join('') +
       `</div>`;
     }
-    
-    function pick(enVal, koVal) {
-      if (currentLang === 'ko') return koVal || enVal || '';
-      return enVal || koVal || '';
+
+    function buildCustomFieldsEditor(existingFields = [], templateFields = []) {
+      const initial = (existingFields || []).length > 0
+        ? existingFields
+        : (templateFields || []).map(t => ({ labelEn: t.labelEn || '', labelKo: t.labelKo || '', valueEn: '', valueKo: '' }));
+
+      const rowsHtml = initial.map(f => renderCfRowHtml(f)).join('');
+      return `
+        <div class="cf-section">
+          <div class="cf-header">
+            <span>추가 커스텀 항목 (원하는 항목 자유 추가/수정)</span>
+            <button type="button" class="btn-adm btn-adm-sub" onclick="addCfRow()">+ 새 항목 추가</button>
+          </div>
+          <div id="cfRowsContainer">${rowsHtml}</div>
+        </div>
+      `;
+    }
+
+    function renderCfRowHtml(f = { labelEn: '', labelKo: '', valueEn: '', valueKo: '' }) {
+      return `
+        <div class="cf-row">
+          <div class="cf-row-top">
+            <button type="button" class="btn-adm btn-adm-del" style="padding:2px 7px; font-size:0.72rem;" onclick="this.closest('.cf-row').remove()">항목 삭제</button>
+          </div>
+          <div class="adm-grid-2">
+            <div class="adm-field" style="margin-bottom:6px;">
+              <label>항목 이름 (EN, 예: Research Area)</label>
+              <input type="text" class="cf-le" value="${esc(f.labelEn)}" placeholder="예: Research Area" />
+            </div>
+            <div class="adm-field" style="margin-bottom:6px;">
+              <label>항목 이름 (KR, 예: 연구분야)</label>
+              <input type="text" class="cf-lk" value="${esc(f.labelKo)}" placeholder="예: 연구분야" />
+            </div>
+            <div class="adm-field" style="margin-bottom:0;">
+              <label>내용 (EN)</label>
+              <input type="text" class="cf-ve" value="${esc(f.valueEn)}" placeholder="영문 내용 입력" />
+            </div>
+            <div class="adm-field" style="margin-bottom:0;">
+              <label>내용 (KR)</label>
+              <input type="text" class="cf-vk" value="${esc(f.valueKo)}" placeholder="국문 내용 입력" />
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function addCfRow() {
+      const container = document.getElementById('cfRowsContainer');
+      if (container) container.insertAdjacentHTML('beforeend', renderCfRowHtml());
+    }
+
+    function readCustomFields() {
+      const rows = document.querySelectorAll('#cfRowsContainer .cf-row');
+      const out = [];
+      rows.forEach(r => {
+        const labelEn = r.querySelector('.cf-le').value.trim();
+        const labelKo = r.querySelector('.cf-lk').value.trim();
+        const valueEn = r.querySelector('.cf-ve').value.trim();
+        const valueKo = r.querySelector('.cf-vk').value.trim();
+        if (labelEn || labelKo || valueEn || valueKo) {
+          out.push({ labelEn, labelKo, valueEn, valueKo });
+        }
+      });
+      return out;
     }
 
     function setLang(lang) {
@@ -1312,6 +1454,8 @@
       renderSiteText();
       renderHome();
       renderResearch();
+      initYearFilters();
+      renderPublications();
       renderMembers();
       renderNotices();
       renderContact();
@@ -1336,12 +1480,14 @@
       document.getElementById('homeCardTitle').textContent = pick(s.homeCardTitleEn, s.homeCardTitleKo);
       document.getElementById('homeRecruitLabel').textContent = pick(s.homeRecruitLabelEn, s.homeRecruitLabelKo);
       document.getElementById('homeRecentTitle').textContent = pick(s.homeRecentTitleEn, s.homeRecentTitleKo);
+      document.getElementById('homeViewAllText').textContent = pick(s.homeViewAllEn, s.homeViewAllKo);
 
       document.getElementById('secResearchTitle').textContent = pick(s.secResearchTitleEn, s.secResearchTitleKo);
       document.getElementById('secResearchSub').textContent = pick(s.secResearchSubEn, s.secResearchSubKo);
 
       document.getElementById('secPubTitle').textContent = pick(s.secPubTitleEn, s.secPubTitleKo);
       document.getElementById('secPubSub').textContent = pick(s.secPubSubEn, s.secPubSubKo);
+      document.getElementById('pubSearch').placeholder = pick(s.pubSearchPlaceholderEn, s.pubSearchPlaceholderKo);
 
       document.getElementById('secPiTitle').textContent = pick(s.secPiTitleEn, s.secPiTitleKo);
       document.getElementById('secPiSub').textContent = pick(s.secPiSubEn, s.secPiSubKo);
@@ -1518,29 +1664,29 @@
       document.getElementById('admModalTitle').textContent = '상단 로고 · 메뉴 · 히어로 배너 문구 수정';
       document.getElementById('admModalBody').innerHTML = `
         <div class="adm-grid-2">
-          <div class="adm-field"><label>상단 연구실 로고명</label><input type="text" id="f_sh_bm" value="${s.brandMain || ''}" /></div>
-          <div class="adm-field"><label>상단 소속 표기</label><input type="text" id="f_sh_bs" value="${s.brandSub || ''}" /></div>
+          <div class="adm-field"><label>상단 연구실 로고명</label><input type="text" id="f_sh_bm" value="${esc(s.brandMain)}" /></div>
+          <div class="adm-field"><label>상단 소속 표기</label><input type="text" id="f_sh_bs" value="${esc(s.brandSub)}" /></div>
         </div>
         <div class="adm-grid-2">
-          <div class="adm-field"><label>메뉴 1 (EN)</label><input type="text" id="f_sh_m1e" value="${s.navHomeEn || ''}" /></div>
-          <div class="adm-field"><label>메뉴 1 (KR)</label><input type="text" id="f_sh_m1k" value="${s.navHomeKo || ''}" /></div>
-          <div class="adm-field"><label>메뉴 2 (EN)</label><input type="text" id="f_sh_m2e" value="${s.navResearchEn || ''}" /></div>
-          <div class="adm-field"><label>메뉴 2 (KR)</label><input type="text" id="f_sh_m2k" value="${s.navResearchKo || ''}" /></div>
-          <div class="adm-field"><label>메뉴 3 (EN)</label><input type="text" id="f_sh_m3e" value="${s.navPubEn || ''}" /></div>
-          <div class="adm-field"><label>메뉴 3 (KR)</label><input type="text" id="f_sh_m3k" value="${s.navPubKo || ''}" /></div>
-          <div class="adm-field"><label>메뉴 4 (EN)</label><input type="text" id="f_sh_m4e" value="${s.navMembersEn || ''}" /></div>
-          <div class="adm-field"><label>메뉴 4 (KR)</label><input type="text" id="f_sh_m4k" value="${s.navMembersKo || ''}" /></div>
-          <div class="adm-field"><label>메뉴 5 (EN)</label><input type="text" id="f_sh_m5e" value="${s.navNewsEn || ''}" /></div>
-          <div class="adm-field"><label>메뉴 5 (KR)</label><input type="text" id="f_sh_m5k" value="${s.navNewsKo || ''}" /></div>
-          <div class="adm-field"><label>메뉴 6 (EN)</label><input type="text" id="f_sh_m6e" value="${s.navContactEn || ''}" /></div>
-          <div class="adm-field"><label>메뉴 6 (KR)</label><input type="text" id="f_sh_m6k" value="${s.navContactKo || ''}" /></div>
+          <div class="adm-field"><label>메뉴 1 (EN)</label><input type="text" id="f_sh_m1e" value="${esc(s.navHomeEn)}" /></div>
+          <div class="adm-field"><label>메뉴 1 (KR)</label><input type="text" id="f_sh_m1k" value="${esc(s.navHomeKo)}" /></div>
+          <div class="adm-field"><label>메뉴 2 (EN)</label><input type="text" id="f_sh_m2e" value="${esc(s.navResearchEn)}" /></div>
+          <div class="adm-field"><label>메뉴 2 (KR)</label><input type="text" id="f_sh_m2k" value="${esc(s.navResearchKo)}" /></div>
+          <div class="adm-field"><label>메뉴 3 (EN)</label><input type="text" id="f_sh_m3e" value="${esc(s.navPubEn)}" /></div>
+          <div class="adm-field"><label>메뉴 3 (KR)</label><input type="text" id="f_sh_m3k" value="${esc(s.navPubKo)}" /></div>
+          <div class="adm-field"><label>메뉴 4 (EN)</label><input type="text" id="f_sh_m4e" value="${esc(s.navMembersEn)}" /></div>
+          <div class="adm-field"><label>메뉴 4 (KR)</label><input type="text" id="f_sh_m4k" value="${esc(s.navMembersKo)}" /></div>
+          <div class="adm-field"><label>메뉴 5 (EN)</label><input type="text" id="f_sh_m5e" value="${esc(s.navNewsEn)}" /></div>
+          <div class="adm-field"><label>메뉴 5 (KR)</label><input type="text" id="f_sh_m5k" value="${esc(s.navNewsKo)}" /></div>
+          <div class="adm-field"><label>메뉴 6 (EN)</label><input type="text" id="f_sh_m6e" value="${esc(s.navContactEn)}" /></div>
+          <div class="adm-field"><label>메뉴 6 (KR)</label><input type="text" id="f_sh_m6k" value="${esc(s.navContactKo)}" /></div>
         </div>
-        <div class="adm-field"><label>배너 상단 학과 뱃지 (EN)</label><input type="text" id="f_sh_hbe" value="${s.heroBadgeEn || ''}" /></div>
-        <div class="adm-field"><label>배너 상단 학과 뱃지 (KR)</label><input type="text" id="f_sh_hbk" value="${s.heroBadgeKo || ''}" /></div>
-        <div class="adm-field"><label>배너 연구실 이름 (EN)</label><input type="text" id="f_sh_hte" value="${s.heroTitleEn || ''}" /></div>
-        <div class="adm-field"><label>배너 연구실 이름 (KR)</label><input type="text" id="f_sh_htk" value="${s.heroTitleKo || ''}" /></div>
-        <div class="adm-field"><label>배너 연구실 간단소개 (EN)</label><textarea id="f_sh_hde">${s.heroDescEn || ''}</textarea></div>
-        <div class="adm-field"><label>배너 연구실 간단소개 (KR)</label><textarea id="f_sh_hdk">${s.heroDescKo || ''}</textarea></div>
+        <div class="adm-field"><label>배너 상단 학과 뱃지 (EN)</label><input type="text" id="f_sh_hbe" value="${esc(s.heroBadgeEn)}" /></div>
+        <div class="adm-field"><label>배너 상단 학과 뱃지 (KR)</label><input type="text" id="f_sh_hbk" value="${esc(s.heroBadgeKo)}" /></div>
+        <div class="adm-field"><label>배너 연구실 이름 (EN)</label><input type="text" id="f_sh_hte" value="${esc(s.heroTitleEn)}" /></div>
+        <div class="adm-field"><label>배너 연구실 이름 (KR)</label><input type="text" id="f_sh_htk" value="${esc(s.heroTitleKo)}" /></div>
+        <div class="adm-field"><label>배너 연구실 간단소개 (EN)</label><textarea id="f_sh_hde">${esc(s.heroDescEn)}</textarea></div>
+        <div class="adm-field"><label>배너 연구실 간단소개 (KR)</label><textarea id="f_sh_hdk">${esc(s.heroDescKo)}</textarea></div>
       `;
       bindSave(async () => {
         Object.assign(siteData, {
@@ -1574,11 +1720,12 @@
       const s = siteData;
       const configs = {
         home: {
-          title: 'Home 섹션 제목 수정',
+          title: 'Home 섹션 제목 및 안내 라벨 수정',
           fields: [
             ['homeCardTitleEn', '소개 카드 제목 (EN)'], ['homeCardTitleKo', '소개 카드 제목 (KR)'],
             ['homeRecruitLabelEn', '모집 안내 라벨 (EN)'], ['homeRecruitLabelKo', '모집 안내 라벨 (KR)'],
-            ['homeRecentTitleEn', '최근 소식 카드 제목 (EN)'], ['homeRecentTitleKo', '최근 소식 카드 제목 (KR)']
+            ['homeRecentTitleEn', '최근 소식 카드 제목 (EN)'], ['homeRecentTitleKo', '최근 소식 카드 제목 (KR)'],
+            ['homeViewAllEn', '전체보기 버튼 문구 (EN)'], ['homeViewAllKo', '전체보기 버튼 문구 (KR)']
           ]
         },
         research: {
@@ -1589,17 +1736,24 @@
           ]
         },
         publications: {
-          title: 'Publications 섹션 제목·부제목 수정',
+          title: 'Publications 섹션 제목·부제목·검색 라벨 수정',
           fields: [
             ['secPubTitleEn', '섹션 제목 (EN)'], ['secPubTitleKo', '섹션 제목 (KR)'],
-            ['secPubSubEn', '섹션 부제목 (EN)'], ['secPubSubKo', '섹션 부제목 (KR)']
+            ['secPubSubEn', '섹션 부제목 (EN)'], ['secPubSubKo', '섹션 부제목 (KR)'],
+            ['pubAllLabelEn', '전체 필터 버튼 문구 (EN)'], ['pubAllLabelKo', '전체 필터 버튼 문구 (KR)'],
+            ['pubSearchPlaceholderEn', '검색창 안내 문구 (EN)'], ['pubSearchPlaceholderKo', '검색창 안내 문구 (KR)']
           ]
         },
         pi: {
-          title: 'Principal Investigator 섹션 제목·부제목 수정',
+          title: 'Principal Investigator 섹션 제목 및 항목 라벨 수정',
           fields: [
             ['secPiTitleEn', '섹션 제목 (EN)'], ['secPiTitleKo', '섹션 제목 (KR)'],
-            ['secPiSubEn', '섹션 부제목 (EN)'], ['secPiSubKo', '섹션 부제목 (KR)']
+            ['secPiSubEn', '섹션 부제목 (EN)'], ['secPiSubKo', '섹션 부제목 (KR)'],
+            ['piOfficeLabelEn', '연구실 위치 라벨 (EN)'], ['piOfficeLabelKo', '연구실 위치 라벨 (KR)'],
+            ['piTelLabelEn', '전화번호 라벨 (EN)'], ['piTelLabelKo', '전화번호 라벨 (KR)'],
+            ['piEmailLabelEn', '이메일 라벨 (EN)'], ['piEmailLabelKo', '이메일 라벨 (KR)'],
+            ['piEduTitleEn', '학력 영역 제목 (EN)'], ['piEduTitleKo', '학력 영역 제목 (KR)'],
+            ['piCareerTitleEn', '경력 영역 제목 (EN)'], ['piCareerTitleKo', '경력 영역 제목 (KR)']
           ]
         },
         current: {
@@ -1627,10 +1781,14 @@
           ]
         },
         contact: {
-          title: 'Contact 섹션 제목·부제목 수정',
+          title: 'Contact 섹션 제목·부제목·항목 라벨 수정',
           fields: [
             ['secContactTitleEn', '섹션 제목 (EN)'], ['secContactTitleKo', '섹션 제목 (KR)'],
-            ['secContactSubEn', '섹션 부제목 (EN)'], ['secContactSubKo', '섹션 부제목 (KR)']
+            ['secContactSubEn', '섹션 부제목 (EN)'], ['secContactSubKo', '섹션 부제목 (KR)'],
+            ['contactLocLabelEn', '위치 항목 라벨 (EN)'], ['contactLocLabelKo', '위치 항목 라벨 (KR)'],
+            ['contactPiLabelEn', '연구책임자 항목 라벨 (EN)'], ['contactPiLabelKo', '연구책임자 항목 라벨 (KR)'],
+            ['contactPhoneLabelEn', '전화 항목 라벨 (EN)'], ['contactPhoneLabelKo', '전화 항목 라벨 (KR)'],
+            ['contactEmailLabelEn', '이메일 항목 라벨 (EN)'], ['contactEmailLabelKo', '이메일 항목 라벨 (KR)']
           ]
         }
       };
@@ -1638,15 +1796,18 @@
       const cfg = configs[secKey];
       document.getElementById('admModalTitle').textContent = cfg.title;
       document.getElementById('admModalBody').innerHTML = cfg.fields.map(([k, lbl]) => `
-        <div class="adm-field"><label>${lbl}</label><input type="text" id="f_st_${k}" value="${s[k] || ''}" /></div>
+        <div class="adm-field"><label>${lbl}</label><input type="text" id="f_st_${k}" value="${esc(s[k])}" /></div>
       `).join('');
 
       bindSave(async () => {
         cfg.fields.forEach(([k]) => {
           siteData[k] = document.getElementById('f_st_' + k).value;
         });
-        await saveJsonToGitHub('data/site.json', siteData, `Update ${secKey} section titles`);
+        await saveJsonToGitHub('data/site.json', siteData, `Update ${secKey} section labels`);
         renderSiteText();
+        initYearFilters();
+        renderMembers();
+        renderContact();
       });
     }
 
@@ -1654,16 +1815,16 @@
       const s = siteData;
       document.getElementById('admModalTitle').textContent = '하단(Footer) 연구실 정보 수정';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>연구실명 (EN)</label><input type="text" id="f_ft_lne" value="${s.footerLabNameEn || ''}" /></div>
-        <div class="adm-field"><label>연구실명 (KR)</label><input type="text" id="f_ft_lnk" value="${s.footerLabNameKo || ''}" /></div>
-        <div class="adm-field"><label>학과/학교명 (EN)</label><input type="text" id="f_ft_dpe" value="${s.footerDeptEn || ''}" /></div>
-        <div class="adm-field"><label>학과/학교명 (KR)</label><input type="text" id="f_ft_dpk" value="${s.footerDeptKo || ''}" /></div>
-        <div class="adm-field"><label>주소 (EN)</label><input type="text" id="f_ft_ade" value="${s.footerAddrEn || ''}" /></div>
-        <div class="adm-field"><label>주소 (KR)</label><input type="text" id="f_ft_adk" value="${s.footerAddrKo || ''}" /></div>
-        <div class="adm-field"><label>전화번호·이메일 줄 (EN)</label><input type="text" id="f_ft_cte" value="${s.footerContactEn || ''}" /></div>
-        <div class="adm-field"><label>전화번호·이메일 줄 (KR)</label><input type="text" id="f_ft_ctk" value="${s.footerContactKo || ''}" /></div>
-        <div class="adm-field"><label>카피라이트 문구 (EN)</label><input type="text" id="f_ft_cpe" value="${s.footerCopyEn || ''}" /></div>
-        <div class="adm-field"><label>카피라이트 문구 (KR)</label><input type="text" id="f_ft_cpk" value="${s.footerCopyKo || ''}" /></div>
+        <div class="adm-field"><label>연구실명 (EN)</label><input type="text" id="f_ft_lne" value="${esc(s.footerLabNameEn)}" /></div>
+        <div class="adm-field"><label>연구실명 (KR)</label><input type="text" id="f_ft_lnk" value="${esc(s.footerLabNameKo)}" /></div>
+        <div class="adm-field"><label>학과/학교명 (EN)</label><input type="text" id="f_ft_dpe" value="${esc(s.footerDeptEn)}" /></div>
+        <div class="adm-field"><label>학과/학교명 (KR)</label><input type="text" id="f_ft_dpk" value="${esc(s.footerDeptKo)}" /></div>
+        <div class="adm-field"><label>주소 (EN)</label><input type="text" id="f_ft_ade" value="${esc(s.footerAddrEn)}" /></div>
+        <div class="adm-field"><label>주소 (KR)</label><input type="text" id="f_ft_adk" value="${esc(s.footerAddrKo)}" /></div>
+        <div class="adm-field"><label>전화번호·이메일 줄 (EN)</label><input type="text" id="f_ft_cte" value="${esc(s.footerContactEn)}" /></div>
+        <div class="adm-field"><label>전화번호·이메일 줄 (KR)</label><input type="text" id="f_ft_ctk" value="${esc(s.footerContactKo)}" /></div>
+        <div class="adm-field"><label>카피라이트 문구 (EN)</label><input type="text" id="f_ft_cpe" value="${esc(s.footerCopyEn)}" /></div>
+        <div class="adm-field"><label>카피라이트 문구 (KR)</label><input type="text" id="f_ft_cpk" value="${esc(s.footerCopyKo)}" /></div>
       `;
       bindSave(async () => {
         Object.assign(siteData, {
@@ -1697,13 +1858,14 @@
       document.getElementById('homeWelcomeMain').textContent = pick(homeData.welcomeEn, homeData.welcomeKo);
       const recruitBox = document.getElementById('homeRecruitBox');
       const showRecruit = homeData.showRecruit !== false;
-      recruitBox.style.display = showRecruit ? 'block' : 'none';
+      if (recruitBox) recruitBox.style.display = showRecruit ? 'block' : 'none';
 
       const recText = pick(homeData.recruitText, homeData.recruitTextKo || homeData.recruitText);
       document.getElementById('homeRecruitText').innerHTML = recText.replace(
         /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
         '<a href="mailto:$1" style="color:var(--khu-burgundy); font-weight:600;">$1</a>'
       );
+      document.getElementById('homeCustomFields').innerHTML = renderCustomFieldsHtml(homeData.customFields, false);
 
       const slides = homeData.slides || [];
       const sliderEl = document.getElementById('homeSlider');
@@ -1713,18 +1875,28 @@
       }
       sliderEl.style.display = 'block';
       slideIndex = 0;
-      sliderEl.innerHTML = slides.map((s, idx) => `
-        <div class="slide ${idx === 0 ? 'active' : ''}">
-          <img src="${s.image}" alt="${pick(s.caption, s.captionKo) || 'Lab Slide'}">
-          <div class="slide-caption">
-            <span>${pick(s.caption, s.captionKo)}</span>
-            <button class="btn-adm btn-adm-del admin-only" onclick="deleteSlide(${idx})">삭제</button>
+      sliderEl.innerHTML = slides.map((s, idx) => {
+        const cleanPath = (s.image || '').replace(/^\//, '');
+        const rawFallback = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${cleanPath}`;
+        return `
+          <div class="slide ${idx === 0 ? 'active' : ''}">
+            <img src="${cleanPath}" alt="${esc(pick(s.caption, s.captionKo) || 'Lab Slide')}"
+                 onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='${rawFallback}';}">
+            <div class="slide-caption">
+              <span>${esc(pick(s.caption, s.captionKo))}</span>
+              <button class="btn-adm btn-adm-del admin-only" onclick="deleteSlide(${idx})">삭제</button>
+            </div>
           </div>
-        </div>
-      `).join('') + (slides.length > 1 ? `
+        `;
+      }).join('') + (slides.length > 1 ? `
         <button class="slider-btn slider-prev" onclick="moveSlide(-1)">&#10094;</button>
         <button class="slider-btn slider-next" onclick="moveSlide(1)">&#10095;</button>
       ` : '');
+
+      if (slideTimer) clearInterval(slideTimer);
+      if (slides.length > 1) {
+        slideTimer = setInterval(() => moveSlide(1), 5000);
+      }
     }
 
     function moveSlide(step) {
@@ -1734,15 +1906,13 @@
       slideIndex = (slideIndex + step + slides.length) % slides.length;
       slides[slideIndex].classList.add('active');
     }
-    setInterval(() => moveSlide(1), 5000);
 
     function openEditHome() {
       const isChecked = homeData.showRecruit !== false;
-      const safeVal = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      document.getElementById('admModalTitle').textContent = 'Home 소개글 및 모집 안내 수정 (한/영)';
+      document.getElementById('admModalTitle').textContent = 'Home 소개글 및 추가 항목 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>영문 소개글 (EN)</label><textarea id="f_h_en">${safeVal(homeData.welcomeEn)}</textarea></div>
-        <div class="adm-field"><label>국문 소개글 (KR)</label><textarea id="f_h_ko">${safeVal(homeData.welcomeKo)}</textarea></div>
+        <div class="adm-field"><label>영문 소개글 (EN)</label><textarea id="f_h_en">${esc(homeData.welcomeEn)}</textarea></div>
+        <div class="adm-field"><label>국문 소개글 (KR)</label><textarea id="f_h_ko">${esc(homeData.welcomeKo)}</textarea></div>
         <div class="adm-field" style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-color);">
           <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:0.92rem; color:var(--khu-burgundy);">
             <input type="checkbox" id="f_h_show_rec" ${isChecked ? 'checked' : ''} style="width:16px; height:16px;"
@@ -1751,9 +1921,10 @@
           </label>
         </div>
         <div id="f_h_rec_wrap" style="display:${isChecked ? 'block' : 'none'};">
-          <div class="adm-field"><label>영문 모집 안내문 (EN)</label><textarea id="f_h_rec">${safeVal(homeData.recruitText)}</textarea></div>
-          <div class="adm-field"><label>국문 모집 안내문 (KR)</label><textarea id="f_h_rec_ko">${safeVal(homeData.recruitTextKo)}</textarea></div>
+          <div class="adm-field"><label>영문 모집 안내문 (EN)</label><textarea id="f_h_rec">${esc(homeData.recruitText)}</textarea></div>
+          <div class="adm-field"><label>국문 모집 안내문 (KR)</label><textarea id="f_h_rec_ko">${esc(homeData.recruitTextKo)}</textarea></div>
         </div>
+        ${buildCustomFieldsEditor(homeData.customFields)}
       `;
       bindSave(async () => {
         homeData.welcomeEn = document.getElementById('f_h_en').value;
@@ -1761,11 +1932,12 @@
         homeData.showRecruit = document.getElementById('f_h_show_rec').checked;
         homeData.recruitText = document.getElementById('f_h_rec').value;
         homeData.recruitTextKo = document.getElementById('f_h_rec_ko').value;
+        homeData.customFields = readCustomFields();
         await saveJsonToGitHub('data/home.json', homeData, 'Update home.json');
         renderHome();
       });
     }
-    
+
     function openAddSlide() {
       document.getElementById('admModalTitle').textContent = 'Home 슬라이드 사진 추가';
       document.getElementById('admModalBody').innerHTML = `
@@ -1799,12 +1971,13 @@
       container.innerHTML = researchItems.map((r, idx) => `
         <div class="research-item">
           <div class="research-thumb">
-            <img src="${r.image}" alt="${pick(r.title, r.titleKo)}">
+            <img src="${r.image}" alt="${esc(pick(r.title, r.titleKo))}">
           </div>
           <div>
-            <div class="research-num">${r.label || ''}</div>
-            <h3>${pick(r.title, r.titleKo)}</h3>
-            <p>${pick(r.description, r.descriptionKo)}</p>
+            <div class="research-num">${esc(pick(r.label, r.labelKo))}</div>
+            <h3>${esc(pick(r.title, r.titleKo))}</h3>
+            <p>${esc(pick(r.description, r.descriptionKo))}</p>
+            ${renderCustomFieldsHtml(r.customFields, false)}
             <div class="card-adm-tools left admin-only">
               <button class="btn-adm btn-adm-edit" onclick="openResearchModal(${idx})">✎ 수정</button>
               <button class="btn-adm btn-adm-del" onclick="deleteResearch(${idx})">삭제</button>
@@ -1815,25 +1988,32 @@
     }
 
     function openResearchModal(idx = null) {
-      const r = idx !== null ? researchItems[idx] : { label: `Research Area 0${researchItems.length + 1}`, title: '', titleKo: '', description: '', descriptionKo: '', image: '' };
+      const r = idx !== null ? researchItems[idx] : { label: `Research Area 0${researchItems.length + 1}`, labelKo: '', title: '', titleKo: '', description: '', descriptionKo: '', image: '', customFields: [] };
+      const existingTemplate = (researchItems.find(x => (x.customFields || []).length > 0) || {}).customFields || [];
       document.getElementById('admModalTitle').textContent = idx !== null ? '연구 주제 수정 (한/영)' : '새 연구 주제 추가 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>상단 라벨 (예: Research Area 01)</label><input type="text" id="f_r_lbl" value="${r.label || ''}" /></div>
-        <div class="adm-field"><label>영문 연구 제목 (EN)</label><input type="text" id="f_r_tit" value="${r.title || ''}" /></div>
-        <div class="adm-field"><label>국문 연구 제목 (KR)</label><input type="text" id="f_r_tit_ko" value="${r.titleKo || ''}" /></div>
-        <div class="adm-field"><label>영문 연구 설명 (EN)</label><textarea id="f_r_des">${r.description || ''}</textarea></div>
-        <div class="adm-field"><label>국문 연구 설명 (KR)</label><textarea id="f_r_des_ko">${r.descriptionKo || ''}</textarea></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>상단 라벨 (EN)</label><input type="text" id="f_r_lbl" value="${esc(r.label)}" /></div>
+          <div class="adm-field"><label>상단 라벨 (KR, 선택)</label><input type="text" id="f_r_lbl_ko" value="${esc(r.labelKo)}" /></div>
+        </div>
+        <div class="adm-field"><label>영문 연구 제목 (EN)</label><input type="text" id="f_r_tit" value="${esc(r.title)}" /></div>
+        <div class="adm-field"><label>국문 연구 제목 (KR)</label><input type="text" id="f_r_tit_ko" value="${esc(r.titleKo)}" /></div>
+        <div class="adm-field"><label>영문 연구 설명 (EN)</label><textarea id="f_r_des">${esc(r.description)}</textarea></div>
+        <div class="adm-field"><label>국문 연구 설명 (KR)</label><textarea id="f_r_des_ko">${esc(r.descriptionKo)}</textarea></div>
         <div class="adm-field"><label>이미지 업로드/변경 (선택)</label><input type="file" id="f_r_file" accept="image/*" /></div>
+        ${buildCustomFieldsEditor(r.customFields, existingTemplate)}
       `;
       bindSave(async () => {
         const uploaded = await uploadImageToGitHub(document.getElementById('f_r_file'));
         const obj = {
           label: document.getElementById('f_r_lbl').value,
+          labelKo: document.getElementById('f_r_lbl_ko').value,
           title: document.getElementById('f_r_tit').value,
           titleKo: document.getElementById('f_r_tit_ko').value,
           description: document.getElementById('f_r_des').value,
           descriptionKo: document.getElementById('f_r_des_ko').value,
-          image: uploaded || r.image || ''
+          image: uploaded || r.image || '',
+          customFields: readCustomFields()
         };
         if (idx !== null) researchItems[idx] = obj;
         else researchItems.push(obj);
@@ -1850,7 +2030,7 @@
     }
 
     function initYearFilters() {
-      const years = ['ALL', ...new Set(publications.map(p => p.year))];
+      const years = ['ALL', ...new Set(publications.map(p => p.year).filter(Boolean))];
       const container = document.getElementById('yearFilters');
       const allText = pick(siteData.pubAllLabelEn, siteData.pubAllLabelKo) || 'All';
       container.innerHTML = years.map(y => `
@@ -1919,18 +2099,22 @@
         `;
       }).join('');
     }
-    
+
     function openPubModal(idx = null) {
       const nextNum = publications.length > 0 ? Math.max(...publications.map(x => Number(x.num) || 0)) + 1 : 1;
-      const p = idx !== null ? publications[idx] : { num: nextNum, year: new Date().getFullYear(), title: '', authors: '', journal: '', badge: '' };
+      const p = idx !== null ? publications[idx] : { num: nextNum, year: new Date().getFullYear(), title: '', authors: '', journal: '', badge: '', customFields: [] };
+      const existingTemplate = (publications.find(x => (x.customFields || []).length > 0) || {}).customFields || [];
       document.getElementById('admModalTitle').textContent = idx !== null ? '논문 정보 수정' : '새 논문 추가';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>논문 번호 (num)</label><input type="number" id="f_p_num" value="${p.num}" /></div>
-        <div class="adm-field"><label>출판 연도 (year)</label><input type="number" id="f_p_yr" value="${p.year}" /></div>
-        <div class="adm-field"><label>논문 제목 (title)</label><textarea id="f_p_tit">${p.title}</textarea></div>
-        <div class="adm-field"><label>저자 목록 (authors)</label><textarea id="f_p_aut">${p.authors}</textarea></div>
-        <div class="adm-field"><label>저널명 및 권/호/페이지/날짜 (journal)</label><input type="text" id="f_p_jou" value="${p.journal}" /></div>
-        <div class="adm-field"><label>뱃지 표기 (선택, 예: Cover Article, IF 10.5)</label><input type="text" id="f_p_bdg" value="${p.badge || ''}" /></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>논문 번호 (num)</label><input type="number" id="f_p_num" value="${esc(p.num)}" /></div>
+          <div class="adm-field"><label>출판 연도 (year)</label><input type="number" id="f_p_yr" value="${esc(p.year)}" /></div>
+        </div>
+        <div class="adm-field"><label>논문 제목 (title)</label><textarea id="f_p_tit">${esc(p.title)}</textarea></div>
+        <div class="adm-field"><label>저자 목록 (authors)</label><textarea id="f_p_aut">${esc(Array.isArray(p.authors) ? p.authors.join(', ') : (p.authors || p.author || ''))}</textarea></div>
+        <div class="adm-field"><label>저널명 및 권/호/페이지/날짜 (journal)</label><input type="text" id="f_p_jou" value="${esc(p.journal)}" /></div>
+        <div class="adm-field"><label>뱃지 표기 (선택, 예: Cover Article, IF 10.5)</label><input type="text" id="f_p_bdg" value="${esc(p.badge)}" /></div>
+        ${buildCustomFieldsEditor(p.customFields, existingTemplate)}
       `;
       bindSave(async () => {
         const obj = {
@@ -1939,7 +2123,8 @@
           title: document.getElementById('f_p_tit').value,
           authors: document.getElementById('f_p_aut').value,
           journal: document.getElementById('f_p_jou').value,
-          badge: document.getElementById('f_p_bdg').value
+          badge: document.getElementById('f_p_bdg').value,
+          customFields: readCustomFields()
         };
         if (idx !== null) publications[idx] = obj;
         else publications.unshift(obj);
@@ -1958,32 +2143,34 @@
     }
 
     function renderMembers() {
+      const s = siteData;
       const piCard = document.getElementById('piCard');
       if (piData && piData.name) {
         piCard.innerHTML = `
-          <img src="${piData.photo || 'prof-byun.jpg'}" alt="${piData.name}" class="pi-photo"
+          <img src="${piData.photo || 'prof-byun.jpg'}" alt="${esc(piData.name)}" class="pi-photo"
                onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22290%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23e5e7eb%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%236b7280%22>Prof. K. M. Byun</text></svg>'">
           <div>
             <div class="pi-header">
-              <h3>${pick(piData.name, piData.nameKo)}</h3>
-              <div class="pi-role">${pick(piData.role, piData.roleKo)}</div>
+              <h3>${esc(pick(piData.name, piData.nameKo))}</h3>
+              <div class="pi-role">${esc(pick(piData.role, piData.roleKo))}</div>
             </div>
             <p style="font-size:0.92rem; color:#374151;">
-              <strong>Office:</strong> ${pick(piData.office, piData.officeKo)} &nbsp;|&nbsp;
-              <strong>Tel:</strong> ${piData.tel || ''} &nbsp;|&nbsp;
-              <strong>E-mail:</strong> <a href="mailto:${piData.email}" style="color:var(--khu-burgundy); font-weight:600;">${piData.email || ''}</a>
+              <strong>${esc(pick(s.piOfficeLabelEn, s.piOfficeLabelKo))}</strong> ${esc(pick(piData.office, piData.officeKo))} &nbsp;|&nbsp;
+              <strong>${esc(pick(s.piTelLabelEn, s.piTelLabelKo))}</strong> ${esc(piData.tel)} &nbsp;|&nbsp;
+              <strong>${esc(pick(s.piEmailLabelEn, s.piEmailLabelKo))}</strong> <a href="mailto:${esc(piData.email)}" style="color:var(--khu-burgundy); font-weight:600;">${esc(piData.email)}</a>
             </p>
+            ${renderCustomFieldsHtml(piData.customFields, false)}
             <div class="pi-info-grid">
               <div>
-                <h4>Education</h4>
+                <h4>${esc(pick(s.piEduTitleEn, s.piEduTitleKo))}</h4>
                 <ul>
-                  ${(piData.education || []).map(e => `<li><strong>${e.degree}</strong> ${e.detail}</li>`).join('')}
+                  ${(piData.education || []).map(e => `<li><strong>${esc(e.degree)}</strong> ${esc(e.detail)}</li>`).join('')}
                 </ul>
               </div>
               <div>
-                <h4>Academic Career</h4>
+                <h4>${esc(pick(s.piCareerTitleEn, s.piCareerTitleKo))}</h4>
                 <ul>
-                  ${(piData.career || []).map(c => `<li><strong>${c.period}</strong> ${c.detail}</li>`).join('')}
+                  ${(piData.career || []).map(c => `<li><strong>${esc(c.period)}</strong> ${esc(c.detail)}</li>`).join('')}
                 </ul>
               </div>
             </div>
@@ -1995,18 +2182,19 @@
       grid.innerHTML = currentMembers.map((m, idx) => `
         <div class="member-card">
           ${m.photo ? `
-            <img src="${m.photo}" alt="${m.enName}" class="member-photo"
+            <img src="${m.photo}" alt="${esc(m.enName)}" class="member-photo"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="avatar-placeholder" style="display:none;">${m.fallback || ''}</div>
+            <div class="avatar-placeholder" style="display:none;">${esc(m.fallback)}</div>
           ` : `
-            <div class="avatar-placeholder">${m.fallback || ''}</div>
+            <div class="avatar-placeholder">${esc(m.fallback)}</div>
           `}
-          <div class="member-role">${m.role}</div>
-          <div class="member-name">${currentLang === 'ko' ? (m.name || m.enName) : (m.enName || m.name)}</div>
-          <div class="member-en">${currentLang === 'ko' ? (m.enName || '') : (m.name || '')}</div>
+          <div class="member-role">${esc(pick(m.role, m.roleKo))}</div>
+          <div class="member-name">${esc(currentLang === 'ko' ? (m.name || m.enName) : (m.enName || m.name))}</div>
+          <div class="member-en">${esc(currentLang === 'ko' ? (m.enName || '') : (m.name || ''))}</div>
           <div class="member-meta">
-            <div style="margin-bottom: 0.5rem;">${pick(m.dept, m.deptKo)}</div>
-            ${m.email}
+            <div style="margin-bottom: 0.4rem;">${esc(pick(m.dept, m.deptKo))}</div>
+            <div>${esc(m.email)}</div>
+            ${renderCustomFieldsHtml(m.customFields, true)}
           </div>
           <div class="card-adm-tools admin-only">
             <button class="btn-adm btn-adm-edit" onclick="openMemberModal(${idx})">✎ 수정</button>
@@ -2017,7 +2205,7 @@
 
       document.getElementById('phdAlumniList').innerHTML = (alumniData.phd || []).map((a, idx) => `
         <li>
-          <span><strong>${a.name}</strong> ${a.year || ''}</span>
+          <span><strong>${esc(pick(a.name, a.nameKo))}</strong> ${esc(pick(a.year, a.yearKo))}</span>
           <span class="admin-only" style="gap:3px;">
             <button class="btn-adm btn-adm-edit" style="padding:2px 6px; font-size:0.72rem;" onclick="openAlumniModal('phd', ${idx})">수정</button>
             <button class="btn-adm btn-adm-del" style="padding:2px 6px; font-size:0.72rem;" onclick="deleteAlumni('phd', ${idx})">삭제</button>
@@ -2027,7 +2215,7 @@
 
       document.getElementById('msAlumniList').innerHTML = (alumniData.ms || []).map((a, idx) => `
         <li>
-          <span><strong>${a.name}</strong> ${a.year || ''}</span>
+          <span><strong>${esc(pick(a.name, a.nameKo))}</strong> ${esc(pick(a.year, a.yearKo))}</span>
           <span class="admin-only" style="gap:3px;">
             <button class="btn-adm btn-adm-edit" style="padding:2px 6px; font-size:0.72rem;" onclick="openAlumniModal('ms', ${idx})">수정</button>
             <button class="btn-adm btn-adm-del" style="padding:2px 6px; font-size:0.72rem;" onclick="deleteAlumni('ms', ${idx})">삭제</button>
@@ -2037,7 +2225,7 @@
 
       document.getElementById('undergradAlumniList').innerHTML = (alumniData.undergrad || []).map((a, idx) => `
         <li>
-          <span><strong>${a.name}</strong> ${a.info || ''}</span>
+          <span><strong>${esc(pick(a.name, a.nameKo))}</strong> ${esc(pick(a.info, a.infoKo))}</span>
           <span class="admin-only" style="gap:3px;">
             <button class="btn-adm btn-adm-edit" style="padding:2px 6px; font-size:0.72rem;" onclick="openAlumniModal('undergrad', ${idx})">수정</button>
             <button class="btn-adm btn-adm-del" style="padding:2px 6px; font-size:0.72rem;" onclick="deleteAlumni('undergrad', ${idx})">삭제</button>
@@ -2049,19 +2237,22 @@
     function openPiModal() {
       const eduText = (piData.education || []).map(e => `${e.degree} | ${e.detail}`).join('\n');
       const carText = (piData.career || []).map(c => `${c.period} | ${c.detail}`).join('\n');
-      document.getElementById('admModalTitle').textContent = '교수님(PI) 정보 수정 (한/영)';
+      document.getElementById('admModalTitle').textContent = '교수님(PI) 정보 및 항목 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>성함 (EN/기본)</label><input type="text" id="f_pi_name" value="${piData.name || ''}" /></div>
-        <div class="adm-field"><label>성함 (KR)</label><input type="text" id="f_pi_name_ko" value="${piData.nameKo || ''}" /></div>
-        <div class="adm-field"><label>직위 (EN)</label><input type="text" id="f_pi_role" value="${piData.role || ''}" /></div>
-        <div class="adm-field"><label>직위 (KR)</label><input type="text" id="f_pi_role_ko" value="${piData.roleKo || ''}" /></div>
-        <div class="adm-field"><label>연구실 위치 (EN)</label><input type="text" id="f_pi_off" value="${piData.office || ''}" /></div>
-        <div class="adm-field"><label>연구실 위치 (KR)</label><input type="text" id="f_pi_off_ko" value="${piData.officeKo || ''}" /></div>
-        <div class="adm-field"><label>전화번호</label><input type="text" id="f_pi_tel" value="${piData.tel || ''}" /></div>
-        <div class="adm-field"><label>이메일</label><input type="text" id="f_pi_eml" value="${piData.email || ''}" /></div>
-        <div class="adm-field"><label>Education (형식: 학위/연도 | 세부내용)</label><textarea id="f_pi_edu">${eduText}</textarea></div>
-        <div class="adm-field"><label>Academic Career (형식: 기간 | 세부내용)</label><textarea id="f_pi_car">${carText}</textarea></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>성함 (EN/기본)</label><input type="text" id="f_pi_name" value="${esc(piData.name)}" /></div>
+          <div class="adm-field"><label>성함 (KR)</label><input type="text" id="f_pi_name_ko" value="${esc(piData.nameKo)}" /></div>
+          <div class="adm-field"><label>직위 (EN)</label><input type="text" id="f_pi_role" value="${esc(piData.role)}" /></div>
+          <div class="adm-field"><label>직위 (KR)</label><input type="text" id="f_pi_role_ko" value="${esc(piData.roleKo)}" /></div>
+          <div class="adm-field"><label>연구실 위치 (EN)</label><input type="text" id="f_pi_off" value="${esc(piData.office)}" /></div>
+          <div class="adm-field"><label>연구실 위치 (KR)</label><input type="text" id="f_pi_off_ko" value="${esc(piData.officeKo)}" /></div>
+          <div class="adm-field"><label>전화번호</label><input type="text" id="f_pi_tel" value="${esc(piData.tel)}" /></div>
+          <div class="adm-field"><label>이메일</label><input type="text" id="f_pi_eml" value="${esc(piData.email)}" /></div>
+        </div>
+        <div class="adm-field"><label>Education (형식: 학위/연도 | 세부내용)</label><textarea id="f_pi_edu">${esc(eduText)}</textarea></div>
+        <div class="adm-field"><label>Academic Career (형식: 기간 | 세부내용)</label><textarea id="f_pi_car">${esc(carText)}</textarea></div>
         <div class="adm-field"><label>프로필 사진 변경 (선택)</label><input type="file" id="f_pi_file" accept="image/*" /></div>
+        ${buildCustomFieldsEditor(piData.customFields)}
       `;
       bindSave(async () => {
         const uploaded = await uploadImageToGitHub(document.getElementById('f_pi_file'));
@@ -2080,7 +2271,8 @@
           email: document.getElementById('f_pi_eml').value,
           photo: uploaded || piData.photo || 'prof-byun.jpg',
           education: parsePair(document.getElementById('f_pi_edu').value, 'degree', 'detail'),
-          career: parsePair(document.getElementById('f_pi_car').value, 'period', 'detail')
+          career: parsePair(document.getElementById('f_pi_car').value, 'period', 'detail'),
+          customFields: readCustomFields()
         };
         await saveJsonToGitHub('data/pi.json', piData, 'Update pi.json');
         renderMembers();
@@ -2088,29 +2280,36 @@
     }
 
     function openMemberModal(idx = null) {
-      const m = idx !== null ? currentMembers[idx] : { role: 'M.S. Student', name: '', enName: '', dept: 'Biomedical Engineering', deptKo: '생체의공학과', email: '', photo: '', fallback: '' };
-      document.getElementById('admModalTitle').textContent = idx !== null ? '멤버 정보 수정 (한/영)' : '새 멤버 추가 (한/영)';
+      const m = idx !== null ? currentMembers[idx] : { role: 'M.S. Student', roleKo: '', name: '', enName: '', dept: 'Biomedical Engineering', deptKo: '생체의공학과', email: '', photo: '', fallback: '', customFields: [] };
+      const existingTemplate = (currentMembers.find(x => (x.customFields || []).length > 0) || {}).customFields || [];
+      document.getElementById('admModalTitle').textContent = idx !== null ? '멤버 정보 및 항목 수정 (한/영)' : '새 멤버 추가 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>과정 (예: Ph.D. Student, M.S. Student, Undergraduate Student)</label><input type="text" id="f_m_role" value="${m.role || ''}" /></div>
-        <div class="adm-field"><label>국문 이름 (KR)</label><input type="text" id="f_m_name" value="${m.name || ''}" /></div>
-        <div class="adm-field"><label>영문 이름 (EN)</label><input type="text" id="f_m_en" value="${m.enName || ''}" /></div>
-        <div class="adm-field"><label>영문 소속 학과 (EN)</label><input type="text" id="f_m_dept" value="${m.dept || ''}" /></div>
-        <div class="adm-field"><label>국문 소속 학과 (KR)</label><input type="text" id="f_m_dept_ko" value="${m.deptKo || ''}" /></div>
-        <div class="adm-field"><label>이메일</label><input type="text" id="f_m_eml" value="${m.email || ''}" /></div>
-        <div class="adm-field"><label>사진 없을 때 표시할 이니셜 (예: HB)</label><input type="text" id="f_m_fb" value="${m.fallback || ''}" /></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>과정 (EN, 예: M.S. Student)</label><input type="text" id="f_m_role" value="${esc(m.role)}" /></div>
+          <div class="adm-field"><label>과정 (KR, 선택, 예: 석사과정)</label><input type="text" id="f_m_role_ko" value="${esc(m.roleKo)}" /></div>
+          <div class="adm-field"><label>국문 이름 (KR)</label><input type="text" id="f_m_name" value="${esc(m.name)}" /></div>
+          <div class="adm-field"><label>영문 이름 (EN)</label><input type="text" id="f_m_en" value="${esc(m.enName)}" /></div>
+          <div class="adm-field"><label>영문 소속 학과 (EN)</label><input type="text" id="f_m_dept" value="${esc(m.dept)}" /></div>
+          <div class="adm-field"><label>국문 소속 학과 (KR)</label><input type="text" id="f_m_dept_ko" value="${esc(m.deptKo)}" /></div>
+          <div class="adm-field"><label>이메일</label><input type="text" id="f_m_eml" value="${esc(m.email)}" /></div>
+          <div class="adm-field"><label>사진 없을 때 이니셜 (예: HB)</label><input type="text" id="f_m_fb" value="${esc(m.fallback)}" /></div>
+        </div>
         <div class="adm-field"><label>프로필 사진 업로드 (선택)</label><input type="file" id="f_m_file" accept="image/*" /></div>
+        ${buildCustomFieldsEditor(m.customFields, existingTemplate)}
       `;
       bindSave(async () => {
         const uploaded = await uploadImageToGitHub(document.getElementById('f_m_file'));
         const obj = {
           role: document.getElementById('f_m_role').value,
+          roleKo: document.getElementById('f_m_role_ko').value,
           name: document.getElementById('f_m_name').value,
           enName: document.getElementById('f_m_en').value,
           dept: document.getElementById('f_m_dept').value,
           deptKo: document.getElementById('f_m_dept_ko').value,
           email: document.getElementById('f_m_eml').value,
           fallback: document.getElementById('f_m_fb').value,
-          photo: uploaded || m.photo || ''
+          photo: uploaded || m.photo || '',
+          customFields: readCustomFields()
         };
         if (idx !== null) currentMembers[idx] = obj;
         else currentMembers.push(obj);
@@ -2129,16 +2328,20 @@
     function openAlumniModal(group, idx = null) {
       const list = alumniData[group] || [];
       const isUnder = group === 'undergrad';
-      const item = idx !== null ? list[idx] : (isUnder ? { name: '', info: '' } : { name: '', year: '' });
-      document.getElementById('admModalTitle').textContent = idx !== null ? '졸업생/학부생 수정' : '졸업생/학부생 추가';
+      const item = idx !== null ? list[idx] : (isUnder ? { name: '', nameKo: '', info: '', infoKo: '' } : { name: '', nameKo: '', year: '', yearKo: '' });
+      document.getElementById('admModalTitle').textContent = idx !== null ? '졸업생/학부생 수정 (한/영)' : '졸업생/학부생 추가 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>이름</label><input type="text" id="f_a_name" value="${item.name || ''}" /></div>
-        <div class="adm-field"><label>${isUnder ? '연도/소속 정보' : '졸업연도 / 진로 (예: (\'26))'}</label><input type="text" id="f_a_sub" value="${isUnder ? (item.info || '') : (item.year || '')}" /></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>이름 (EN/기본)</label><input type="text" id="f_a_name" value="${esc(item.name)}" /></div>
+          <div class="adm-field"><label>이름 (KR, 선택)</label><input type="text" id="f_a_name_ko" value="${esc(item.nameKo)}" /></div>
+          <div class="adm-field"><label>${isUnder ? '연도/소속 정보 (EN)' : '졸업연도/진로 (EN, 예: (\'26))'}</label><input type="text" id="f_a_sub" value="${esc(isUnder ? item.info : item.year)}" /></div>
+          <div class="adm-field"><label>${isUnder ? '연도/소속 정보 (KR, 선택)' : '졸업연도/진로 (KR, 선택)'}</label><input type="text" id="f_a_sub_ko" value="${esc(isUnder ? item.infoKo : item.yearKo)}" /></div>
+        </div>
       `;
       bindSave(async () => {
         const obj = isUnder
-          ? { name: document.getElementById('f_a_name').value, info: document.getElementById('f_a_sub').value }
-          : { name: document.getElementById('f_a_name').value, year: document.getElementById('f_a_sub').value };
+          ? { name: document.getElementById('f_a_name').value, nameKo: document.getElementById('f_a_name_ko').value, info: document.getElementById('f_a_sub').value, infoKo: document.getElementById('f_a_sub_ko').value }
+          : { name: document.getElementById('f_a_name').value, nameKo: document.getElementById('f_a_name_ko').value, year: document.getElementById('f_a_sub').value, yearKo: document.getElementById('f_a_sub_ko').value };
         if (idx !== null) list[idx] = obj;
         else list.push(obj);
         alumniData[group] = list;
@@ -2158,8 +2361,8 @@
       const homePreview = document.getElementById('homeNoticePreview');
       homePreview.innerHTML = newsItems.slice(0, 3).map(n => `
         <div class="notice-preview-item" onclick="switchTab('notice')">
-          <div class="notice-preview-date">${n.date} · ${n.category}</div>
-          <div class="notice-preview-title">${pick(n.title, n.titleKo)}</div>
+          <div class="notice-preview-date">${esc(n.date)} · ${esc(pick(n.category, n.categoryKo))}</div>
+          <div class="notice-preview-title">${esc(pick(n.title, n.titleKo))}</div>
         </div>
       `).join('');
 
@@ -2171,11 +2374,12 @@
           <article class="notice-post ${hasImg ? '' : 'no-image'}">
             <div class="notice-left">
               <div class="notice-post-header">
-                <span class="badge-cat">${n.category}</span>
-                <span class="notice-post-date">${n.date}</span>
-                <h3 class="notice-post-title">${pick(n.title, n.titleKo)}</h3>
+                <span class="badge-cat">${esc(pick(n.category, n.categoryKo))}</span>
+                <span class="notice-post-date">${esc(n.date)}</span>
+                <h3 class="notice-post-title">${esc(pick(n.title, n.titleKo))}</h3>
               </div>
-              <div class="notice-post-body">${pick(n.body, n.bodyKo)}</div>
+              <div class="notice-post-body">${esc(pick(n.body, n.bodyKo))}</div>
+              ${renderCustomFieldsHtml(n.customFields, false)}
               <div class="card-adm-tools left admin-only">
                 <button class="btn-adm btn-adm-edit" onclick="openNewsModal(${idx})">✎ 수정</button>
                 <button class="btn-adm btn-adm-del" onclick="deleteNews(${idx})">삭제</button>
@@ -2193,17 +2397,22 @@
 
     function openNewsModal(idx = null) {
       const today = new Date().toISOString().slice(0, 10);
-      const n = idx !== null ? newsItems[idx] : { category: 'Conference', date: today, title: '', titleKo: '', body: '', bodyKo: '', images: [] };
+      const n = idx !== null ? newsItems[idx] : { category: 'Conference', categoryKo: '', date: today, title: '', titleKo: '', body: '', bodyKo: '', images: [], customFields: [] };
+      const existingTemplate = (newsItems.find(x => (x.customFields || []).length > 0) || {}).customFields || [];
       document.getElementById('admModalTitle').textContent = idx !== null ? '뉴스 게시물 수정 (한/영)' : '새 뉴스/사진 올리기 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>카테고리 (예: Conference, Award, Notice)</label><input type="text" id="f_n_cat" value="${n.category || ''}" /></div>
-        <div class="adm-field"><label>날짜 (YYYY-MM-DD)</label><input type="text" id="f_n_date" value="${n.date || today}" /></div>
-        <div class="adm-field"><label>영문 제목 (EN)</label><input type="text" id="f_n_tit" value="${n.title || ''}" /></div>
-        <div class="adm-field"><label>국문 제목 (KR)</label><input type="text" id="f_n_tit_ko" value="${n.titleKo || ''}" /></div>
-        <div class="adm-field"><label>영문 본문 내용 (EN)</label><textarea id="f_n_body">${n.body || ''}</textarea></div>
-        <div class="adm-field"><label>국문 본문 내용 (KR)</label><textarea id="f_n_body_ko">${n.bodyKo || ''}</textarea></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>카테고리 (EN, 예: Conference)</label><input type="text" id="f_n_cat" value="${esc(n.category)}" /></div>
+          <div class="adm-field"><label>카테고리 (KR, 선택, 예: 학술대회)</label><input type="text" id="f_n_cat_ko" value="${esc(n.categoryKo)}" /></div>
+        </div>
+        <div class="adm-field"><label>날짜 (YYYY-MM-DD)</label><input type="text" id="f_n_date" value="${esc(n.date || today)}" /></div>
+        <div class="adm-field"><label>영문 제목 (EN)</label><input type="text" id="f_n_tit" value="${esc(n.title)}" /></div>
+        <div class="adm-field"><label>국문 제목 (KR)</label><input type="text" id="f_n_tit_ko" value="${esc(n.titleKo)}" /></div>
+        <div class="adm-field"><label>영문 본문 내용 (EN)</label><textarea id="f_n_body">${esc(n.body)}</textarea></div>
+        <div class="adm-field"><label>국문 본문 내용 (KR)</label><textarea id="f_n_body_ko">${esc(n.bodyKo)}</textarea></div>
         <div class="adm-field"><label>사진 추가 업로드 (여러 장 선택 가능)</label><input type="file" id="f_n_files" accept="image/*" multiple /></div>
         ${idx !== null && (n.images || []).length > 0 ? `<div class="adm-field"><label><input type="checkbox" id="f_n_clear_imgs" style="width:auto; margin-right:6px;">기존 첨부 사진 모두 지우기</label></div>` : ''}
+        ${buildCustomFieldsEditor(n.customFields, existingTemplate)}
       `;
       bindSave(async () => {
         const fileInput = document.getElementById('f_n_files');
@@ -2219,12 +2428,14 @@
         }
         const obj = {
           category: document.getElementById('f_n_cat').value,
+          categoryKo: document.getElementById('f_n_cat_ko').value,
           date: document.getElementById('f_n_date').value,
           title: document.getElementById('f_n_tit').value,
           titleKo: document.getElementById('f_n_tit_ko').value,
           body: document.getElementById('f_n_body').value,
           bodyKo: document.getElementById('f_n_body_ko').value,
-          images: currentImgs
+          images: currentImgs,
+          customFields: readCustomFields()
         };
         if (idx !== null) newsItems[idx] = obj;
         else newsItems.unshift(obj);
@@ -2241,6 +2452,7 @@
     }
 
     function renderContact() {
+      const s = siteData;
       const infoList = document.getElementById('contactInfoList');
       const mainAddr = currentLang === 'ko'
         ? (contactData.addressKo || contactData.addressEn || '')
@@ -2249,24 +2461,34 @@
         ? (contactData.addressEn || '')
         : (contactData.addressKo || '');
 
+      const customLis = (contactData.customFields || [])
+        .filter(f => f && (f.labelEn || f.labelKo || f.valueEn || f.valueKo))
+        .map(f => `
+          <li>
+            <div class="contact-label">${esc(pick(f.labelEn, f.labelKo))}</div>
+            <div>${esc(pick(f.valueEn, f.valueKo))}</div>
+          </li>
+        `).join('');
+
       infoList.innerHTML = `
         <li>
-          <div class="contact-label">${currentLang === 'ko' ? '연구실 위치 (Laboratory Location)' : 'Laboratory Location'}</div>
-          <div>${mainAddr.replace(/\n/g, '<br>')}</div>
-          ${subAddr ? `<div style="font-size:0.88rem; color:var(--text-muted); margin-top:0.3rem;">${subAddr.replace(/\n/g, '<br>')}</div>` : ''}
+          <div class="contact-label">${esc(pick(s.contactLocLabelEn, s.contactLocLabelKo))}</div>
+          <div>${esc(mainAddr).replace(/\n/g, '<br>')}</div>
+          ${subAddr ? `<div style="font-size:0.88rem; color:var(--text-muted); margin-top:0.3rem;">${esc(subAddr).replace(/\n/g, '<br>')}</div>` : ''}
         </li>
         <li>
-          <div class="contact-label">${currentLang === 'ko' ? '연구책임자 (Principal Investigator)' : 'Principal Investigator'}</div>
-          <div>${pick(contactData.piName, contactData.piNameKo)}</div>
+          <div class="contact-label">${esc(pick(s.contactPiLabelEn, s.contactPiLabelKo))}</div>
+          <div>${esc(pick(contactData.piName, contactData.piNameKo))}</div>
         </li>
         <li>
-          <div class="contact-label">Phone</div>
-          <div>${contactData.phoneFax || ''}</div>
+          <div class="contact-label">${esc(pick(s.contactPhoneLabelEn, s.contactPhoneLabelKo))}</div>
+          <div>${esc(contactData.phoneFax)}</div>
         </li>
         <li>
-          <div class="contact-label">E-mail</div>
-          <div><a href="mailto:${contactData.email}" style="color:var(--khu-burgundy); font-weight:600;">${contactData.email || ''}</a></div>
+          <div class="contact-label">${esc(pick(s.contactEmailLabelEn, s.contactEmailLabelKo))}</div>
+          <div><a href="mailto:${esc(contactData.email)}" style="color:var(--khu-burgundy); font-weight:600;">${esc(contactData.email)}</a></div>
         </li>
+        ${customLis}
       `;
 
       const query = encodeURIComponent(contactData.mapQuery || '경희대학교 국제캠퍼스 전자정보대학관');
@@ -2281,15 +2503,18 @@
     }
 
     function openContactModal() {
-      document.getElementById('admModalTitle').textContent = '연락처 및 위치 수정 (한/영)';
+      document.getElementById('admModalTitle').textContent = '연락처 · 위치 · 추가 항목 수정 (한/영)';
       document.getElementById('admModalBody').innerHTML = `
-        <div class="adm-field"><label>영문 주소 (EN)</label><textarea id="f_c_en">${contactData.addressEn || ''}</textarea></div>
-        <div class="adm-field"><label>국문 주소 (KR)</label><textarea id="f_c_ko">${contactData.addressKo || ''}</textarea></div>
-        <div class="adm-field"><label>연구책임자 표기 (EN)</label><input type="text" id="f_c_pi" value="${contactData.piName || ''}" /></div>
-        <div class="adm-field"><label>연구책임자 표기 (KR)</label><input type="text" id="f_c_pi_ko" value="${contactData.piNameKo || ''}" /></div>
-        <div class="adm-field"><label>전화번호</label><input type="text" id="f_c_ph" value="${contactData.phoneFax || ''}" /></div>
-        <div class="adm-field"><label>이메일</label><input type="text" id="f_c_em" value="${contactData.email || ''}" /></div>
-        <div class="adm-field"><label>구글 지도 검색어</label><input type="text" id="f_c_map" value="${contactData.mapQuery || ''}" /></div>
+        <div class="adm-field"><label>영문 주소 (EN)</label><textarea id="f_c_en">${esc(contactData.addressEn)}</textarea></div>
+        <div class="adm-field"><label>국문 주소 (KR)</label><textarea id="f_c_ko">${esc(contactData.addressKo)}</textarea></div>
+        <div class="adm-grid-2">
+          <div class="adm-field"><label>연구책임자 표기 (EN)</label><input type="text" id="f_c_pi" value="${esc(contactData.piName)}" /></div>
+          <div class="adm-field"><label>연구책임자 표기 (KR)</label><input type="text" id="f_c_pi_ko" value="${esc(contactData.piNameKo)}" /></div>
+          <div class="adm-field"><label>전화번호</label><input type="text" id="f_c_ph" value="${esc(contactData.phoneFax)}" /></div>
+          <div class="adm-field"><label>이메일</label><input type="text" id="f_c_em" value="${esc(contactData.email)}" /></div>
+        </div>
+        <div class="adm-field"><label>구글 지도 검색어</label><input type="text" id="f_c_map" value="${esc(contactData.mapQuery)}" /></div>
+        ${buildCustomFieldsEditor(contactData.customFields)}
       `;
       bindSave(async () => {
         contactData = {
@@ -2299,7 +2524,8 @@
           piNameKo: document.getElementById('f_c_pi_ko').value,
           phoneFax: document.getElementById('f_c_ph').value,
           email: document.getElementById('f_c_em').value,
-          mapQuery: document.getElementById('f_c_map').value
+          mapQuery: document.getElementById('f_c_map').value,
+          customFields: readCustomFields()
         };
         await saveJsonToGitHub('data/contact.json', contactData, 'Update contact.json');
         renderContact();
@@ -2336,8 +2562,6 @@
         console.error(e);
       }
       setLang(currentLang);
-      initYearFilters();
-      renderPublications();
     }
 
     checkAdminState();
