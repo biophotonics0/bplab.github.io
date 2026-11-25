@@ -14,13 +14,15 @@
     },
     {
       "role": "M.S. Student",
+      "roleKo": "",
       "name": "Joyeta Mazumder",
       "enName": "Joyeta Mazumder",
       "dept": "Electronics and Information Convergence Engineering",
-      "deptKo": "전자정보융합공학과",
+      "deptKo": "전자정보융합공학과 생체의공학",
       "email": "joyetam14@khu.ac.kr",
       "fallback": "JM",
-      "photo": "images/uploads/member-joyeta.jpg"
+      "photo": "images/uploads/member-joyeta.jpg",
+      "customFields": []
     },
     {
       "role": "Undergraduate Student",
