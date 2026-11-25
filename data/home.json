@@ -16,7 +16,7 @@
   "welcomeEn": "Welcome to the Biophotonics Laboratory at Kyung Hee University, directed by Prof. Kyung Min Byun. Our laboratory develops integrated plasmonic systems for biosensing, diagnostics, bioimaging, and neural engineering. We conduct multidisciplinary research spanning design, fabrication, and characterization across both experimental and theoretical studies. Our current focus includes ultra-sensitive plasmonic biosensors, SERS-based diagnostics, nanoscale imaging, and optical neural interfaces.",
   "welcomeKo": "경희대학교 생체의공학과 바이오포토닉스 연구실(Biophotonics Lab)에 오신 것을 환영합니다. 본 연구실은 나노 플라즈모닉스의 광학적 특성을 활용해 바이오센싱, 진단, 이미징, 신경공학 분야의 통합 시스템을 개발합니다. 생체의공학·광학·전자·나노바이오공학의 다학제적 접근을 바탕으로, 실험과 이론을 아우르며 설계부터 제작·분석까지 전 과정을 수행합니다. 현재 초고감도 플라즈모닉 바이오센서, SERS 질병 진단, 나노스케일 이미징, 광학적 신경 인터페이스 연구에 집중하고 있습니다.",
   "recruitText": "We are currently recruiting motivated graduate students (M.S., Ph.D., and Integrated M.S./Ph.D. programs) and undergraduate researchers interested in nanophotonics, plasmonics, SERS, and optical biosensors. Prospective students are encouraged to contact Prof. Kyung Min Byun (kmbyun@khu.ac.kr) with their CV and academic transcript.",
-  "showRecruit": false,
+  "showRecruit": true,
   "recruitTextKo": "나노포토닉스, 플라즈모닉스, 표면증강라만분광(SERS), 광학 바이오센서 분야에 열정을 가진 대학원생(석사, 박사, 석·박사 통합과정) 및 학부연구생을 상시 모집하고 있습니다. 연구실 지원에 관심이 있는 학생은 이력서(CV)와 성적증명서를 첨부하여 변경민 교수(kmbyun@khu.ac.kr)에게 이메일로 문의해 주시기 바랍니다.",
   "customFields": []
 }
